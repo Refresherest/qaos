@@ -1,0 +1,1 @@
+from qaos.agents.registry import AGENTS
