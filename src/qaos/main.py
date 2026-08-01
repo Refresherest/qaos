@@ -1,15 +1,16 @@
 import sys
 
-from qaos.commands.version import execute as version
-from qaos.commands.doctor import execute as doctor
+from qaos.commands.registry import COMMANDS
 
 
 def show_help():
     print("QAOS Command Line Interface")
     print()
     print("Available commands:")
-    print("  version")
-    print("  doctor")
+
+    for command in sorted(COMMANDS):
+        print(f"  {command}")
+
     print("  help")
 
 
@@ -20,15 +21,14 @@ def main():
 
     command = sys.argv[1].lower()
 
-    if command == "version":
-        version()
-
-    elif command == "doctor":
-        doctor()
-
-    elif command == "help":
+    if command == "help":
         show_help()
+        return
 
+    handler = COMMANDS.get(command)
+
+    if handler:
+        handler()
     else:
         print(f"Unknown command: {command}")
 
