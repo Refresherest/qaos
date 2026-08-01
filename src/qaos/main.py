@@ -4,14 +4,28 @@ from qaos.commands.registry import COMMANDS
 
 
 def show_help():
+    print("=" * 50)
     print("QAOS Command Line Interface")
+    print("=" * 50)
     print()
+
+    print("Usage:")
+    print("    python -m qaos.main <command>")
+    print()
+
     print("Available commands:")
+    print()
 
-    for command in sorted(COMMANDS):
-        print(f"  {command}")
+    descriptions = {
+        "about": "Display information about QAOS",
+        "bootstrap": "Validate project structure",
+        "doctor": "Check development environment",
+        "version": "Display QAOS version",
+        "help": "Show this help screen",
+    }
 
-    print("  help")
+    for command in sorted(descriptions):
+        print(f"  {command:<12}{descriptions[command]}")
 
 
 def main():

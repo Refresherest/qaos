@@ -1,0 +1,1 @@
+from qaos.config.configuration import config
