@@ -1,14 +1,7 @@
 import sys
 
-
-VERSION = "0.1.0"
-
-
-def show_version():
-    print("=" * 50)
-    print("QAOS - Qaasim April AI Operating System")
-    print(f"Version: {VERSION}")
-    print("=" * 50)
+from qaos.commands.version import execute as version
+from qaos.commands.doctor import execute as doctor
 
 
 def show_help():
@@ -16,6 +9,7 @@ def show_help():
     print()
     print("Available commands:")
     print("  version")
+    print("  doctor")
     print("  help")
 
 
@@ -27,9 +21,14 @@ def main():
     command = sys.argv[1].lower()
 
     if command == "version":
-        show_version()
+        version()
+
+    elif command == "doctor":
+        doctor()
+
     elif command == "help":
         show_help()
+
     else:
         print(f"Unknown command: {command}")
 
