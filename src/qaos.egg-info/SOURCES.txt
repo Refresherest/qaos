@@ -1,0 +1,10 @@
+LICENSE
+README.md
+pyproject.toml
+src/qaos/__init__.py
+src/qaos/bootstrap.py
+src/qaos/main.py
+src/qaos.egg-info/PKG-INFO
+src/qaos.egg-info/SOURCES.txt
+src/qaos.egg-info/dependency_links.txt
+src/qaos.egg-info/top_level.txt
