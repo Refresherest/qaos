@@ -1,0 +1,13 @@
+def execute():
+    print("=" * 50)
+    print("QAOS")
+    print("Qaasim April AI Operating System")
+    print("=" * 50)
+    print()
+    print("Mission:")
+    print("Build an extensible AI operating system")
+    print("for intelligent assistants, automation,")
+    print("knowledge management and applications.")
+    print()
+    print("Status : Active Development")
+    print("Version: 0.1.0")
