@@ -1,6 +1,19 @@
 import sys
 
 from qaos.kernel import Kernel
+from qaos.commands.registry import COMMANDS
+
+
+COMMAND_DESCRIPTIONS = {
+    "about": "Display information about QAOS",
+    "agents": "List registered agents",
+    "bootstrap": "Validate project structure",
+    "council": "Display Executive Council",
+    "doctor": "Check development environment",
+    "run": "Execute an agent",
+    "status": "Display runtime status",
+    "version": "Display QAOS version",
+}
 
 
 def show_help():
@@ -13,17 +26,15 @@ def show_help():
     print()
     print("Available commands:")
     print()
-    print("  about       Display information about QAOS")
-    print("  agents      List registered agents")
-    print("  bootstrap   Validate project structure")
-    print("  council     Display Executive Council")
-    print("  doctor      Check development environment")
-    print("  help        Show this help screen")
-    print("  run         Execute an agent")
-    print("  version     Display QAOS version")
+
+    for command in sorted(COMMANDS.keys()):
+        description = COMMAND_DESCRIPTIONS.get(command, "")
+        print(f"  {command:<11} {description}")
 
 
 def main():
+    kernel = Kernel()
+
     if len(sys.argv) == 1:
         show_help()
         return
@@ -34,9 +45,18 @@ def main():
         show_help()
         return
 
-    kernel = Kernel()
+    if command not in COMMANDS:
+        print(f"Unknown command: {command}")
+        return
 
-    kernel.execute(command)
+    if command == "run":
+        if len(sys.argv) < 3:
+            print("Usage: python -m qaos.main run <agent>")
+            return
+
+        kernel.execute(command, sys.argv[2])
+    else:
+        kernel.execute(command)
 
 
 if __name__ == "__main__":

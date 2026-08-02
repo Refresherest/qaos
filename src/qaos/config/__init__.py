@@ -1,1 +1,6 @@
-from qaos.config.configuration import config
+from .configuration import Configuration, configuration
+
+__all__ = [
+    "Configuration",
+    "configuration",
+]
