@@ -1,6 +1,6 @@
 import sys
 
-from qaos.commands.registry import COMMANDS
+from qaos.kernel import Kernel
 
 
 def show_help():
@@ -8,24 +8,19 @@ def show_help():
     print("QAOS Command Line Interface")
     print("=" * 50)
     print()
-
     print("Usage:")
     print("    python -m qaos.main <command>")
     print()
-
     print("Available commands:")
     print()
-
-    descriptions = {
-        "about": "Display information about QAOS",
-        "bootstrap": "Validate project structure",
-        "doctor": "Check development environment",
-        "version": "Display QAOS version",
-        "help": "Show this help screen",
-    }
-
-    for command in sorted(descriptions):
-        print(f"  {command:<12}{descriptions[command]}")
+    print("  about       Display information about QAOS")
+    print("  agents      List registered agents")
+    print("  bootstrap   Validate project structure")
+    print("  council     Display Executive Council")
+    print("  doctor      Check development environment")
+    print("  help        Show this help screen")
+    print("  run         Execute an agent")
+    print("  version     Display QAOS version")
 
 
 def main():
@@ -39,12 +34,9 @@ def main():
         show_help()
         return
 
-    handler = COMMANDS.get(command)
+    kernel = Kernel()
 
-    if handler:
-        handler()
-    else:
-        print(f"Unknown command: {command}")
+    kernel.execute(command)
 
 
 if __name__ == "__main__":
