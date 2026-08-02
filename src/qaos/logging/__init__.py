@@ -2,6 +2,10 @@
 QAOS Logging Package
 """
 
-from .logger import Logger, get_logger
+from .logger import Logger, logger, get_logger
 
-__all__ = ["Logger", "get_logger"]
+__all__ = [
+    "Logger",
+    "logger",
+    "get_logger",
+]

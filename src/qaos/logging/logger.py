@@ -10,24 +10,22 @@ class Logger:
     Central logging service for QAOS.
     """
 
-    def info(self, message: str):
+    def _log(self, level: str, message: str):
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"[INFO] {timestamp} - {message}")
+        print(f"[{level}] {timestamp} - {message}")
+
+    def info(self, message: str):
+        self._log("INFO", message)
 
     def warning(self, message: str):
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"[WARNING] {timestamp} - {message}")
+        self._log("WARNING", message)
 
     def error(self, message: str):
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"[ERROR] {timestamp} - {message}")
+        self._log("ERROR", message)
 
 
-_logger = Logger()
+logger = Logger()
 
 
 def get_logger():
-    """
-    Returns the shared QAOS logger instance.
-    """
-    return _logger
+    return logger

@@ -15,7 +15,10 @@ def execute():
     print(f"Environment         {data['environment']}")
     print(f"Version             {data['version']}")
     print()
+
     print(f"Executive Council   {data['council']}")
     print(f"Agents              {data['agents']}")
+    print(f"Plugins             {data['plugins']}")
     print()
+
     print(f"Status              {data['status']}")
