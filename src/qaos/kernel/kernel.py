@@ -2,16 +2,17 @@
 QAOS Kernel
 """
 
-from qaos.kernel.dispatcher import Dispatcher
+from qaos.runtime import Runtime
 
 
 class Kernel:
     """
-    Central execution engine for QAOS.
+    The Kernel is the entry point into the QAOS runtime.
+    It delegates execution to the Runtime.
     """
 
     def __init__(self):
-        self.dispatcher = Dispatcher()
+        self.runtime = Runtime()
 
     def execute(self, command: str) -> bool:
-        return self.dispatcher.dispatch(command)
+        return self.runtime.execute(command)

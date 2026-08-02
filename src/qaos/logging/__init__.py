@@ -1,1 +1,7 @@
-from qaos.logging.logger import logger
+"""
+QAOS Logging Package
+"""
+
+from .logger import Logger, get_logger
+
+__all__ = ["Logger", "get_logger"]

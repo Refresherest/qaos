@@ -1,7 +1,15 @@
-from qaos.core import runtime
+"""
+QAOS About Command
+"""
+
+from qaos.logging import get_logger
+from qaos.version import VERSION
+
 
 def execute():
-    runtime.get("logger").info("Executing about command")
+    logger = get_logger()
+    logger.info("Executing about command")
+
     print("=" * 50)
     print("QAOS")
     print("Qaasim April AI Operating System")
@@ -13,4 +21,4 @@ def execute():
     print("knowledge management and applications.")
     print()
     print("Status : Active Development")
-    print(f"Version: {runtime.config.version}")
+    print(f"Version: {VERSION}")
