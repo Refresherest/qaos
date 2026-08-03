@@ -1,12 +1,17 @@
-from qaos.agents.base import Agent
+"""
+AI Chief of Staff
+"""
+
+from .member import CouncilMember
 
 
-class ChiefOfStaff(Agent):
+class ChiefOfStaff(CouncilMember):
+
     def __init__(self):
         super().__init__(
             name="chief_of_staff",
             title="AI Chief of Staff",
-            description="Executive coordination and strategic oversight."
+            description="Executive coordination and strategic oversight.",
         )
 
     def run(self):
@@ -14,7 +19,7 @@ class ChiefOfStaff(Agent):
         print("QAOS Executive Council")
         print("=" * 50)
         print()
-        print("Agent : AI Chief of Staff")
+        print(f"Agent : {self.title}")
         print("Status: Running")
         print()
         print("Executive Council successfully initialized.")
