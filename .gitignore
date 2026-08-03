@@ -39,5 +39,15 @@ build/
 *.tmp
 *.bak
 
+# QAOS Persistence
+qaos.json
+*.db
+
+# QAOS Runtime Data
+runtime/
+cache/
+storage/
+data/
+
 # Python packaging
 *.egg-info/
