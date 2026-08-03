@@ -2,7 +2,7 @@
 QAOS Kernel
 """
 
-from qaos.runtime import Runtime
+from qaos.runtime.runtime import Runtime
 
 
 class Kernel:

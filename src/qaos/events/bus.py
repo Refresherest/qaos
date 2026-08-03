@@ -1,18 +1,18 @@
+"""
+QAOS Event Bus
+"""
+
+from qaos.events.registry import subscribe, handlers
+
+
 class EventBus:
-    def __init__(self):
-        self._listeners = {}
 
     def subscribe(self, event_name, handler):
-        if event_name not in self._listeners:
-            self._listeners[event_name] = []
+        subscribe(event_name, handler)
 
-        self._listeners[event_name].append(handler)
-
-    def publish(self, event_name, data=None):
-        handlers = self._listeners.get(event_name, [])
-
-        for handler in handlers:
-            handler(data)
+    def publish(self, event):
+        for handler in handlers(event.name):
+            handler(event)
 
 
 event_bus = EventBus()

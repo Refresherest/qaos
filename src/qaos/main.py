@@ -1,6 +1,6 @@
 import sys
 
-from qaos.kernel import Kernel
+from qaos.kernel.kernel import Kernel
 from qaos.commands.registry import COMMANDS
 
 
