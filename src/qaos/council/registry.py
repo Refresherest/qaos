@@ -1,6 +1,26 @@
-from qaos.council.chief_of_staff import ChiefOfStaff
+"""
+QAOS Executive Council Registry
+"""
+
+_COUNCIL = {}
 
 
-EXECUTIVE_COUNCIL = {
-    "chief_of_staff": ChiefOfStaff(),
-}
+def register(member):
+    """
+    Register an Executive Council member.
+    """
+    _COUNCIL[member.name] = member
+
+
+def get(name):
+    """
+    Return a council member.
+    """
+    return _COUNCIL.get(name)
+
+
+def all():
+    """
+    Return all registered members.
+    """
+    return dict(_COUNCIL)
