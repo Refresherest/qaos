@@ -1,11 +1,7 @@
-"""
-QAOS Status Service
-"""
-
 from qaos.config import configuration
-from qaos.agents.registry import AGENTS
+from qaos.agents import agent_manager
 from qaos.council import council_manager
-from qaos.plugins.registry import PLUGINS
+from qaos.plugins import plugin_manager
 
 
 class StatusService:
@@ -17,9 +13,9 @@ class StatusService:
             "configuration": "Loaded",
             "environment": configuration.environment,
             "version": configuration.version,
-            "agents": len(AGENTS),
+            "agents": len(agent_manager.agents()),
             "council": len(council_manager.members()),
-            "plugins": len(PLUGINS),
+            "plugins": len(plugin_manager.plugins()),
             "status": "HEALTHY",
         }
 

@@ -4,13 +4,16 @@ QAOS AI Provider Base Class
 
 
 class AIProvider:
-    """
-    Base class for all AI providers.
-    """
 
     name = "base"
+
+    def initialize(self):
+        print(f"[AI] Initializing {self.name}")
 
     def generate(self, prompt: str) -> str:
         raise NotImplementedError(
             "AI providers must implement generate()."
         )
+
+    def shutdown(self):
+        print(f"[AI] Shutting down {self.name}")

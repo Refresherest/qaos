@@ -19,8 +19,8 @@ def get(name: str):
     return PROVIDERS.get(name)
 
 
-def all():
-    """
-    Return all registered providers.
-    """
+def all_providers():
+
     return PROVIDERS
+    
+   

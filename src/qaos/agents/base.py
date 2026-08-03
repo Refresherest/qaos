@@ -1,19 +1,25 @@
-class Agent:
-    """
-    Base class for every QAOS agent.
-    """
+"""
+QAOS Base Agent
+"""
 
-    def __init__(self, name, title, description):
+
+class Agent:
+
+    def __init__(
+        self,
+        name,
+        title,
+        description,
+    ):
         self.name = name
         self.title = title
         self.description = description
 
-    def run(self):
-        print(f"Running agent: {self.title}")
+    def initialize(self):
+        print(f"[Agent] Initializing {self.title}")
 
-    def info(self):
-        print("=" * 50)
-        print(self.title)
-        print("=" * 50)
-        print(f"Name        : {self.name}")
-        print(f"Description : {self.description}")
+    def run(self):
+        raise NotImplementedError
+
+    def shutdown(self):
+        print(f"[Agent] Shutting down {self.title}")

@@ -2,25 +2,35 @@
 QAOS Memory Manager
 """
 
-from qaos.memory.memory import memory
+from qaos.memory.registry import (
+    register,
+    unregister,
+    get,
+    all_memories,
+)
 
 
 class MemoryManager:
 
-    def set(self, key, value):
-        memory.set(key, value)
+    def register(self, memory):
+        register(memory)
 
-    def get(self, key, default=None):
-        return memory.get(key, default)
+    def unregister(self, name):
+        unregister(name)
 
-    def delete(self, key):
-        memory.delete(key)
+    def get(self, name):
+        return get(name)
 
-    def clear(self):
-        memory.clear()
+    def memories(self):
+        return all_memories()
 
-    def all(self):
-        return memory.all()
+    def initialize(self):
+        for memory in all_memories().values():
+            memory.initialize()
+
+    def shutdown(self):
+        for memory in all_memories().values():
+            memory.shutdown()
 
 
 memory_manager = MemoryManager()

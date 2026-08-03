@@ -1,13 +1,12 @@
-from .memory import memory
-from .manager import memory_manager
-from .registry import register, get, all
+"""
+QAOS Memory Framework
+"""
 
-register("default", memory)
+from .base import Memory
+from .manager import MemoryManager, memory_manager
 
 __all__ = [
-    "memory",
+    "Memory",
+    "MemoryManager",
     "memory_manager",
-    "register",
-    "get",
-    "all",
 ]
