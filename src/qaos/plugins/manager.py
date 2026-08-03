@@ -2,28 +2,41 @@
 QAOS Plugin Manager
 """
 
-from qaos.plugins.registry import register
+from qaos.plugins.registry import (
+    register,
+    unregister,
+    get,
+    all_plugins,
+)
 
 
 class PluginManager:
 
-    def __init__(self):
-        self.loaded = []
+    def register(self, plugin):
 
-    def load_builtin(self):
-        """
-        Load built-in QAOS plugins.
-        """
+        register(plugin.name, plugin)
 
-        register(
-            "core",
-            {
-                "name": "Core Plugin",
-                "version": "0.1.0",
-            },
-        )
+    def unregister(self, name):
 
-        self.loaded.append("core")
+        unregister(name)
+
+    def get(self, name):
+
+        return get(name)
 
     def plugins(self):
-        return self.loaded
+
+        return all_plugins()
+
+    def initialize(self):
+
+        for plugin in all_plugins().values():
+            plugin.initialize()
+
+    def shutdown(self):
+
+        for plugin in all_plugins().values():
+            plugin.shutdown()
+
+
+plugin_manager = PluginManager()

@@ -2,11 +2,11 @@
 QAOS Plugin System
 """
 
-from .manager import PluginManager
-
-plugin_manager = PluginManager()
+from .base import Plugin
+from .manager import PluginManager, plugin_manager
 
 __all__ = [
+    "Plugin",
     "PluginManager",
     "plugin_manager",
 ]

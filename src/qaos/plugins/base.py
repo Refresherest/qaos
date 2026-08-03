@@ -1,16 +1,25 @@
+"""
+QAOS Plugin Base Class
+"""
+
+
 class Plugin:
 
-    name = "plugin"
-    version = "0.1.0"
+    def __init__(
+        self,
+        name,
+        version="0.1.0",
+        description="",
+    ):
+        self.name = name
+        self.version = version
+        self.description = description
 
-    def load(self):
-        """Called when the plugin is loaded."""
-        pass
+    def initialize(self):
+        print(f"[Plugin] Initializing {self.name}")
 
-    def unload(self):
-        """Called when the plugin is unloaded."""
-        pass
+    def shutdown(self):
+        print(f"[Plugin] Shutting down {self.name}")
 
     def execute(self):
-        """Main plugin entry point."""
         pass
