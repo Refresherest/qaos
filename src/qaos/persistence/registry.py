@@ -2,16 +2,20 @@
 QAOS Persistence Registry
 """
 
-BACKENDS = {}
+PERSISTENCE = {}
 
 
-def register(name, backend):
-    BACKENDS[name] = backend
+def register(store):
+    PERSISTENCE[store.name] = store
+
+
+def unregister(name):
+    PERSISTENCE.pop(name, None)
 
 
 def get(name):
-    return BACKENDS.get(name)
+    return PERSISTENCE.get(name)
 
 
-def all():
-    return BACKENDS
+def all_stores():
+    return PERSISTENCE

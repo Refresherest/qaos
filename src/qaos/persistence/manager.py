@@ -2,50 +2,35 @@
 QAOS Persistence Manager
 """
 
-from .registry import get
+from qaos.persistence.registry import (
+    register,
+    unregister,
+    get,
+    all_stores,
+)
 
 
 class PersistenceManager:
 
-    def save(self, backend, key, value):
-        db = get(backend)
+    def register(self, store):
+        register(store)
 
-        if db is None:
-            raise ValueError(
-                f"Unknown persistence backend: {backend}"
-            )
+    def unregister(self, name):
+        unregister(name)
 
-        db.save(key, value)
+    def get(self, name):
+        return get(name)
 
-    def load(self, backend, key):
-        db = get(backend)
+    def stores(self):
+        return all_stores()
 
-        if db is None:
-            raise ValueError(
-                f"Unknown persistence backend: {backend}"
-            )
+    def initialize(self):
+        for store in all_stores().values():
+            store.initialize()
 
-        return db.load(key)
-
-    def delete(self, backend, key):
-        db = get(backend)
-
-        if db is None:
-            raise ValueError(
-                f"Unknown persistence backend: {backend}"
-            )
-
-        db.delete(key)
-
-    def all(self, backend):
-        db = get(backend)
-
-        if db is None:
-            raise ValueError(
-                f"Unknown persistence backend: {backend}"
-            )
-
-        return db.all()
+    def shutdown(self):
+        for store in all_stores().values():
+            store.shutdown()
 
 
 persistence_manager = PersistenceManager()
