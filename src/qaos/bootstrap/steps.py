@@ -1,5 +1,5 @@
 """
-QAOS Boot Steps
+QAOS Bootstrap Steps
 """
 
 from qaos.logging import logger
@@ -11,5 +11,4 @@ def initialize_logger():
 
 
 def initialize_plugins():
-    plugin_manager.load_builtin()
-    logger.info("Plugins initialized")
+    plugin_manager.initialize()
