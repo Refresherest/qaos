@@ -1,9 +1,19 @@
-class Job:
-    """
-    Base scheduled job.
-    """
+"""
+QAOS Scheduled Job
+"""
 
-    name = "job"
+
+class Job:
+
+    def __init__(
+        self,
+        name,
+        callback,
+        interval=0,
+    ):
+        self.name = name
+        self.callback = callback
+        self.interval = interval
 
     def run(self):
-        raise NotImplementedError
+        self.callback()

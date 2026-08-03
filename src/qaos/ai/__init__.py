@@ -1,22 +1,24 @@
-print("1 - importing provider")
+"""
+QAOS AI Framework
+"""
+
 from .provider import AIProvider
 
-print("2 - importing registry")
-from .registry import register, get, all
+from .registry import (
+    register,
+    get,
+    all_providers,
+)
 
-print("3 - importing engine")
-from .engine import AIEngine, engine
+from .engine import (
+    AIEngine,
+    engine,
+)
 
-print("4 - importing providers")
 from .providers import MockProvider
 
-print("5 - creating provider")
 provider = MockProvider()
-
-print("6 - registering provider")
-register("mock", provider)
-
-print("7 - registration complete")
+register(provider.name, provider)
 
 __all__ = [
     "AIProvider",
@@ -24,5 +26,5 @@ __all__ = [
     "engine",
     "register",
     "get",
-    "all",
+    "all_providers",
 ]
