@@ -2,10 +2,13 @@
 QAOS Executive Council Manager
 """
 
-from .registry import get
+from .registry import get, all
 
 
 class CouncilManager:
+
+    def members(self):
+        return all()
 
     def execute(self, name):
         member = get(name)
@@ -15,12 +18,15 @@ class CouncilManager:
                 f"Unknown council member: {name}"
             )
 
-        return member.run()
+        member.run()
 
-    def members(self):
-        from .registry import all
+    def initialize(self):
+        for member in all().values():
+            member.initialize()
 
-        return all()
+    def shutdown(self):
+        for member in all().values():
+            member.shutdown()
 
 
 council_manager = CouncilManager()

@@ -20,13 +20,10 @@ class CouncilMember(Agent):
         )
 
     def initialize(self):
-        """
-        Executed when the Executive Council starts.
-        """
-        pass
+        print(f"[Council] Initializing {self.title}")
+
+    def run(self):
+        raise NotImplementedError
 
     def shutdown(self):
-        """
-        Executed when QAOS shuts down.
-        """
-        pass
+        print(f"[Council] Shutting down {self.title}")

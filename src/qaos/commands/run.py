@@ -1,20 +1,24 @@
+"""
+QAOS Run Command
+"""
+
 import sys
 
-from qaos.council import EXECUTIVE_COUNCIL
+from qaos.council import council_manager
 
 
 def execute():
     if len(sys.argv) < 3:
         print("Usage:")
-        print("    python -m qaos.main run <agent>")
+        print("    python -m qaos.main run <member>")
         return
 
     name = sys.argv[2].lower()
 
-    member = EXECUTIVE_COUNCIL.get(name)
+    members = council_manager.members()
 
-    if member is None:
-        print(f"Unknown agent: {name}")
+    if name not in members:
+        print(f"Unknown council member: {name}")
         return
 
-    member.run()
+    council_manager.execute(name)

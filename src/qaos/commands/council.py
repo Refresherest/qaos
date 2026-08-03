@@ -1,4 +1,8 @@
-from qaos.council import EXECUTIVE_COUNCIL
+"""
+QAOS Council Command
+"""
+
+from qaos.council import council_manager
 
 
 def execute():
@@ -7,5 +11,5 @@ def execute():
     print("=" * 50)
     print()
 
-    for key, member in EXECUTIVE_COUNCIL.items():
-        print(f"{key:<20} {member.title}")
+    for key, member in council_manager.members().items():
+        print(f"{key:<30} {member.title}")
