@@ -1,15 +1,31 @@
+"""
+QAOS Workflow Framework
+"""
+
 from .workflow import Workflow
-from .manager import workflow_manager
-from .registry import register, get, all
+from .manager import (
+    WorkflowManager,
+    workflow_manager,
+)
+from .registry import (
+    register,
+    unregister,
+    get,
+    all_workflows,
+)
 
 from .builtin import StartupWorkflow
 
-register("startup", StartupWorkflow())
+workflow_manager.register(
+    StartupWorkflow()
+)
 
 __all__ = [
     "Workflow",
+    "WorkflowManager",
     "workflow_manager",
     "register",
+    "unregister",
     "get",
-    "all",
+    "all_workflows",
 ]
