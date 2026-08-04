@@ -5,22 +5,28 @@ QAOS Executive Council
 from .chief_of_staff import ChiefOfStaff
 from .chief_technology_officer import ChiefTechnologyOfficer
 
-from .registry import register
-from .manager import CouncilManager, council_manager
+from .objective import Objective
+from .assignment import Assignment
+from .delegator import delegator
 
-# ------------------------------------------------------------------
-# Register built-in Executive Council members
-# ------------------------------------------------------------------
+from .manager import (
+    CouncilManager,
+    council_manager,
+)
 
-register(ChiefOfStaff())
-register(ChiefTechnologyOfficer())
+# Register built-in council members
+ChiefOfStaff()
+ChiefTechnologyOfficer()
 
-# Import lifecycle AFTER registration so subscriptions are installed.
+# Register lifecycle events
 from . import lifecycle
 
 __all__ = [
     "ChiefOfStaff",
     "ChiefTechnologyOfficer",
+    "Objective",
+    "Assignment",
+    "delegator",
     "CouncilManager",
     "council_manager",
 ]

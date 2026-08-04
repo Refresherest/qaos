@@ -3,6 +3,7 @@ QAOS Executive Council Member
 """
 
 from qaos.agents.base import Agent
+from qaos.council.registry import register
 
 
 class CouncilMember(Agent):
@@ -18,6 +19,8 @@ class CouncilMember(Agent):
             title=title,
             description=description,
         )
+
+        register(self)
 
     def initialize(self):
         print(f"[Council] Initializing {self.title}")
