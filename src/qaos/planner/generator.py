@@ -4,6 +4,7 @@ QAOS Plan Generator
 
 from qaos.reasoning import reasoning_engine
 from qaos.briefing import briefing_manager
+from qaos.executive import executive_manager
 
 from .plan import Plan
 
@@ -21,14 +22,30 @@ class PlanGenerator:
         )
 
         briefing.add(
-            "AI Chief of Staff",
+            "Reasoning Engine",
             analysis["analysis"],
         )
 
-        briefing.add(
-            "AI Chief Technology Officer",
-            "Architecture validated.",
+        executive = executive_manager.resolve(
+            objective.goal
         )
+
+        if executive:
+
+            briefing.add(
+                executive.title,
+                (
+                    f"Objective assigned to "
+                    f"{executive.title}"
+                ),
+            )
+
+            for skill in executive.skills():
+
+                briefing.add(
+                    executive.title,
+                    f"Capability: {skill}",
+                )
 
         plan = Plan(objective.goal)
 
