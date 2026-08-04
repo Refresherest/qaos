@@ -9,18 +9,24 @@ class QueueItem:
         self,
         objective,
         assignee,
-        priority="normal",
+        action=None,
     ):
         self.objective = objective
         self.assignee = assignee
-        self.priority = priority
+
+        self.action = action
+
         self.status = "pending"
 
-    def start(self):
-        self.status = "running"
+        self.result = None
 
-    def complete(self):
-        self.status = "completed"
+        self.started = None
+        self.completed = None
 
-    def fail(self):
-        self.status = "failed"
+    def __repr__(self):
+        return (
+            f"<QueueItem "
+            f"objective={self.objective!r} "
+            f"assignee={self.assignee!r} "
+            f"status={self.status!r}>"
+        )

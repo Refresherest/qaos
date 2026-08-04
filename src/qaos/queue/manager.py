@@ -2,7 +2,12 @@
 QAOS Queue Manager
 """
 
-from .registry import add, all, clear
+from .registry import (
+    add,
+    all,
+)
+
+from qaos.workers import worker_manager
 
 
 class QueueManager:
@@ -13,8 +18,21 @@ class QueueManager:
     def items(self):
         return all()
 
-    def clear(self):
-        clear()
+    def process(self):
+        """
+        Process every pending queue item.
+        """
+
+        worker = worker_manager.get(
+            "default"
+        )
+
+        for item in all():
+
+            if item.status != "pending":
+                continue
+
+            worker.execute(item)
 
 
 queue_manager = QueueManager()

@@ -3,27 +3,22 @@ QAOS Planner Manager
 """
 
 from .planner import Planner
+from .generator import plan_generator
 
 
 class PlannerManager:
 
-    def __init__(self):
-        self.planner = Planner()
-
     def create(self, goal):
-        return self.planner.create(goal)
 
-    def task(
-        self,
-        plan,
-        task_name,
-        action,
-    ):
-        return self.planner.task(
-            plan,
-            task_name,
-            action,
-        )
+        return Planner(goal)
+
+    def plan(self, objective):
+
+        plan = plan_generator.generate(objective)
+
+        objective.attach(plan)
+
+        return plan
 
 
 planner_manager = PlannerManager()
