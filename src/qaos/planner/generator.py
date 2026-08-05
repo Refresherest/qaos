@@ -7,6 +7,7 @@ from qaos.briefing import briefing_manager
 from qaos.executive import executive_manager
 from qaos.skills import get as get_skill
 from qaos.actions import action_manager
+from qaos.context import context_manager
 
 from .plan import Plan
 
@@ -15,11 +16,31 @@ class PlanGenerator:
 
     def generate(self, objective):
 
-        briefing = briefing_manager.create(
+        # --------------------------------------------------
+        # Build Context
+        # --------------------------------------------------
+
+        context = context_manager.create(
             objective
         )
 
+        # --------------------------------------------------
+        # Reasoning
+        # --------------------------------------------------
+
         analysis = reasoning_engine.think(
+            context
+        )
+
+        context.set_reasoning(
+            analysis
+        )
+
+        # --------------------------------------------------
+        # Briefing
+        # --------------------------------------------------
+
+        briefing = briefing_manager.create(
             objective
         )
 
@@ -28,9 +49,21 @@ class PlanGenerator:
             analysis["analysis"],
         )
 
+        # --------------------------------------------------
+        # Executive Resolution
+        # --------------------------------------------------
+
         executive = executive_manager.resolve(
             objective.goal
         )
+
+        context.set_executive(
+            executive
+        )
+
+        # --------------------------------------------------
+        # Build Plan
+        # --------------------------------------------------
 
         plan = Plan(
             objective.goal
@@ -73,7 +106,13 @@ class PlanGenerator:
                             ),
                         )
 
+        # --------------------------------------------------
+        # Briefing Notes
+        # --------------------------------------------------
+
         for note in briefing.notes:
+
+            context.add_note(note)
 
             plan.add_task(
                 f"Review: {note['author']}",
@@ -82,6 +121,10 @@ class PlanGenerator:
                     text
                 ),
             )
+
+        # --------------------------------------------------
+        # Final Execution
+        # --------------------------------------------------
 
         plan.add_task(
             "Execute objective",

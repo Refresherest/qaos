@@ -8,8 +8,6 @@ from .registry import (
     all,
 )
 
-from qaos.capabilities import capability_manager
-
 
 class ActionManager:
 
@@ -26,27 +24,11 @@ class ActionManager:
         return all()
 
     def execute(self, action):
+        """
+        Executes a QAOS Action.
+        """
 
-        capability = capability_manager.get(
-            action.capability
-        )
-
-        if capability is None:
-
-            raise RuntimeError(
-                f"Capability '{action.capability}' "
-                f"not found."
-            )
-
-        print(
-            f"[Action] {action.name}"
-        )
-
-        return capability.execute(
-            action.operation,
-            *action.args,
-            **action.kwargs,
-        )
+        return action.execute()
 
 
 action_manager = ActionManager()

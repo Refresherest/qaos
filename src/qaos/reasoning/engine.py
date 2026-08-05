@@ -4,15 +4,10 @@ QAOS Reasoning Engine
 
 
 class ReasoningEngine:
-    """
-    Produces structured reasoning for objectives.
 
-    Currently rule-based.
+    def think(self, context):
 
-    Later this becomes the LLM interface.
-    """
-
-    def think(self, objective):
+        objective = context.objective
 
         print(
             f"[Reasoning] Thinking about: "
@@ -23,7 +18,8 @@ class ReasoningEngine:
             "analysis": (
                 f"Objective requires planning: "
                 f"{objective.goal}"
-            )
+            ),
+            "confidence": 1.0,
         }
 
 
