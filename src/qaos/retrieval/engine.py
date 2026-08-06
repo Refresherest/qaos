@@ -12,11 +12,9 @@ class RetrievalEngine:
     def search(self, query):
 
         results = {
-
             "memory": [],
             "knowledge": [],
             "artifacts": [],
-
         }
 
         query = query.lower()
@@ -30,10 +28,7 @@ class RetrievalEngine:
             text = str(memory).lower()
 
             if query in text:
-
-                results["memory"].append(
-                    memory
-                )
+                results["memory"].append(memory)
 
         # -------------------------
         # Search Knowledge
@@ -48,7 +43,6 @@ class RetrievalEngine:
             ).lower()
 
             if query in text:
-
                 results["knowledge"].append(
                     knowledge
                 )
@@ -66,7 +60,6 @@ class RetrievalEngine:
             ).lower()
 
             if query in text:
-
                 results["artifacts"].append(
                     artifact
                 )

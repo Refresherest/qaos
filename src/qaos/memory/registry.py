@@ -2,20 +2,30 @@
 QAOS Memory Registry
 """
 
-MEMORIES = {}
+_registry = {}
 
 
 def register(memory):
-    MEMORIES[memory.name] = memory
+
+    _registry[memory.title] = memory
 
 
-def unregister(name):
-    MEMORIES.pop(name, None)
+def unregister(title):
+
+    if hasattr(title, "title"):
+        title = title.title
+
+    _registry.pop(title, None)
 
 
-def get(name):
-    return MEMORIES.get(name)
+def get(title):
+
+    if hasattr(title, "title"):
+        title = title.title
+
+    return _registry.get(title)
 
 
-def all_memories():
-    return MEMORIES
+def all():
+
+    return _registry

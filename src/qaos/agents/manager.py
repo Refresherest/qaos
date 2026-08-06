@@ -6,7 +6,7 @@ from qaos.agents.registry import (
     register,
     unregister,
     get,
-    all_agents,
+    all,
 )
 
 
@@ -22,21 +22,28 @@ class AgentManager:
         return get(name)
 
     def agents(self):
-        return all_agents()
+        return all()
 
     def initialize(self):
-        for agent in all_agents().values():
-            agent.initialize()
+        for agent in all().values():
+            if hasattr(agent, "initialize"):
+                agent.initialize()
 
     def shutdown(self):
-        for agent in all_agents().values():
-            agent.shutdown()
+        for agent in all().values():
+            if hasattr(agent, "shutdown"):
+                agent.shutdown()
 
-    def execute(self, name):
+    def execute(self, name, item):
+
         agent = get(name)
 
-        if agent:
-            return agent.run()
+        if agent is None:
+            raise ValueError(
+                f"Unknown agent: {name}"
+            )
+
+        return agent.execute(item)
 
 
 agent_manager = AgentManager()

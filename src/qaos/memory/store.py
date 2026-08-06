@@ -6,19 +6,27 @@ QAOS Memory Store
 class MemoryStore:
 
     def __init__(self):
-        self._data = {}
 
-    def set(self, key, value):
-        self._data[key] = value
+        self._items = []
 
-    def get(self, key, default=None):
-        return self._data.get(key, default)
+    def add(self, memory):
 
-    def delete(self, key):
-        self._data.pop(key, None)
+        self._items.append(memory)
+
+    def remove(self, memory):
+
+        if memory in self._items:
+
+            self._items.remove(memory)
 
     def clear(self):
-        self._data.clear()
+
+        self._items.clear()
+
+    def items(self):
+
+        return self._items
 
     def all(self):
-        return self._data
+
+        return self._items

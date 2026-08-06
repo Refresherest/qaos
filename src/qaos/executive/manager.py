@@ -2,42 +2,40 @@
 QAOS Executive Manager
 """
 
-from qaos.classifier import classifier_manager
+from qaos.logging import logger
 
-from .registry import get, all
+from .orchestrator import (
+    orchestrator,
+)
 
 
 class ExecutiveManager:
+    """
+    Public interface for the QAOS Executive.
 
-    def get(self, title):
+    The Executive Manager is responsible for
+    routing Objectives through the Executive
+    Orchestrator.
+    """
 
-        return get(title)
+    def execute(
+        self,
+        objective,
+    ):
 
-    def executives(self):
+        logger.info(
+            f"Executive executing '{objective.goal}'"
+        )
 
-        return all()
-
-    def find_by_skill(self, skill):
-
-        for profile in all().values():
-
-            if profile.has_skill(skill):
-
-                return profile
-
-        return None
-
-    def resolve(self, objective):
-
-        skill = classifier_manager.classify(
+        result = orchestrator.execute(
             objective
         )
 
-        if skill is None:
+        logger.info(
+            "Executive execution complete."
+        )
 
-            return None
-
-        return self.find_by_skill(skill)
+        return result
 
 
 executive_manager = ExecutiveManager()

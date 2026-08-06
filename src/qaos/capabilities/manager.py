@@ -2,7 +2,7 @@
 QAOS Capability Manager
 """
 
-from qaos.capabilities.registry import (
+from .registry import (
     register,
     unregister,
     get,
@@ -11,36 +11,74 @@ from qaos.capabilities.registry import (
 
 
 class CapabilityManager:
+    """
+    Central manager for QAOS capabilities.
+    """
+
+    # ----------------------------------
 
     def register(self, capability):
+        """
+        Register a capability.
+        """
+
         register(capability)
 
+    # ----------------------------------
+
     def unregister(self, name):
+        """
+        Remove a capability.
+        """
+
         unregister(name)
 
+    # ----------------------------------
+
     def get(self, name):
+        """
+        Return a capability.
+        """
+
         return get(name)
 
+    # ----------------------------------
+
     def capabilities(self):
+        """
+        Return all registered capabilities.
+        """
+
         return all()
 
-    def initialize(self):
-        for capability in all().values():
-            capability.initialize()
+    # ----------------------------------
 
-    def shutdown(self):
-        for capability in all().values():
-            capability.shutdown()
+    def execute(
+        self,
+        capability,
+        operation,
+        *args,
+        **kwargs,
+    ):
+        """
+        Execute an operation on a capability.
+        """
 
-    def execute(self, name, *args, **kwargs):
-        capability = get(name)
+        instance = self.get(
+            capability
+        )
 
-        if capability is None:
-            raise ValueError(
-                f"Unknown capability: {name}"
+        if instance is None:
+
+            raise RuntimeError(
+                f"Capability '{capability}' not found."
             )
 
-        return capability.execute(*args, **kwargs)
+        return instance.execute(
+            operation,
+            *args,
+            **kwargs,
+        )
 
 
 capability_manager = CapabilityManager()

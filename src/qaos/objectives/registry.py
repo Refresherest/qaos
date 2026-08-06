@@ -2,16 +2,40 @@
 QAOS Objective Registry
 """
 
-_OBJECTIVES = []
+_registry = {}
 
 
 def register(objective):
-    _OBJECTIVES.append(objective)
+
+    if hasattr(objective, "goal"):
+        key = objective.goal
+    else:
+        key = objective
+
+    _registry[key] = objective
+
+
+def unregister(objective):
+
+    if hasattr(objective, "goal"):
+        objective = objective.goal
+
+    _registry.pop(
+        objective,
+        None,
+    )
+
+
+def get(objective):
+
+    if hasattr(objective, "goal"):
+        objective = objective.goal
+
+    return _registry.get(
+        objective
+    )
 
 
 def all():
-    return list(_OBJECTIVES)
 
-
-def clear():
-    _OBJECTIVES.clear()
+    return _registry

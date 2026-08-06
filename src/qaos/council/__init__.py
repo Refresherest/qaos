@@ -1,32 +1,51 @@
 """
-QAOS Executive Council
+QAOS Council
 """
 
-from .chief_of_staff import ChiefOfStaff
-from .chief_technology_officer import ChiefTechnologyOfficer
-
-from .objective import Objective
-from .assignment import Assignment
-from .delegator import delegator
+from .registry import register
 
 from .manager import (
     CouncilManager,
     council_manager,
 )
 
-# Register built-in council members
-ChiefOfStaff()
-ChiefTechnologyOfficer()
+from .router import (
+    CouncilRouter,
+    council_router,
+)
 
-# Register lifecycle events
-from . import lifecycle
+from .delegator import Delegator
+from .assignment import Assignment
+
+from .chief_of_staff import ChiefOfStaff
+from .chief_technology_officer import (
+    ChiefTechnologyOfficer,
+)
+
+# -------------------------------------------------
+# Register Executive Council Members
+# -------------------------------------------------
+
+register(
+    ChiefOfStaff()
+)
+
+register(
+    ChiefTechnologyOfficer()
+)
 
 __all__ = [
-    "ChiefOfStaff",
-    "ChiefTechnologyOfficer",
-    "Objective",
-    "Assignment",
-    "delegator",
+
     "CouncilManager",
     "council_manager",
+
+    "CouncilRouter",
+    "council_router",
+
+    "Delegator",
+    "Assignment",
+
+    "ChiefOfStaff",
+    "ChiefTechnologyOfficer",
+
 ]

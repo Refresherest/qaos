@@ -23,6 +23,9 @@ class Logger:
     def error(self, message: str):
         self._log("ERROR", message)
 
+    def exception(self, message):
+        self.error(message)
+
 
 logger = Logger()
 

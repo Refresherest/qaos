@@ -3,6 +3,7 @@ QAOS Skills
 """
 
 from .skill import Skill
+
 from .manager import (
     SkillManager,
     skill_manager,
@@ -10,67 +11,39 @@ from .manager import (
 
 from .registry import (
     register,
+    unregister,
     get,
     all,
 )
 
-from qaos.actions import Action
-
-
-def hello():
-
-    print("Hello from QAOS Skill")
-
-
-class ValidateArchitectureSkill(Skill):
-
-    def __init__(self):
-
-        super().__init__(
-            name="validate_architecture",
-            description="Validate system architecture",
-            category="architecture",
-        )
-
-    def actions(self, objective):
-
-        return [
-
-            Action(
-                "validate_architecture",
-                "filesystem",
-                "write",
-                "architecture_report.txt",
-                f"Architecture review for: {objective}",
-                creator="AI Chief Technology Officer",
-                priority="high",
-                description="Generate architecture review",
-            )
-
-        ]
-
-
-register(
-
-    Skill(
-        "hello",
-        "Demo QAOS skill",
-        hello,
-    )
-
+from .resolver import (
+    SkillResolver,
+    skill_resolver,
 )
 
+#
+# Default planning skill
+#
+
 register(
-
-    ValidateArchitectureSkill()
-
+    Skill(
+        name="planning",
+        capability="system",
+    )
 )
 
 __all__ = [
+
     "Skill",
+
     "SkillManager",
     "skill_manager",
+
+    "SkillResolver",
+    "skill_resolver",
+
     "register",
+    "unregister",
     "get",
     "all",
 ]

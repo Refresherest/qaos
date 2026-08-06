@@ -8,6 +8,10 @@ from .registry import (
     all,
 )
 
+from .executor import (
+    action_executor,
+)
+
 
 class ActionManager:
 
@@ -15,20 +19,25 @@ class ActionManager:
 
         register(action)
 
+    # ----------------------------------
+
     def get(self, name):
 
         return get(name)
+
+    # ----------------------------------
 
     def actions(self):
 
         return all()
 
-    def execute(self, action):
-        """
-        Executes a QAOS Action.
-        """
+    # ----------------------------------
 
-        return action.execute()
+    def execute(self, action):
+
+        return action_executor.execute(
+            action
+        )
 
 
 action_manager = ActionManager()

@@ -2,6 +2,7 @@
 QAOS Execution
 """
 
+from .report import ExecutionReport
 from .engine import ExecutionEngine
 from .manager import (
     ExecutionManager,
@@ -14,10 +15,19 @@ from .registry import (
 )
 
 __all__ = [
+
+    "ExecutionReport",
+
     "ExecutionEngine",
+
     "ExecutionManager",
+
     "execution_manager",
+
     "register",
+
     "get",
+
     "all",
+
 ]

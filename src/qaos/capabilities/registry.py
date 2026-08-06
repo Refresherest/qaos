@@ -2,20 +2,63 @@
 QAOS Capability Registry
 """
 
-CAPABILITIES = {}
+_CAPABILITIES = {}
 
 
 def register(capability):
-    CAPABILITIES[capability.name] = capability
+    """
+    Register a capability.
+    """
+
+    _CAPABILITIES[
+        capability.name
+    ] = capability
+
+
+# ----------------------------------
 
 
 def unregister(name):
-    CAPABILITIES.pop(name, None)
+    """
+    Remove a capability.
+    """
+
+    _CAPABILITIES.pop(
+        name,
+        None,
+    )
+
+
+# ----------------------------------
 
 
 def get(name):
-    return CAPABILITIES.get(name)
+    """
+    Return a capability.
+    """
+
+    return _CAPABILITIES.get(name)
+
+
+# ----------------------------------
 
 
 def all():
-    return CAPABILITIES
+    """
+    Return all capabilities.
+    """
+
+    return dict(
+        _CAPABILITIES
+    )
+
+
+# ----------------------------------
+
+
+def clear():
+    """
+    Remove every registered capability.
+    """
+
+    _CAPABILITIES.clear()

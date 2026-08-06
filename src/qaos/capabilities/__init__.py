@@ -1,24 +1,23 @@
 """
-QAOS Capability Framework
+QAOS Capabilities
 """
 
-from .base import Capability
-from .manager import CapabilityManager, capability_manager
+from .capability import Capability
 
-from .filesystem import FilesystemCapability
-from .git import GitCapability
-
-# Register built-in capabilities.
-capability_manager.register(
-    FilesystemCapability()
+from .manager import (
+    CapabilityManager,
+    capability_manager,
 )
 
-capability_manager.register(
-    GitCapability()
+from .system import (
+    SystemCapability,
+    system_capability,
 )
 
 __all__ = [
     "Capability",
     "CapabilityManager",
     "capability_manager",
+    "SystemCapability",
+    "system_capability",
 ]

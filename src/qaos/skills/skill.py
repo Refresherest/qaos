@@ -2,7 +2,7 @@
 QAOS Skill
 """
 
-from qaos.actions import Action
+from qaos.capabilities import capability_manager
 
 
 class Skill:
@@ -10,50 +10,38 @@ class Skill:
     def __init__(
         self,
         name,
-        description,
-        handler=None,
-        category="general",
-        version="1.0",
+        capability,
     ):
 
         self.name = name
-        self.description = description
-        self.handler = handler
-        self.category = category
-        self.version = version
+        self.capability = capability
 
-    def execute(self, *args, **kwargs):
+    # ---------------------------------
 
-        if self.handler is None:
-
-            return None
+    def execute(self, item):
 
         print(
-            f"[Skill] Executing '{self.name}'"
+            f"[Skill:{self.name}] "
+            f"Executing '{item.objective}'"
         )
 
-        return self.handler(
-            *args,
-            **kwargs,
+        capability = capability_manager.get(
+            self.capability
         )
 
-    def actions(self, objective):
+        if capability is None:
 
-        return []
+            raise RuntimeError(
+                f"Capability '{self.capability}' "
+                f"not registered."
+            )
 
-    def info(self):
+        return capability.execute(item)
 
-        return {
-            "name": self.name,
-            "description": self.description,
-            "category": self.category,
-            "version": self.version,
-        }
+    # ---------------------------------
 
     def __repr__(self):
 
         return (
-            f"<Skill "
-            f"{self.name}"
-            f" ({self.category})>"
+            f"<Skill {self.name}>"
         )

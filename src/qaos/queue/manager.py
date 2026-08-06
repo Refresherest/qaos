@@ -2,26 +2,143 @@
 QAOS Queue Manager
 """
 
+from datetime import datetime
+
+from qaos.storage import queue_db
+
+from .item import QueueItem
 from .registry import (
     add,
     all,
+    clear,
 )
 
 from qaos.workers import worker_manager
+from qaos.planner import Task
 
 
 class QueueManager:
 
+    def __init__(self):
+
+        self._load()
+
+    # -------------------------------------------------
+
+    def _load(self):
+
+        clear()
+
+        for data in queue_db.load():
+
+            action = None
+
+            if data.get("action"):
+
+                action = Task.from_dict(
+                    data["action"]
+                )
+
+            item = QueueItem(
+
+                objective=data["objective"],
+
+                assignee=data["assignee"],
+
+                action=action,
+
+            )
+
+            item.status = data.get(
+                "status",
+                "pending",
+            )
+
+            item.result = data.get(
+                "result"
+            )
+
+            started = data.get(
+                "started"
+            )
+
+            completed = data.get(
+                "completed"
+            )
+
+            item.started = (
+                datetime.fromisoformat(started)
+                if started
+                else None
+            )
+
+            item.completed = (
+                datetime.fromisoformat(completed)
+                if completed
+                else None
+            )
+
+            add(item)
+
+    # -------------------------------------------------
+
+    def _save(self):
+
+        data = []
+
+        for item in all():
+
+            action = None
+
+            if item.action:
+
+                action = item.action.to_dict()
+
+            data.append({
+
+                "objective": item.objective,
+
+                "assignee": item.assignee,
+
+                "action": action,
+
+                "status": item.status,
+
+                "result": item.result,
+
+                "started": (
+                    item.started.isoformat()
+                    if item.started
+                    else None
+                ),
+
+                "completed": (
+                    item.completed.isoformat()
+                    if item.completed
+                    else None
+                ),
+
+            })
+
+        queue_db.save(data)
+
+    # -------------------------------------------------
+
     def add(self, item):
+
         add(item)
 
+        self._save()
+
+    # -------------------------------------------------
+
     def items(self):
+
         return all()
 
+    # -------------------------------------------------
+
     def process(self):
-        """
-        Process every pending queue item.
-        """
 
         worker = worker_manager.get(
             "default"
@@ -33,6 +150,22 @@ class QueueManager:
                 continue
 
             worker.execute(item)
+
+        self._save()
+
+    # -------------------------------------------------
+
+    def clear(self):
+
+        clear()
+
+        self._save()
+
+    # -------------------------------------------------
+
+    def save(self):
+
+        self._save()
 
 
 queue_manager = QueueManager()
