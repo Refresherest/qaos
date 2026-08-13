@@ -46,7 +46,7 @@ qaos.json
 # QAOS Runtime Data
 runtime/
 cache/
-storage/
+/storage/
 data/
 
 # Python packaging
