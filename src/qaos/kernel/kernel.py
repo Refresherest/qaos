@@ -2,7 +2,9 @@
 QAOS Kernel
 """
 
-from qaos.runtime.runtime import Runtime
+from qaos.config import create_configuration
+from qaos.core import create_runtime
+from qaos.kernel.dispatcher import Dispatcher
 
 
 class Kernel:
@@ -11,8 +13,14 @@ class Kernel:
     It delegates execution to the Runtime.
     """
 
-    def __init__(self):
-        self.runtime = Runtime()
+    def __init__(self, configuration=None, *, logger=None, event_bus=None):
+        configuration = configuration or create_configuration()
+        self.runtime = create_runtime(
+            configuration,
+            logger=logger,
+            event_bus=event_bus,
+        )
+        self.dispatcher = Dispatcher()
 
-    def execute(self, command: str) -> bool:
-        return self.runtime.execute(command)
+    def execute(self, command: str, *args) -> bool:
+        return self.dispatcher.dispatch(command, *args)

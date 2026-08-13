@@ -1,0 +1,30 @@
+manifest_version: 1
+project:
+  name: qaos
+  repository: https://github.com/Refresherest/qaos
+  canonical_memory: docs/control-plane
+systems:
+  git:
+    role: versioned engineering evidence
+    read: [source, docs, control-plane]
+    write: [code, docs, control-plane]
+  github:
+    role: collaboration and CI status
+    required_connection: repository access
+    mirror_only: [issues, pull_requests, check_status]
+  notion:
+    role: optional knowledge mirror
+    required_connection: workspace integration
+    mirror_only: [approved_decisions, project_summaries]
+  ci:
+    role: repeatable verification
+    required_connection: CI provider configuration
+    commands:
+      - python tools/architecture_inspect.py --json docs/control-plane/ledger/latest-inspection.json
+      - python -m compileall -q src
+      - python -m pytest
+integration_rules:
+  issue_link_format: "WO-### / FINDING-### / CONTRADICTION-###"
+  external_records_link_to: repository control-plane record
+  secrets_in_repository: forbidden
+  push_or_merge_requires_owner_authorization: true

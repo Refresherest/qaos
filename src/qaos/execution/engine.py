@@ -8,8 +8,6 @@ from qaos.queue import (
 )
 
 from qaos.planner import planner_manager
-from qaos.reflection import reflection_manager
-
 from .report import ExecutionReport
 
 
@@ -83,26 +81,6 @@ class ExecutionEngine:
             #
 
             planner_manager.save()
-
-            #
-            # Reflection
-            #
-
-            reflection = reflection_manager.create(
-
-                objective=objective,
-
-                summary="Objective completed.",
-
-                successes=[
-                    "Objective completed successfully."
-                ],
-
-                failures=[],
-
-            )
-
-            report.reflection = reflection
 
             report.complete()
 

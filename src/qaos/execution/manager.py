@@ -10,8 +10,6 @@ from .registry import (
 
 from .engine import ExecutionEngine
 
-from qaos.reflection import reflection_manager
-from qaos.learning import learning_manager
 from qaos.objectives import objective_manager
 
 
@@ -40,21 +38,6 @@ class ExecutionManager:
         #
 
         objective_manager.save()
-
-        #
-        # Learn from the Reflection,
-        # not the ExecutionReport.
-        #
-
-        reflection = reflection_manager.get(
-            objective
-        )
-
-        if reflection is not None:
-
-            learning_manager.learn(
-                reflection
-            )
 
         return report
 

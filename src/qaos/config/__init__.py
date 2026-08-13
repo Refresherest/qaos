@@ -1,6 +1,6 @@
-from .configuration import Configuration, configuration
+from .configuration import Configuration, create_configuration
 
 __all__ = [
     "Configuration",
-    "configuration",
+    "create_configuration",
 ]

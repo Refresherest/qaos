@@ -1,16 +1,11 @@
-from qaos.config import config
-from qaos.logging import logger
-from qaos.services import ServiceContainer
-from qaos.events import event_bus
+from qaos.config import Configuration
+from qaos.services.container import ServiceContainer
 
 
 class Runtime:
-    def __init__(self):
-        self.config = config
-        self.services = ServiceContainer()
-
-        self.register("logger", logger)
-        self.register("events", event_bus)
+    def __init__(self, configuration, services=None):
+        self.config = configuration
+        self.services = services if services is not None else ServiceContainer()
 
     def register(self, name, service):
         self.services.register(name, service)
@@ -19,4 +14,14 @@ class Runtime:
         return self.services.get(name)
 
 
-runtime = Runtime()
+def create_runtime(configuration, *, logger=None, event_bus=None):
+    """Compose a Runtime from explicit dependencies without global state."""
+    if not isinstance(configuration, Configuration):
+        raise TypeError("configuration must be a Configuration instance")
+
+    runtime = Runtime(configuration)
+    if logger is not None:
+        runtime.register("logger", logger)
+    if event_bus is not None:
+        runtime.register("events", event_bus)
+    return runtime

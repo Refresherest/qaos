@@ -8,7 +8,6 @@ from qaos.planner import planner_manager
 from qaos.execution import execution_manager
 from qaos.reflection import reflection_manager
 from qaos.learning import learning_manager
-from qaos.persistence import persistence_manager
 
 
 class ExecutivePipeline:
@@ -83,12 +82,6 @@ class ExecutivePipeline:
         learning_manager.learn(
             reflection
         )
-
-        #
-        # Persist
-        #
-
-        persistence_manager.save()
 
         return result
 

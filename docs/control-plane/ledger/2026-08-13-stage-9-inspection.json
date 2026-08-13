@@ -1,0 +1,1154 @@
+{
+  "schema_version": 1,
+  "tool": {
+    "name": "architecture_inspect",
+    "version": "1.0.0"
+  },
+  "generated_at_utc": "2026-08-13T13:54:20+00:00",
+  "repository": {
+    "path": "C:\\Projects\\qaos",
+    "commit": "f729c1b2ec24c28229d67d1135996ab365902534",
+    "branch": "main",
+    "working_tree": [
+      "M pyproject.toml",
+      " M src/qaos/commands/status.py",
+      " M src/qaos/config/__init__.py",
+      " M src/qaos/config/configuration.py",
+      " D src/qaos/container/__init__.py",
+      " D src/qaos/container/container.py",
+      " D src/qaos/container/registry.py",
+      " M src/qaos/core/__init__.py",
+      " M src/qaos/core/runtime.py",
+      " M src/qaos/execution/engine.py",
+      " M src/qaos/execution/manager.py",
+      " M src/qaos/execution/report.py",
+      " M src/qaos/executive/pipeline.py",
+      " M src/qaos/kernel/dispatcher.py",
+      " M src/qaos/kernel/kernel.py",
+      " D src/qaos/persistence/__init__.py",
+      " D src/qaos/persistence/base.py",
+      " D src/qaos/persistence/database.py",
+      " D src/qaos/persistence/json_store.py",
+      " D src/qaos/persistence/manager.py",
+      " D src/qaos/persistence/registry.py",
+      " D src/qaos/persistence/sqlite_store.py",
+      " M src/qaos/services/__init__.py",
+      " M src/qaos/services/status.py",
+      "?? .codex/",
+      "?? docs/architecture/QAOS_ARCHITECTURE_SPEC.md",
+      "?? docs/architecture/adr/",
+      "?? docs/architecture/architecture_audit.md",
+      "?? docs/architecture/architecture_stabilization_pass.md",
+      "?? docs/architecture/architecture_verification_gate.md",
+      "?? docs/architecture/dependency_graph.md",
+      "?? docs/architecture/engineering_health_score.md",
+      "?? docs/architecture/interface_contracts.md",
+      "?? docs/architecture/package_audit_report.md",
+      "?? docs/architecture/refactoring_summary.md",
+      "?? docs/architecture/roadmap.md",
+      "?? docs/architecture/runtime_verification_report.md",
+      "?? docs/architecture/serialization_audit.md",
+      "?? docs/architecture/stage_ownership_conformance_audit.md",
+      "?? docs/architecture/technical_debt.md",
+      "?? docs/architecture/unit_test_coverage_report.md",
+      "?? docs/control-plane/",
+      "?? docs/vision/",
+      "?? tests/test_cli_kernel.py",
+      "?? tests/test_core_bootstrap_characterization.py",
+      "?? tests/test_legacy_container_retired.py",
+      "?? tests/test_legacy_persistence_retired.py",
+      "?? tests/test_legacy_runtime_retired.py",
+      "?? tests/test_package_imports.py",
+      "?? tests/test_pipeline_stage_ownership.py",
+      "?? tests/test_storage_integrity.py",
+      "?? tools/"
+    ],
+    "python_files_inspected": 183
+  },
+  "checks": {
+    "duplicate_classes": {
+      "Agent": [
+        "src\\qaos\\agents\\agent.py",
+        "src\\qaos\\agents\\base.py"
+      ],
+      "Capability": [
+        "src\\qaos\\capabilities\\base.py",
+        "src\\qaos\\capabilities\\capability.py"
+      ],
+      "Memory": [
+        "src\\qaos\\memory\\base.py",
+        "src\\qaos\\memory\\memory.py"
+      ],
+      "Objective": [
+        "src\\qaos\\council\\objective.py",
+        "src\\qaos\\objectives\\objective.py"
+      ],
+      "Task": [
+        "src\\qaos\\planner\\task.py",
+        "src\\qaos\\tasks\\base.py"
+      ]
+    },
+    "registry_contracts": [
+      {
+        "path": "src\\qaos\\actions\\registry.py",
+        "functions": [
+          "all",
+          "get",
+          "register"
+        ],
+        "missing": [
+          "unregister"
+        ]
+      },
+      {
+        "path": "src\\qaos\\agents\\registry.py",
+        "functions": [
+          "all",
+          "get",
+          "register",
+          "unregister"
+        ],
+        "missing": []
+      },
+      {
+        "path": "src\\qaos\\ai\\registry.py",
+        "functions": [
+          "all_providers",
+          "get",
+          "register"
+        ],
+        "missing": [
+          "all",
+          "unregister"
+        ]
+      },
+      {
+        "path": "src\\qaos\\artifacts\\registry.py",
+        "functions": [
+          "all",
+          "get",
+          "register"
+        ],
+        "missing": [
+          "unregister"
+        ]
+      },
+      {
+        "path": "src\\qaos\\bootstrap\\registry.py",
+        "functions": [
+          "register",
+          "steps"
+        ],
+        "missing": [
+          "all",
+          "get",
+          "unregister"
+        ]
+      },
+      {
+        "path": "src\\qaos\\capabilities\\registry.py",
+        "functions": [
+          "all",
+          "clear",
+          "get",
+          "register",
+          "unregister"
+        ],
+        "missing": []
+      },
+      {
+        "path": "src\\qaos\\classifier\\registry.py",
+        "functions": [],
+        "missing": [
+          "all",
+          "get",
+          "register",
+          "unregister"
+        ]
+      },
+      {
+        "path": "src\\qaos\\commands\\registry.py",
+        "functions": [],
+        "missing": [
+          "all",
+          "get",
+          "register",
+          "unregister"
+        ]
+      },
+      {
+        "path": "src\\qaos\\context\\registry.py",
+        "functions": [
+          "all",
+          "get",
+          "register",
+          "unregister"
+        ],
+        "missing": []
+      },
+      {
+        "path": "src\\qaos\\council\\registry.py",
+        "functions": [
+          "all",
+          "get",
+          "register"
+        ],
+        "missing": [
+          "unregister"
+        ]
+      },
+      {
+        "path": "src\\qaos\\events\\registry.py",
+        "functions": [
+          "handlers",
+          "subscribe"
+        ],
+        "missing": [
+          "all",
+          "get",
+          "register",
+          "unregister"
+        ]
+      },
+      {
+        "path": "src\\qaos\\execution\\registry.py",
+        "functions": [
+          "all",
+          "get",
+          "register"
+        ],
+        "missing": [
+          "unregister"
+        ]
+      },
+      {
+        "path": "src\\qaos\\executive\\registry.py",
+        "functions": [
+          "all",
+          "get",
+          "register"
+        ],
+        "missing": [
+          "unregister"
+        ]
+      },
+      {
+        "path": "src\\qaos\\knowledge\\registry.py",
+        "functions": [
+          "all",
+          "get",
+          "register"
+        ],
+        "missing": [
+          "unregister"
+        ]
+      },
+      {
+        "path": "src\\qaos\\memory\\registry.py",
+        "functions": [
+          "all",
+          "get",
+          "register",
+          "unregister"
+        ],
+        "missing": []
+      },
+      {
+        "path": "src\\qaos\\objectives\\registry.py",
+        "functions": [
+          "all",
+          "get",
+          "register",
+          "unregister"
+        ],
+        "missing": []
+      },
+      {
+        "path": "src\\qaos\\planner\\registry.py",
+        "functions": [
+          "all",
+          "get",
+          "register",
+          "unregister"
+        ],
+        "missing": []
+      },
+      {
+        "path": "src\\qaos\\plugins\\registry.py",
+        "functions": [
+          "all_plugins",
+          "get",
+          "register",
+          "unregister"
+        ],
+        "missing": [
+          "all"
+        ]
+      },
+      {
+        "path": "src\\qaos\\queue\\registry.py",
+        "functions": [
+          "add",
+          "all",
+          "clear"
+        ],
+        "missing": [
+          "get",
+          "register",
+          "unregister"
+        ]
+      },
+      {
+        "path": "src\\qaos\\reflection\\registry.py",
+        "functions": [
+          "all",
+          "get",
+          "register",
+          "unregister"
+        ],
+        "missing": []
+      },
+      {
+        "path": "src\\qaos\\scheduler\\registry.py",
+        "functions": [
+          "all_jobs",
+          "get",
+          "register",
+          "unregister"
+        ],
+        "missing": [
+          "all"
+        ]
+      },
+      {
+        "path": "src\\qaos\\skills\\registry.py",
+        "functions": [
+          "all",
+          "get",
+          "register",
+          "unregister"
+        ],
+        "missing": []
+      },
+      {
+        "path": "src\\qaos\\tasks\\registry.py",
+        "functions": [
+          "all_tasks",
+          "get",
+          "register",
+          "unregister"
+        ],
+        "missing": [
+          "all"
+        ]
+      },
+      {
+        "path": "src\\qaos\\workers\\registry.py",
+        "functions": [
+          "all",
+          "clear",
+          "get",
+          "register",
+          "unregister"
+        ],
+        "missing": []
+      },
+      {
+        "path": "src\\qaos\\workflows\\registry.py",
+        "functions": [
+          "all_workflows",
+          "get",
+          "register",
+          "unregister"
+        ],
+        "missing": [
+          "all"
+        ]
+      }
+    ],
+    "import_time_calls": [
+      {
+        "path": "src\\qaos\\actions\\executor.py",
+        "line": 38
+      },
+      {
+        "path": "src\\qaos\\actions\\manager.py",
+        "line": 43
+      },
+      {
+        "path": "src\\qaos\\agents\\manager.py",
+        "line": 49
+      },
+      {
+        "path": "src\\qaos\\agents\\resolver.py",
+        "line": 37
+      },
+      {
+        "path": "src\\qaos\\ai\\__init__.py",
+        "line": 20
+      },
+      {
+        "path": "src\\qaos\\ai\\engine.py",
+        "line": 50
+      },
+      {
+        "path": "src\\qaos\\artifacts\\manager.py",
+        "line": 105
+      },
+      {
+        "path": "src\\qaos\\bootstrap\\boot.py",
+        "line": 11
+      },
+      {
+        "path": "src\\qaos\\briefing\\manager.py",
+        "line": 15
+      },
+      {
+        "path": "src\\qaos\\capabilities\\manager.py",
+        "line": 84
+      },
+      {
+        "path": "src\\qaos\\capabilities\\system.py",
+        "line": 73
+      },
+      {
+        "path": "src\\qaos\\classifier\\manager.py",
+        "line": 15
+      },
+      {
+        "path": "src\\qaos\\classifier\\registry.py",
+        "line": 7
+      },
+      {
+        "path": "src\\qaos\\context\\manager.py",
+        "line": 66
+      },
+      {
+        "path": "src\\qaos\\council\\delegator.py",
+        "line": 42
+      },
+      {
+        "path": "src\\qaos\\council\\manager.py",
+        "line": 77
+      },
+      {
+        "path": "src\\qaos\\council\\router.py",
+        "line": 30
+      },
+      {
+        "path": "src\\qaos\\events\\bus.py",
+        "line": 18
+      },
+      {
+        "path": "src\\qaos\\events\\manager.py",
+        "line": 36
+      },
+      {
+        "path": "src\\qaos\\execution\\engine.py",
+        "line": 96
+      },
+      {
+        "path": "src\\qaos\\execution\\manager.py",
+        "line": 60
+      },
+      {
+        "path": "src\\qaos\\executive\\manager.py",
+        "line": 41
+      },
+      {
+        "path": "src\\qaos\\executive\\orchestrator.py",
+        "line": 46
+      },
+      {
+        "path": "src\\qaos\\executive\\pipeline.py",
+        "line": 89
+      },
+      {
+        "path": "src\\qaos\\knowledge\\manager.py",
+        "line": 101
+      },
+      {
+        "path": "src\\qaos\\learning\\engine.py",
+        "line": 84
+      },
+      {
+        "path": "src\\qaos\\learning\\learner.py",
+        "line": 22
+      },
+      {
+        "path": "src\\qaos\\learning\\manager.py",
+        "line": 17
+      },
+      {
+        "path": "src\\qaos\\logging\\logger.py",
+        "line": 30
+      },
+      {
+        "path": "src\\qaos\\memory\\manager.py",
+        "line": 124
+      },
+      {
+        "path": "src\\qaos\\objectives\\manager.py",
+        "line": 116
+      },
+      {
+        "path": "src\\qaos\\planner\\generator.py",
+        "line": 67
+      },
+      {
+        "path": "src\\qaos\\planner\\manager.py",
+        "line": 138
+      },
+      {
+        "path": "src\\qaos\\planner\\plan_db.py",
+        "line": 8
+      },
+      {
+        "path": "src\\qaos\\planner\\resolver.py",
+        "line": 30
+      },
+      {
+        "path": "src\\qaos\\plugins\\manager.py",
+        "line": 42
+      },
+      {
+        "path": "src\\qaos\\queue\\manager.py",
+        "line": 171
+      },
+      {
+        "path": "src\\qaos\\queue\\queue_db.py",
+        "line": 8
+      },
+      {
+        "path": "src\\qaos\\reasoning\\engine.py",
+        "line": 26
+      },
+      {
+        "path": "src\\qaos\\reflection\\manager.py",
+        "line": 192
+      },
+      {
+        "path": "src\\qaos\\retrieval\\engine.py",
+        "line": 70
+      },
+      {
+        "path": "src\\qaos\\retrieval\\manager.py",
+        "line": 17
+      },
+      {
+        "path": "src\\qaos\\scheduler\\manager.py",
+        "line": 38
+      },
+      {
+        "path": "src\\qaos\\scheduler\\scheduler.py",
+        "line": 19
+      },
+      {
+        "path": "src\\qaos\\skills\\manager.py",
+        "line": 37
+      },
+      {
+        "path": "src\\qaos\\skills\\resolver.py",
+        "line": 39
+      },
+      {
+        "path": "src\\qaos\\storage\\database.py",
+        "line": 18
+      },
+      {
+        "path": "src\\qaos\\storage\\database.py",
+        "line": 20
+      },
+      {
+        "path": "src\\qaos\\storage\\database.py",
+        "line": 22
+      },
+      {
+        "path": "src\\qaos\\storage\\database.py",
+        "line": 24
+      },
+      {
+        "path": "src\\qaos\\storage\\database.py",
+        "line": 26
+      },
+      {
+        "path": "src\\qaos\\storage\\database.py",
+        "line": 28
+      },
+      {
+        "path": "src\\qaos\\storage\\database.py",
+        "line": 30
+      },
+      {
+        "path": "src\\qaos\\storage\\database.py",
+        "line": 32
+      },
+      {
+        "path": "src\\qaos\\tasks\\__init__.py",
+        "line": 8
+      },
+      {
+        "path": "src\\qaos\\workers\\default.py",
+        "line": 55
+      },
+      {
+        "path": "src\\qaos\\workers\\manager.py",
+        "line": 67
+      },
+      {
+        "path": "src\\qaos\\workflows\\executor.py",
+        "line": 52
+      },
+      {
+        "path": "src\\qaos\\workflows\\manager.py",
+        "line": 62
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "DUPLICATE-CLASS-AGENT",
+      "classification": "review",
+      "severity": "P2",
+      "rule": "ADR-001 / ADR-005A canonical object law",
+      "evidence": [
+        "src\\qaos\\agents\\agent.py",
+        "src\\qaos\\agents\\base.py"
+      ],
+      "action": "Reconcile whether these are the same canonical domain concept before changing code."
+    },
+    {
+      "id": "DUPLICATE-CLASS-CAPABILITY",
+      "classification": "review",
+      "severity": "P1",
+      "rule": "ADR-001 / ADR-005A canonical object law",
+      "evidence": [
+        "src\\qaos\\capabilities\\base.py",
+        "src\\qaos\\capabilities\\capability.py"
+      ],
+      "action": "Reconcile whether these are the same canonical domain concept before changing code."
+    },
+    {
+      "id": "DUPLICATE-CLASS-MEMORY",
+      "classification": "review",
+      "severity": "P1",
+      "rule": "ADR-001 / ADR-005A canonical object law",
+      "evidence": [
+        "src\\qaos\\memory\\base.py",
+        "src\\qaos\\memory\\memory.py"
+      ],
+      "action": "Reconcile whether these are the same canonical domain concept before changing code."
+    },
+    {
+      "id": "DUPLICATE-CLASS-OBJECTIVE",
+      "classification": "review",
+      "severity": "P1",
+      "rule": "ADR-001 / ADR-005A canonical object law",
+      "evidence": [
+        "src\\qaos\\council\\objective.py",
+        "src\\qaos\\objectives\\objective.py"
+      ],
+      "action": "Reconcile whether these are the same canonical domain concept before changing code."
+    },
+    {
+      "id": "DUPLICATE-CLASS-TASK",
+      "classification": "review",
+      "severity": "P1",
+      "rule": "ADR-001 / ADR-005A canonical object law",
+      "evidence": [
+        "src\\qaos\\planner\\task.py",
+        "src\\qaos\\tasks\\base.py"
+      ],
+      "action": "Reconcile whether these are the same canonical domain concept before changing code."
+    },
+    {
+      "id": "REGISTRY-ACTIONS",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\actions\\registry.py",
+        "missing": [
+          "unregister"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "REGISTRY-AI",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\ai\\registry.py",
+        "missing": [
+          "all",
+          "unregister"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "REGISTRY-ARTIFACTS",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\artifacts\\registry.py",
+        "missing": [
+          "unregister"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "REGISTRY-BOOTSTRAP",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\bootstrap\\registry.py",
+        "missing": [
+          "all",
+          "get",
+          "unregister"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "REGISTRY-CLASSIFIER",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\classifier\\registry.py",
+        "missing": [
+          "all",
+          "get",
+          "register",
+          "unregister"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "REGISTRY-COMMANDS",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\commands\\registry.py",
+        "missing": [
+          "all",
+          "get",
+          "register",
+          "unregister"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "REGISTRY-COUNCIL",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\council\\registry.py",
+        "missing": [
+          "unregister"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "REGISTRY-EVENTS",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\events\\registry.py",
+        "missing": [
+          "all",
+          "get",
+          "register",
+          "unregister"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "REGISTRY-EXECUTION",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\execution\\registry.py",
+        "missing": [
+          "unregister"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "REGISTRY-EXECUTIVE",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\executive\\registry.py",
+        "missing": [
+          "unregister"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "REGISTRY-KNOWLEDGE",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\knowledge\\registry.py",
+        "missing": [
+          "unregister"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "REGISTRY-PLUGINS",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\plugins\\registry.py",
+        "missing": [
+          "all"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "REGISTRY-QUEUE",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\queue\\registry.py",
+        "missing": [
+          "get",
+          "register",
+          "unregister"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "REGISTRY-SCHEDULER",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\scheduler\\registry.py",
+        "missing": [
+          "all"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "REGISTRY-TASKS",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\tasks\\registry.py",
+        "missing": [
+          "all"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "REGISTRY-WORKFLOWS",
+      "classification": "implementation-violation",
+      "severity": "P2",
+      "rule": "ADR-003 / ADR-005",
+      "evidence": {
+        "path": "src\\qaos\\workflows\\registry.py",
+        "missing": [
+          "all"
+        ]
+      },
+      "action": "Create a scoped migration work order; do not introduce permanent aliases."
+    },
+    {
+      "id": "ENTITY-OBJECTIVE-SELF-PERSISTENCE",
+      "classification": "implementation-violation",
+      "severity": "P1",
+      "rule": "ADR-001 / ADR-008A / ADR-011J",
+      "evidence": {
+        "path": "src\\qaos\\objectives\\objective.py",
+        "lines": [
+          45,
+          55,
+          67,
+          79,
+          91
+        ],
+        "pattern": "objective_manager._save"
+      },
+      "action": "Authorize a focused work order after confirming runtime behavior with a regression test."
+    },
+    {
+      "id": "IMPORT-TIME-MUTABLE-SINGLETONS",
+      "classification": "implementation-violation",
+      "severity": "P1",
+      "rule": "ADR-010 / ADR-011E",
+      "evidence": [
+        {
+          "path": "src\\qaos\\actions\\executor.py",
+          "line": 38
+        },
+        {
+          "path": "src\\qaos\\actions\\manager.py",
+          "line": 43
+        },
+        {
+          "path": "src\\qaos\\agents\\manager.py",
+          "line": 49
+        },
+        {
+          "path": "src\\qaos\\agents\\resolver.py",
+          "line": 37
+        },
+        {
+          "path": "src\\qaos\\ai\\__init__.py",
+          "line": 20
+        },
+        {
+          "path": "src\\qaos\\ai\\engine.py",
+          "line": 50
+        },
+        {
+          "path": "src\\qaos\\artifacts\\manager.py",
+          "line": 105
+        },
+        {
+          "path": "src\\qaos\\bootstrap\\boot.py",
+          "line": 11
+        },
+        {
+          "path": "src\\qaos\\briefing\\manager.py",
+          "line": 15
+        },
+        {
+          "path": "src\\qaos\\capabilities\\manager.py",
+          "line": 84
+        },
+        {
+          "path": "src\\qaos\\capabilities\\system.py",
+          "line": 73
+        },
+        {
+          "path": "src\\qaos\\classifier\\manager.py",
+          "line": 15
+        },
+        {
+          "path": "src\\qaos\\classifier\\registry.py",
+          "line": 7
+        },
+        {
+          "path": "src\\qaos\\context\\manager.py",
+          "line": 66
+        },
+        {
+          "path": "src\\qaos\\council\\delegator.py",
+          "line": 42
+        },
+        {
+          "path": "src\\qaos\\council\\manager.py",
+          "line": 77
+        },
+        {
+          "path": "src\\qaos\\council\\router.py",
+          "line": 30
+        },
+        {
+          "path": "src\\qaos\\events\\bus.py",
+          "line": 18
+        },
+        {
+          "path": "src\\qaos\\events\\manager.py",
+          "line": 36
+        },
+        {
+          "path": "src\\qaos\\execution\\engine.py",
+          "line": 96
+        },
+        {
+          "path": "src\\qaos\\execution\\manager.py",
+          "line": 60
+        },
+        {
+          "path": "src\\qaos\\executive\\manager.py",
+          "line": 41
+        },
+        {
+          "path": "src\\qaos\\executive\\orchestrator.py",
+          "line": 46
+        },
+        {
+          "path": "src\\qaos\\executive\\pipeline.py",
+          "line": 89
+        },
+        {
+          "path": "src\\qaos\\knowledge\\manager.py",
+          "line": 101
+        },
+        {
+          "path": "src\\qaos\\learning\\engine.py",
+          "line": 84
+        },
+        {
+          "path": "src\\qaos\\learning\\learner.py",
+          "line": 22
+        },
+        {
+          "path": "src\\qaos\\learning\\manager.py",
+          "line": 17
+        },
+        {
+          "path": "src\\qaos\\logging\\logger.py",
+          "line": 30
+        },
+        {
+          "path": "src\\qaos\\memory\\manager.py",
+          "line": 124
+        },
+        {
+          "path": "src\\qaos\\objectives\\manager.py",
+          "line": 116
+        },
+        {
+          "path": "src\\qaos\\planner\\generator.py",
+          "line": 67
+        },
+        {
+          "path": "src\\qaos\\planner\\manager.py",
+          "line": 138
+        },
+        {
+          "path": "src\\qaos\\planner\\plan_db.py",
+          "line": 8
+        },
+        {
+          "path": "src\\qaos\\planner\\resolver.py",
+          "line": 30
+        },
+        {
+          "path": "src\\qaos\\plugins\\manager.py",
+          "line": 42
+        },
+        {
+          "path": "src\\qaos\\queue\\manager.py",
+          "line": 171
+        },
+        {
+          "path": "src\\qaos\\queue\\queue_db.py",
+          "line": 8
+        },
+        {
+          "path": "src\\qaos\\reasoning\\engine.py",
+          "line": 26
+        },
+        {
+          "path": "src\\qaos\\reflection\\manager.py",
+          "line": 192
+        },
+        {
+          "path": "src\\qaos\\retrieval\\engine.py",
+          "line": 70
+        },
+        {
+          "path": "src\\qaos\\retrieval\\manager.py",
+          "line": 17
+        },
+        {
+          "path": "src\\qaos\\scheduler\\manager.py",
+          "line": 38
+        },
+        {
+          "path": "src\\qaos\\scheduler\\scheduler.py",
+          "line": 19
+        },
+        {
+          "path": "src\\qaos\\skills\\manager.py",
+          "line": 37
+        },
+        {
+          "path": "src\\qaos\\skills\\resolver.py",
+          "line": 39
+        },
+        {
+          "path": "src\\qaos\\storage\\database.py",
+          "line": 18
+        },
+        {
+          "path": "src\\qaos\\storage\\database.py",
+          "line": 20
+        },
+        {
+          "path": "src\\qaos\\storage\\database.py",
+          "line": 22
+        },
+        {
+          "path": "src\\qaos\\storage\\database.py",
+          "line": 24
+        },
+        {
+          "path": "src\\qaos\\storage\\database.py",
+          "line": 26
+        },
+        {
+          "path": "src\\qaos\\storage\\database.py",
+          "line": 28
+        },
+        {
+          "path": "src\\qaos\\storage\\database.py",
+          "line": 30
+        },
+        {
+          "path": "src\\qaos\\storage\\database.py",
+          "line": 32
+        },
+        {
+          "path": "src\\qaos\\tasks\\__init__.py",
+          "line": 8
+        },
+        {
+          "path": "src\\qaos\\workers\\default.py",
+          "line": 55
+        },
+        {
+          "path": "src\\qaos\\workers\\manager.py",
+          "line": 67
+        },
+        {
+          "path": "src\\qaos\\workflows\\executor.py",
+          "line": 52
+        },
+        {
+          "path": "src\\qaos\\workflows\\manager.py",
+          "line": 62
+        }
+      ],
+      "action": "Separate construction from import and introduce explicit bootstrap in a staged migration."
+    }
+  ],
+  "limitations": [
+    "Static evidence only; runtime behavior, data migrations, and semantic ownership require targeted tests/review.",
+    "A finding is not authorization to modify code. Follow the control-plane work-order process."
+  ]
+}

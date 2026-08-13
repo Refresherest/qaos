@@ -1,8 +1,7 @@
 from .container import ServiceContainer
-from .status import StatusService, status_service
+from .status import StatusService
 
 __all__ = [
     "ServiceContainer",
     "StatusService",
-    "status_service",
 ]

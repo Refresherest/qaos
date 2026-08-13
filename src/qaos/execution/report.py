@@ -27,8 +27,6 @@ class ExecutionReport:
 
         self.artifacts = []
 
-        self.reflection = None
-
         self.error = None
 
     # -------------------------------------

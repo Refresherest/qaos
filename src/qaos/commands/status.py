@@ -1,7 +1,17 @@
-from qaos.services import status_service
+from qaos.agents import agent_manager
+from qaos.config import create_configuration
+from qaos.council import council_manager
+from qaos.plugins import plugin_manager
+from qaos.services import StatusService
 
 
 def execute():
+    status_service = StatusService(
+        create_configuration(),
+        agent_manager,
+        council_manager,
+        plugin_manager,
+    )
     data = status_service.get_status()
 
     print("=" * 50)

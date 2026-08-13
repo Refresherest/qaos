@@ -3,8 +3,8 @@ from pathlib import Path
 
 class Configuration:
 
-    def __init__(self):
-        self.project_root = Path.cwd()
+    def __init__(self, project_root=None):
+        self.project_root = Path(project_root) if project_root is not None else Path.cwd()
 
         self._values = {
             "version": "0.1.0",
@@ -40,4 +40,6 @@ class Configuration:
 
 
         
-configuration = Configuration()
+def create_configuration(project_root=None):
+    """Create explicit configuration for a QAOS runtime."""
+    return Configuration(project_root=project_root)
