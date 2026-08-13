@@ -2,7 +2,7 @@
 QAOS Reflection Manager
 """
 
-from qaos.storage import reflection_db
+from qaos.storage import create_stores, DATA
 
 from .reflection import Reflection
 from .registry import (
@@ -15,7 +15,9 @@ from .registry import (
 
 class ReflectionManager:
 
-    def __init__(self):
+    def __init__(self, stores=None):
+
+        self._stores = stores or create_stores(DATA)
 
         self._load()
 
@@ -23,7 +25,7 @@ class ReflectionManager:
 
     def _load(self):
 
-        for item in reflection_db.load():
+        for item in self._stores.reflection_db.load():
 
             reflection = Reflection(
 
@@ -74,7 +76,7 @@ class ReflectionManager:
 
             })
 
-        reflection_db.save(data)
+        self._stores.reflection_db.save(data)
 
     # -------------------------------------------------
 

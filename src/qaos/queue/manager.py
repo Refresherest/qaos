@@ -4,7 +4,7 @@ QAOS Queue Manager
 
 from datetime import datetime
 
-from qaos.storage import queue_db
+from qaos.storage import create_stores, DATA
 
 from .item import QueueItem
 from .registry import (
@@ -19,7 +19,9 @@ from qaos.planner import Task
 
 class QueueManager:
 
-    def __init__(self):
+    def __init__(self, stores=None):
+
+        self._stores = stores or create_stores(DATA)
 
         self._load()
 
@@ -29,7 +31,7 @@ class QueueManager:
 
         clear()
 
-        for data in queue_db.load():
+        for data in self._stores.queue_db.load():
 
             action = None
 
@@ -120,7 +122,7 @@ class QueueManager:
 
             })
 
-        queue_db.save(data)
+        self._stores.queue_db.save(data)
 
     # -------------------------------------------------
 

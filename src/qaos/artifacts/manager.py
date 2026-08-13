@@ -2,7 +2,7 @@
 QAOS Artifact Manager
 """
 
-from qaos.storage import artifact_db
+from qaos.storage import create_stores, DATA
 
 from .artifact import Artifact
 from .registry import (
@@ -14,7 +14,9 @@ from .registry import (
 
 class ArtifactManager:
 
-    def __init__(self):
+    def __init__(self, stores=None):
+
+        self._stores = stores or create_stores(DATA)
 
         self._load()
 
@@ -22,7 +24,7 @@ class ArtifactManager:
 
     def _load(self):
 
-        for item in artifact_db.load():
+        for item in self._stores.artifact_db.load():
 
             artifact = Artifact(
 
@@ -54,7 +56,7 @@ class ArtifactManager:
 
             })
 
-        artifact_db.save(data)
+        self._stores.artifact_db.save(data)
 
     # ---------------------------------
 

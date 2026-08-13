@@ -2,7 +2,7 @@
 QAOS Knowledge Manager
 """
 
-from qaos.storage import knowledge_db
+from qaos.storage import create_stores, DATA
 
 from .knowledge import Knowledge
 from .registry import (
@@ -14,7 +14,9 @@ from .registry import (
 
 class KnowledgeManager:
 
-    def __init__(self):
+    def __init__(self, stores=None):
+
+        self._stores = stores or create_stores(DATA)
 
         self._load()
 
@@ -22,7 +24,7 @@ class KnowledgeManager:
 
     def _load(self):
 
-        for item in knowledge_db.load():
+        for item in self._stores.knowledge_db.load():
 
             knowledge = Knowledge(
 
@@ -52,7 +54,7 @@ class KnowledgeManager:
 
             })
 
-        knowledge_db.save(data)
+        self._stores.knowledge_db.save(data)
 
     # ---------------------------------
 

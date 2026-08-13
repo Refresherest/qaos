@@ -2,7 +2,7 @@
 QAOS Plan Manager
 """
 
-from qaos.storage import plan_db
+from qaos.storage import create_stores, DATA
 
 from .plan import Plan
 from .task import Task
@@ -18,7 +18,9 @@ from .generator import plan_generator
 
 class PlannerManager:
 
-    def __init__(self):
+    def __init__(self, stores=None):
+
+        self._stores = stores or create_stores(DATA)
 
         self._load()
 
@@ -26,7 +28,7 @@ class PlannerManager:
 
     def _load(self):
 
-        for item in plan_db.load():
+        for item in self._stores.plan_db.load():
 
             plan = Plan(
                 item["objective"]
@@ -75,7 +77,7 @@ class PlannerManager:
 
             })
 
-        plan_db.save(data)
+        self._stores.plan_db.save(data)
 
     # ---------------------------------
 

@@ -3,30 +3,53 @@ QAOS Database
 """
 
 from .json_store import JSONStore
+from .paths import DATA, path_for
 
-from .paths import (
-    MEMORY,
-    KNOWLEDGE,
-    ARTIFACTS,
-    OBJECTIVES,
-    REFLECTIONS,
-    EVENTS,
-    PLANS,
-    QUEUE,
-)
 
-memory_db = JSONStore(MEMORY)
+class Stores:
+    """Explicit storage collection bound to a single data directory."""
 
-knowledge_db = JSONStore(KNOWLEDGE)
+    def __init__(self, data_dir):
 
-artifact_db = JSONStore(ARTIFACTS)
+        self.data_dir = data_dir
 
-objective_db = JSONStore(OBJECTIVES)
+        self.memory_db = JSONStore(
+            path_for(data_dir, "memory"),
+        )
 
-reflection_db = JSONStore(REFLECTIONS)
+        self.knowledge_db = JSONStore(
+            path_for(data_dir, "knowledge"),
+        )
 
-event_db = JSONStore(EVENTS)
+        self.artifact_db = JSONStore(
+            path_for(data_dir, "artifacts"),
+        )
 
-plan_db = JSONStore(PLANS)
+        self.objective_db = JSONStore(
+            path_for(data_dir, "objectives"),
+        )
 
-queue_db = JSONStore(QUEUE)
+        self.reflection_db = JSONStore(
+            path_for(data_dir, "reflections"),
+        )
+
+        self.event_db = JSONStore(
+            path_for(data_dir, "events"),
+        )
+
+        self.plan_db = JSONStore(
+            path_for(data_dir, "plans"),
+        )
+
+        self.queue_db = JSONStore(
+            path_for(data_dir, "queue"),
+        )
+
+
+def create_stores(data_dir):
+    """Construct the explicit storage collection for data_dir.
+
+    This is the active storage construction boundary; JSONStore instances
+    are created here rather than at module import time.
+    """
+    return Stores(data_dir)
