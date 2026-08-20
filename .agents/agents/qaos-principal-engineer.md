@@ -6,7 +6,7 @@ description: >
 tools:
   - terminal
   - file_editor
-model: openai/qwen3-coder-plus
+model: QAOS-QwenCoderPlus
 skills:
   - qaos-architecture-awareness
   - qaos-principal-engineer

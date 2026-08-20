@@ -6,12 +6,13 @@ The project defines six OpenHands file-based sub-agents in `.agents/agents/`:
 
 | Stage | Primary agent | Candidate model profile | Technical fallback agent | Candidate model profile |
 | --- | --- | --- | --- | --- |
-| Architecture | `qaos-csa` | `openai/deepseek-v4-pro` | `qaos-csa-fallback` | `openhands/glm-5.2` |
-| Implementation | `qaos-principal-engineer` | `openai/qwen3-coder-plus` | `qaos-principal-engineer-fallback` | `openai/deepseek-v4-pro` |
-| Independent review | `qaos-reviewer` | `openhands/glm-5.2` | `qaos-reviewer-fallback` | `openai/deepseek-v4-pro` |
+| Architecture | `qaos-csa` | `QAOS-KimiK27Code` | `qaos-csa-fallback` | `QAOS-QwenCoderPlus` |
+| Implementation | `qaos-principal-engineer` | `QAOS-QwenCoderPlus` | `qaos-principal-engineer-fallback` | `QAOS-QwenCoderNext` |
+| Independent review | `qaos-reviewer` | `QAOS-QwenCoderNext` | `qaos-reviewer-fallback` | `QAOS-KimiK27Code` |
 
-These are transport-verified model candidates, not QAOS `VALIDATED` or
-`DESIGNATED` model assignments. The fallback profiles are used only for a
+These are exact OpenHands Cloud profile names and transport-verified model
+candidates, not QAOS `VALIDATED` or `DESIGNATED` model assignments. The
+fallback profiles are used only for a
 technical agent/model execution failure (for example provider error,
 authentication error, timeout, or malformed tool response), not for a hard
 problem, disagreement, failed test, or an architectural block.

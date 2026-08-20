@@ -6,7 +6,7 @@ description: >
   <example>Assess an implementation handoff and decide the next bounded action</example>
 tools:
   - terminal
-model: openai/deepseek-v4-pro
+model: QAOS-KimiK27Code
 skills:
   - qaos-architecture-awareness
 max_iteration_per_run: 20

@@ -24,8 +24,16 @@
 
 - Six uniquely named agent files exist: CSA, PE, Reviewer, and one fallback per role.
 - Each file contains the required OpenHands frontmatter fields: `name`, `description`, `tools`, and `model`.
-- The allowed candidate model profile set is limited to `openai/deepseek-v4-pro`, `openai/qwen3-coder-plus`, and `openhands/glm-5.2`.
+- The allowed candidate model profile set is limited to the Cloud-profile mapping documented in `OPENHANDS_BUILDER_CHAIN.md`.
 - Targeted scan found no credential-like assignment in the agent files or builder-chain protocol.
 - `git diff --check` passed.
 
 The workstation has no YAML parser installed. Do not add a parser dependency merely for this configuration check. OpenHands Cloud loading the files after the branch push is the required authoritative runtime validation.
+
+## Cloud Validation Finding
+
+The first smoke test reached `qaos-csa`, but Cloud rejected the raw model ID
+`openai/deepseek-v4-pro` because file-based agents resolve the `model` field
+through named Cloud profiles. This is a runtime configuration defect, not a
+provider availability or QAOS model-governance result. WO-015 remediates it
+using the exact profile names visible in Cloud.

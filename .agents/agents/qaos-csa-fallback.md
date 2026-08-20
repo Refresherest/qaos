@@ -3,7 +3,7 @@ name: qaos-csa-fallback
 description: Provides the CSA fallback when the primary CSA model invocation fails.
 tools:
   - terminal
-model: openhands/glm-5.2
+model: QAOS-QwenCoderPlus
 skills:
   - qaos-architecture-awareness
 max_iteration_per_run: 20
