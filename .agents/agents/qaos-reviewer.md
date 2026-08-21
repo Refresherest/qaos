@@ -5,7 +5,7 @@ description: >
   <example>Review this QAOS implementation package and return ACCEPT, ACCEPT WITH NOTES, REJECT, or BLOCKED</example>
 tools:
   - terminal
-model: QAOS-Deepseek-v3.2
+model: inherit
 skills:
   - qaos-reviewer
 max_iteration_per_run: 30

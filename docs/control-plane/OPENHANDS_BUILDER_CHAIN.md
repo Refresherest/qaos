@@ -4,18 +4,20 @@
 
 The project defines six OpenHands file-based sub-agents in `.agents/agents/`:
 
-| Stage | Primary agent | Candidate model profile | Technical fallback agent | Candidate model profile |
+| Stage | Primary agent | Current smoke-test model | Technical fallback agent | Current smoke-test model |
 | --- | --- | --- | --- | --- |
-| Architecture | `qaos-csa` | `QAOS-Deepseek-v4-pro-0813` | `qaos-csa-fallback` | `QAOS-QwenCoderPlus` |
-| Implementation | `qaos-principal-engineer` | `QAOS-QwenCoderNext` | `qaos-principal-engineer-fallback` | `QAOS-QwenCoderNext` |
-| Independent review | `qaos-reviewer` | `QAOS-Deepseek-v3.2` | `qaos-reviewer-fallback` | `QAOS-KimiK27Code` |
+| Architecture | `qaos-csa` | `inherit` (parent conversation model) | `qaos-csa-fallback` | `inherit` (parent conversation model) |
+| Implementation | `qaos-principal-engineer` | `inherit` (parent conversation model) | `qaos-principal-engineer-fallback` | `inherit` (parent conversation model) |
+| Independent review | `qaos-reviewer` | `inherit` (parent conversation model) | `qaos-reviewer-fallback` | `inherit` (parent conversation model) |
 
-These are exact OpenHands Cloud profile names and transport-verified model
-candidates, not QAOS `VALIDATED` or `DESIGNATED` model assignments. The
-fallback profiles are used only for a
-technical agent/model execution failure (for example provider error,
-authentication error, timeout, or malformed tool response), not for a hard
-problem, disagreement, failed test, or an architectural block.
+For the current OpenHands Cloud smoke test, every sub-agent inherits the
+parent conversation model. This deliberately avoids named-profile resolution
+because Cloud delegation reported an empty profile store. It proves the
+CSA-to-PE-to-Reviewer orchestration path only; it does not prove independent
+role models or model-level fallback routing. The fallback *agents* are used
+only for a technical agent/model execution failure (for example provider
+error, authentication error, timeout, or malformed tool response), not for a
+hard problem, disagreement, failed test, or an architectural block.
 
 ## Required Flow
 
@@ -71,8 +73,7 @@ files, exact verification results, and next owner action.
 - Turn on the OpenHands Critic as an additional guard when the signed-in Cloud
   settings session is available. Critic output is advisory and does not replace
   `qaos-reviewer`.
-- The named Cloud LLM profiles must exist and be tested through one complete
-  builder-chain run before this setup can be described as operationally proven.
-- OpenHands Cloud currently exposes individual profiles, not a native ordered
-  provider-failover field. The bounded retry policy above is therefore the
-  explicit QAOS fallback mechanism.
+- The parent Cloud LLM profile must be selected and tested before a smoke run.
+- This inherited-model configuration is a temporary orchestration proof. A
+  controlled SDK or Agent Server profile store is required before QAOS can
+  claim independent role models or ordered model-level fallback.

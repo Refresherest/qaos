@@ -4,7 +4,7 @@ description: Provides the PE fallback when the primary PE model invocation fails
 tools:
   - terminal
   - file_editor
-model: QAOS-QwenCoderNext
+model: inherit
 skills:
   - qaos-architecture-awareness
   - qaos-principal-engineer
