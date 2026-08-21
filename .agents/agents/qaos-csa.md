@@ -6,7 +6,7 @@ description: >
   <example>Assess an implementation handoff and decide the next bounded action</example>
 tools:
   - terminal
-model: QAOS-KimiK27Code
+model: QAOS-Deepseek-v4-pro-0813
 skills:
   - qaos-architecture-awareness
 max_iteration_per_run: 20

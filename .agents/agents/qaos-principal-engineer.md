@@ -6,7 +6,7 @@ description: >
 tools:
   - terminal
   - file_editor
-model: QAOS-QwenCoderPlus
+model: QAOS-QwenCoderNext
 skills:
   - qaos-architecture-awareness
   - qaos-principal-engineer

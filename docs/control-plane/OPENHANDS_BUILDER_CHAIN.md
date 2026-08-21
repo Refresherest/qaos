@@ -6,9 +6,9 @@ The project defines six OpenHands file-based sub-agents in `.agents/agents/`:
 
 | Stage | Primary agent | Candidate model profile | Technical fallback agent | Candidate model profile |
 | --- | --- | --- | --- | --- |
-| Architecture | `qaos-csa` | `QAOS-KimiK27Code` | `qaos-csa-fallback` | `QAOS-QwenCoderPlus` |
-| Implementation | `qaos-principal-engineer` | `QAOS-QwenCoderPlus` | `qaos-principal-engineer-fallback` | `QAOS-QwenCoderNext` |
-| Independent review | `qaos-reviewer` | `QAOS-QwenCoderNext` | `qaos-reviewer-fallback` | `QAOS-KimiK27Code` |
+| Architecture | `qaos-csa` | `QAOS-Deepseek-v4-pro-0813` | `qaos-csa-fallback` | `QAOS-QwenCoderPlus` |
+| Implementation | `qaos-principal-engineer` | `QAOS-QwenCoderNext` | `qaos-principal-engineer-fallback` | `QAOS-QwenCoderNext` |
+| Independent review | `qaos-reviewer` | `QAOS-Deepseek-v3.2` | `qaos-reviewer-fallback` | `QAOS-KimiK27Code` |
 
 These are exact OpenHands Cloud profile names and transport-verified model
 candidates, not QAOS `VALIDATED` or `DESIGNATED` model assignments. The
