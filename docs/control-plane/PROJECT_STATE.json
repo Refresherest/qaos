@@ -1,10 +1,40 @@
 {
   "schema_version": 1,
   "project": "qaos",
-  "status": "storage_integrity_verified",
+  "recorded": "2026-08-28",
+  "branch": "feat/operational-builder-chain",
+  "branch_baseline": "fecf534",
+  "core_baseline": "615cbbb",
+  "status": "core_checkpoint_with_storage_isolation_findings_builder_chain_blocked_before_delegation",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-13-stage-9-inspection.md",
-  "open_work_orders": [],
+  "current_baseline": "ledger/2026-08-28-HANDOFF-009-openhands-named-role-profile-smoke-test.md",
+  "completed_work_orders": [
+    "WO-001",
+    "WO-002",
+    "WO-003",
+    "WO-004",
+    "WO-005",
+    "WO-006",
+    "WO-007",
+    "WO-008",
+    "WO-009",
+    "WO-010",
+    "WO-014",
+    "WO-015",
+    "WO-016",
+    "WO-017"
+  ],
+  "blocked_work_orders": [
+    {
+      "id": "WO-018",
+      "reason": "OpenHands Cloud parent runtime failed before agent discovery, delegation, or named-profile resolution"
+    }
+  ],
   "open_contradictions": [],
-  "next_action": "Hand off using HANDOFF-001; execute WO-009 characterization only before any active-storage construction change."
+  "open_findings": [
+    "FINDING-003"
+  ],
+  "owner_product_priority": "Content OS",
+  "content_os_authority_state": "owner_priority_only_no_accepted_contract",
+  "next_action": "Owner-select a bounded storage-isolation repair work order or Content OS architectural characterization; do not implement Content OS against the unverified isolation boundary."
 }

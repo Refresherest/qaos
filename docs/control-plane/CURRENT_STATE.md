@@ -1,50 +1,71 @@
 # QAOS Current State
 
-**Recorded:** 2026-08-13 UTC
-**Baseline:** `f729c1b2ec24c28229d67d1135996ab365902534` (`main`)
-**Status:** Core architecture recovery; feature work is not authorized.
+**Recorded:** 2026-08-28 UTC
 
-## Verified now
+**Branch baseline:** `fecf534` (`feat/operational-builder-chain`)
 
-- `python -m compileall -q src` completed successfully.
-- `PYTHONPATH=src python -c "import qaos"` completed successfully.
-- WO-001 repaired the `qaos.core` configuration import contract without adding a
-  permanent alias. Two isolated import regression tests pass and a 44-package
-  import sweep completes successfully. See FINDING-001 and VERIFICATION-002.
-- WO-002 restored ExecutivePipeline as the sole coordinator of reflection and
-  learning. Four tests now pass, including deterministic stage-boundary tests.
-- WO-003 characterized then reconfigured the core construction boundary: core
- imports now expose factories rather than
-  configuration/runtime singletons. Six tests pass and the inspection reports
-  61 import-time constructions (the remaining count is outside this narrow
-  work order).
-- WO-004 routes CLI/kernel execution through the explicit core boundary. Eight
-  tests pass, CLI help has no legacy bootstrap output, and all packages import.
-- WO-005 retired the unreachable duplicate `qaos.runtime` package. Nine tests
-  pass and the retired path is no longer importable.
-- WO-006 retired the unused duplicate `qaos.container` package. Ten tests pass
-  and the import-time construction count fell to 60.
-- WO-007 retained active `qaos.storage` behavior while retiring dormant
-  `qaos.persistence`. Eleven tests pass and the construction count fell to 59.
-- WO-008 made active JSON storage fail-safe without changing data format. Fourteen
-  tests pass; corrupt non-empty JSON now fails explicitly and writes are atomic.
-- The architecture inspector scanned 195 Python files and wrote its evidence to
-  `ledger/2026-08-13-stage-9-inspection.{json,md}`.
-- `pytest 9.1.1` is installed in the repository `.venv` and executes, but
-  collects zero tests (`pytest` exit code 5). Test coverage is therefore an
-  implementation gap, not a passing baseline.
+**Core baseline:** `615cbbb` (`main`)
+**Status:** Core recovery checkpoint established with two open storage-test
+findings; Builder Chain named-profile validation is blocked before delegation
+by OpenHands Cloud parent-runtime startup.
 
-## Working-tree provenance
+## Verified Core State
 
-The baseline began with many untracked `docs/architecture/` files and
-`docs/vision/`. By owner decision, they are retained as drafts/evidence only:
-they may inform investigation but do not govern implementation. The control
-plane and inspection tool are also currently untracked pending review/commit.
+- WO-001 through WO-008 recovered explicit core construction, deterministic
+  pipeline stage ownership, CLI/kernel routing, retired duplicate runtime
+  paths, and fail-safe active JSON storage.
+- WO-009 characterized active storage construction and obtained owner approval
+  for the proposed explicit boundary.
+- WO-010 implemented `create_stores(data_dir) -> Stores`, moved the seven
+  active domain managers to explicit storage collections, removed the dead
+  planner storage path, and preserved JSON semantics.
+- `ec2e879` committed the explicit storage boundary to `main`.
+- Current verification passes 17 of 19 tests. One failure is an invalid test
+  assumption that active `data/queue.json` is absent. The other exposes shared
+  module-level memory-registry state contaminating an explicitly injected
+  temporary store. See FINDING-003 and VERIFICATION-012.
 
-## Open priorities
+## Verified Builder Chain State
 
-1. Hand off using `ledger/2026-08-13-HANDOFF-001-core-recovery.md`.
-2. Execute WO-009 characterization only before any active-storage construction
-   change.
-2. Reconcile duplicate-class signals one concept at a time; do not mass-refactor
-   from static findings or draft ADR claims.
+- WO-014 introduced six OpenHands file-based agents and the bounded
+  CSA -> PE -> Reviewer protocol.
+- SMOKE-001 completed the three-stage sequence using `model: inherit`. This
+  proves agent discovery, sequential orchestration, package handoffs, and
+  Reviewer acceptance under the parent conversation model only.
+- WO-018 binds both agents at each stage to the matching `QAOS_CSA`, `QAOS_PE`,
+  or `QAOS_REVIEWER` profile.
+- SMOKE-002 has not reached agent discovery or named-profile resolution. Two
+  fresh no-repository conversations failed after prompt submission with
+  `Error occurred` and `Waiting for runtime to start...`.
+- The published role-profile mapping remains in place because the restoration
+  condition—delegated named-profile resolution failure—has not occurred.
+
+## Evidence Boundaries
+
+- `VERIFIED`, `VALIDATED`, and `DESIGNATED` remain independent model-governance
+  states.
+- OpenHands and OmniRoute are integrations, not QAOS architectural authority.
+- The existing untracked `docs/architecture/` and `docs/vision/` material
+  remains draft evidence only unless reconciled through an owner-approved
+  decision.
+- Pre-existing unrelated modified and untracked working-tree files remain
+  outside the Builder Chain and current-state reconciliation scopes.
+
+## Product Direction
+
+The owner has identified Content OS as the intended first downstream product
+that QAOS should build. The tracked control plane does not yet establish its
+domain boundary, contract, dependency order, or acceptance criteria. Content
+OS implementation is therefore not authorized until the CSA issues a separate
+bounded work package and the owner approves it.
+
+## Open Priorities
+
+1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
+   do not change QAOS profiles or product code in response to that failure.
+2. Define and owner-approve a bounded Content OS architectural
+   characterization work order before implementing downstream-product code.
+3. Define a separate work order to repair and verify explicit manager/storage
+   isolation before using that boundary for a downstream product.
+4. Address pre-existing dead `qaos.queue.queue_db` and registry string-key
+   findings only through separate work orders if they become prioritized.
