@@ -195,3 +195,45 @@ def test_artifact_registry_compatibility_functions_use_default_registry() -> Non
             registry.all().pop(artifact.title, None)
         else:
             registry.register(previous)
+
+
+def test_explicit_objective_managers_have_isolated_registries(tmp_path) -> None:
+    from qaos.objectives.manager import ObjectiveManager
+
+    first_stores = create_stores(tmp_path / "first-objectives")
+    second_stores = create_stores(tmp_path / "second-objectives")
+
+    first = ObjectiveManager(stores=first_stores)
+    second = ObjectiveManager(stores=second_stores)
+
+    first_objective = first.create("first objective")
+    second_objective = second.create("second objective")
+
+    assert [item["goal"] for item in first_stores.objective_db.load()] == [
+        "first objective"
+    ]
+    assert [item["goal"] for item in second_stores.objective_db.load()] == [
+        "second objective"
+    ]
+    assert first.get(first_objective) is first_objective
+    assert second.get(second_objective) is second_objective
+    assert first.get(second_objective) is None
+    assert second.get(first_objective) is None
+
+
+def test_objective_registry_compatibility_functions_use_default_registry() -> None:
+    from qaos.objectives import registry
+    from qaos.objectives.objective import Objective
+
+    objective = Objective("compatibility objective")
+    previous = registry.all().get(objective.goal)
+
+    registry.register(objective)
+    try:
+        assert registry.get(objective) is objective
+        assert registry.all()[objective.goal] is objective
+    finally:
+        if previous is None:
+            registry.unregister(objective)
+        else:
+            registry.register(previous)

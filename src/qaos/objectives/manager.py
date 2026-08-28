@@ -5,19 +5,21 @@ QAOS Objective Manager
 from qaos.storage import create_stores, DATA
 
 from .objective import Objective
-from .registry import (
-    register,
-    unregister,
-    get,
-    all,
-)
+from .registry import ObjectiveRegistry, objective_registry
 
 
 class ObjectiveManager:
 
-    def __init__(self, stores=None):
+    def __init__(self, stores=None, registry=None):
+
+        uses_default_stores = stores is None
 
         self._stores = stores or create_stores(DATA)
+        self._registry = registry or (
+            objective_registry
+            if uses_default_stores
+            else ObjectiveRegistry()
+        )
 
         self._load()
 
@@ -40,7 +42,7 @@ class ObjectiveManager:
             objective.started = item.get("started")
             objective.completed = item.get("completed")
 
-            register(objective)
+            self._registry.register(objective)
 
     # ---------------------------------
 
@@ -48,7 +50,7 @@ class ObjectiveManager:
 
         data = []
 
-        for objective in all().values():
+        for objective in self._registry.all().values():
 
             data.append({
 
@@ -80,7 +82,7 @@ class ObjectiveManager:
 
         objective = Objective(goal)
 
-        register(objective)
+        self._registry.register(objective)
 
         self._save()
 
@@ -90,7 +92,7 @@ class ObjectiveManager:
 
     def register(self, objective):
 
-        register(objective)
+        self._registry.register(objective)
 
         self._save()
 
@@ -98,7 +100,7 @@ class ObjectiveManager:
 
     def unregister(self, goal):
 
-        unregister(goal)
+        self._registry.unregister(goal)
 
         self._save()
 
@@ -106,13 +108,13 @@ class ObjectiveManager:
 
     def get(self, goal):
 
-        return get(goal)
+        return self._registry.get(goal)
 
     # ---------------------------------
 
     def objectives(self):
 
-        return all()
+        return self._registry.all()
 
 
 objective_manager = ObjectiveManager()
