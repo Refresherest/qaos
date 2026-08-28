@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-069 base:** `f03859b` (`feat/operational-builder-chain`)
+**WO-070 base:** `0a5d076` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -155,6 +155,9 @@ by OpenHands Cloud parent-runtime startup.
   goal reports `general_objective`, exits 0, and persists one completed
   objective, five completed tasks, six completed queue items, reflection,
   memory, and knowledge in a disposable workspace. Active data is unchanged.
+- WO-070 reproduces FINDING-033: a failure before ExecutionManager starts leaves
+  the application-created Objective persisted as pending even though execution
+  fails. Lifecycle ownership requires an owner decision; no code changed.
 - Current verification passes 106 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-061.
@@ -198,8 +201,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Perform an evidence-led operational-readiness gap assessment before
-   selecting another implementation work order.
+2. Resolve FINDING-033 by choosing ownership for pre-execution Objective
+   failure before changing lifecycle behavior.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
