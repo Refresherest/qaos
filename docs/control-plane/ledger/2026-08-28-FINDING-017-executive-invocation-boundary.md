@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — OWNER DECISION REQUIRED`
+`OPEN — OPTION A AUTHORIZED; IMPLEMENTATION PENDING`
 
 ## Evidence
 
@@ -21,5 +21,6 @@ choices yet.
 
 ## Required Resolution
 
-The owner selects DECISION-REQUEST-003 Option A, B, or C. No product-code fix is
-authorized until that selection is recorded.
+OWNER-DECISION-003 selects Option A. A separate work order may implement only
+the approved programmatic `Kernel.execute_objective(objective)` boundary; the
+finding remains open until that implementation is verified.

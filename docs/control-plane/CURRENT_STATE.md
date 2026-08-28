@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-042 base:** `c60034a` (`feat/operational-builder-chain`)
+**WO-043 base:** `eaff473` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -76,6 +76,9 @@ by OpenHands Cloud parent-runtime startup.
   surfaces while preserving every default CLI command and result contract.
 - WO-042 records FINDING-017 and DECISION-REQUEST-003: the first executive
   invocation boundary requires an owner choice and no product code changed.
+- OWNER-DECISION-003 selects Option A: a programmatic
+  `Kernel.execute_objective(objective)` boundary. WO-043 records this decision;
+  implementation remains a separate work order.
 - Current verification passes 57 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-035.
@@ -125,5 +128,5 @@ slice.
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
    evidence-backed work order.
-5. Select DECISION-REQUEST-003 Option A, B, or C before implementing executive
-   invocation through Kernel or CLI.
+5. Issue one bounded work order implementing OWNER-DECISION-003 Option A. Do not
+   add a CLI command, create Objectives implicitly, or repurpose `run`.

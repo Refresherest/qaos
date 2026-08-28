@@ -44,3 +44,9 @@ a future CLI adapter to a separate evidence-backed work order.
 
 Approve Option A, B, or C. No implementation will begin until the selection is
 recorded.
+
+## Owner Disposition
+
+The owner selected **Option A** on 2026-08-28. See OWNER-DECISION-003. This
+authorizes a separate bounded implementation work order; it does not place the
+implementation inside this historical decision request.

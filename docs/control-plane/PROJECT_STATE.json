@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-28",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "c60034a",
+  "branch_baseline": "eaff473",
   "core_baseline": "615cbbb",
-  "status": "executive_invocation_owner_decision_pending_builder_chain_blocked",
+  "status": "executive_invocation_option_a_approved_implementation_pending_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-28-HANDOFF-033-executive-invocation-boundary-decision.md",
+  "current_baseline": "ledger/2026-08-28-HANDOFF-034-executive-invocation-option-a-decision.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -46,7 +46,8 @@
     "WO-039",
     "WO-040",
     "WO-041",
-    "WO-042"
+    "WO-042",
+    "WO-043"
   ],
   "blocked_work_orders": [
     {
@@ -67,5 +68,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Owner selects DECISION-REQUEST-003 Option A, B, or C for the first Runtime executive invocation boundary."
+  "next_action": "Issue one bounded work order implementing OWNER-DECISION-003 Option A without changing CLI or Objective ownership."
 }
