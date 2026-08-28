@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-061 base:** `65585db` (`feat/operational-builder-chain`)
+**WO-062 base:** `169f308` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -127,6 +127,9 @@ by OpenHands Cloud parent-runtime startup.
 - OWNER-DECISION-004 selects Option A. WO-061 implements the public,
   provider-neutral `create_executive` factory with isolated registries and an
   optional shared ObjectiveManager for coherent lifecycle persistence.
+- WO-062 records DECISION-REQUEST-005 for the first application-facing
+  consumer. Option A, an operational application session above Executive and
+  Kernel, is recommended; no product code changed.
 - Current verification passes 91 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-054.
@@ -170,8 +173,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Select the first application entry point that may consume
-   `create_executive`; CLI and raw-goal behavior remain unauthorized.
+2. Select Option A, B, or C in DECISION-REQUEST-005; application-session, CLI,
+   and raw-goal implementation remain unauthorized pending that decision.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

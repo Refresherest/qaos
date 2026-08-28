@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "65585db",
   "core_baseline": "615cbbb",
-  "status": "executive_composition_factory_verified_builder_chain_blocked",
+  "status": "executive_factory_verified_application_entry_decision_required_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-052-executive-composition-factory.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-053-application-entry-boundary-decision.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -65,7 +65,8 @@
     "WO-058",
     "WO-059",
     "WO-060",
-    "WO-061"
+    "WO-061",
+    "WO-062"
   ],
   "blocked_work_orders": [
     {
@@ -84,5 +85,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Select the first owner-authorized application entry point for create_executive; CLI and raw-goal execution remain unauthorized."
+  "next_action": "Owner selects Option A, B, or C in DECISION-REQUEST-005; application-session, CLI, and raw-goal implementation remain unauthorized."
 }
