@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "project": "qaos",
-  "recorded": "2026-08-28",
+  "recorded": "2026-08-29",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "3ff01c5",
+  "branch_baseline": "7eeb7a1",
   "core_baseline": "615cbbb",
-  "status": "executive_queue_worker_and_agent_services_explicitly_composable_builder_chain_blocked",
+  "status": "executive_queue_worker_agent_and_skill_services_explicitly_composable_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-28-HANDOFF-044-worker-agent-composition.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-045-agent-skill-composition.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -57,7 +57,8 @@
     "WO-050",
     "WO-051",
     "WO-052",
-    "WO-053"
+    "WO-053",
+    "WO-054"
   ],
   "blocked_work_orders": [
     {

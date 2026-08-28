@@ -7,9 +7,10 @@ from qaos.skills import skill_resolver
 
 class Agent:
 
-    def __init__(self, name):
+    def __init__(self, name, resolver=None):
 
         self.name = name
+        self._resolver = skill_resolver if resolver is None else resolver
 
     # ---------------------------------
 
@@ -24,7 +25,7 @@ class Agent:
         # Resolve Skill
         #
 
-        skill = skill_resolver.resolve(
+        skill = self._resolver.resolve(
             item
         )
 

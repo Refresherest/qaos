@@ -2,7 +2,7 @@
 QAOS Skill Resolver
 """
 
-from .registry import all
+from .registry import skill_registry
 
 
 class SkillResolver:
@@ -21,9 +21,12 @@ class SkillResolver:
         - confidence scores
     """
 
+    def __init__(self, registry=None):
+        self._registry = skill_registry if registry is None else registry
+
     def resolve(self, item):
 
-        skills = all()
+        skills = self._registry.all()
 
         if not skills:
 

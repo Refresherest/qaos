@@ -2,32 +2,51 @@
 QAOS Skill Registry
 """
 
-SKILLS = {}
+class SkillRegistry:
+    """Registry state owned by one skill lifecycle."""
+
+    def __init__(self):
+        self._skills = {}
+
+    def register(self, skill):
+        self._skills[skill.name] = skill
+
+    def unregister(self, name):
+        self._skills.pop(name, None)
+
+    def get(self, name):
+        return self._skills.get(name)
+
+    def all(self):
+        return self._skills
+
+
+skill_registry = SkillRegistry()
 
 
 def register(skill):
     """
     Register a Skill instance.
     """
-    SKILLS[skill.name] = skill
+    skill_registry.register(skill)
 
 
 def unregister(name):
     """
     Remove a Skill.
     """
-    SKILLS.pop(name, None)
+    skill_registry.unregister(name)
 
 
 def get(name):
     """
     Retrieve a Skill by name.
     """
-    return SKILLS.get(name)
+    return skill_registry.get(name)
 
 
 def all():
     """
     Return all registered skills.
     """
-    return SKILLS
+    return skill_registry.all()

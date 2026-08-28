@@ -1,8 +1,8 @@
 # QAOS Current State
 
-**Recorded:** 2026-08-28 UTC
+**Recorded:** 2026-08-29 UTC
 
-**WO-053 base:** `3ff01c5` (`feat/operational-builder-chain`)
+**WO-054 base:** `7eeb7a1` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -103,9 +103,11 @@ by OpenHands Cloud parent-runtime startup.
   service while preserving default worker resolution and queue persistence.
 - WO-053 resolves FINDING-026: WorkerManager, DefaultWorker, and AgentManager now
   retain caller-selected worker and agent ownership through isolated registries.
-- Current verification passes 80 tests. The architecture inspector no longer
+- WO-054 resolves FINDING-027: Agent, SkillResolver, and SkillManager now retain
+  caller-selected skill ownership through an isolated SkillRegistry.
+- Current verification passes 83 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-046.
+  VERIFICATION-047.
 
 ## Verified Builder Chain State
 
