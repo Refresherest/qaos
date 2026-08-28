@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-055 base:** `36269c7` (`feat/operational-builder-chain`)
+**WO-056 base:** `e02c1c3` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -109,9 +109,12 @@ by OpenHands Cloud parent-runtime startup.
   caller-selected capability ownership through an isolated CapabilityRegistry.
 - FINDING-029 records that the built-in `system` capability exists but is not
   registered in the default lifecycle; WO-055 does not choose that lifecycle.
-- Current verification passes 86 tests. The architecture inspector no longer
+- WO-056 resolves FINDING-029 by applying the established built-in package
+  registration pattern to the canonical `system_capability`; the complete
+  default Agent-to-Skill-to-Capability path passes in a clean process.
+- Current verification passes 87 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-048.
+  VERIFICATION-049.
 
 ## Verified Builder Chain State
 

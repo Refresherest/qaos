@@ -2,12 +2,21 @@
 
 from __future__ import annotations
 
+import os
+import subprocess
+import sys
+from pathlib import Path
+
 import qaos.capabilities.manager as manager_module
 import qaos.skills.skill as skill_module
 from qaos.capabilities.manager import CapabilityManager
 from qaos.capabilities.registry import CapabilityRegistry
 from qaos.queue import QueueItem
 from qaos.skills import Skill
+
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+SOURCE_ROOT = REPOSITORY_ROOT / "src"
 
 
 def test_explicit_skill_uses_selected_capability(capsys) -> None:
@@ -64,3 +73,32 @@ def test_explicit_capability_registries_are_isolated() -> None:
 
     assert first.get(capability.name) is capability
     assert second.get(capability.name) is None
+
+
+def test_default_agent_skill_capability_chain_in_clean_process() -> None:
+    code = """
+from qaos.agents import agent_manager
+from qaos.capabilities import capability_manager, system_capability
+from qaos.planner import Task
+from qaos.queue import QueueItem
+
+task = Task("default capability task")
+item = QueueItem("default capability objective", "default", action=task)
+agent = agent_manager.get("default")
+assert capability_manager.get("system") is system_capability
+assert agent.execute(item) is task
+assert task.status == "completed"
+"""
+    environment = os.environ.copy()
+    environment["PYTHONPATH"] = str(SOURCE_ROOT)
+
+    result = subprocess.run(
+        [sys.executable, "-c", code],
+        cwd=REPOSITORY_ROOT,
+        env=environment,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr

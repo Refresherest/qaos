@@ -13,6 +13,13 @@ from .system import (
     SystemCapability,
     system_capability,
 )
+from .registry import register
+
+#
+# Register the default system capability
+#
+
+register(system_capability)
 
 __all__ = [
     "Capability",
