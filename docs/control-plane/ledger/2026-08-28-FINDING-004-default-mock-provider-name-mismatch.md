@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — OUTSIDE WO-025`
+`RESOLVED — WO-029`
 
 ## Evidence
 
@@ -20,6 +20,6 @@ the provider's actual registered name.
 
 ## Disposition
 
-Do not repair this mismatch under WO-025. If prioritized, issue a separate
-work order that defines the intended built-in provider identity and verifies
-all affected callers.
+WO-029 establishes `mock` as the built-in provider identity, consistent with
+tracked configuration and `AIEngine`, and adds direct default-engine regression
+coverage.

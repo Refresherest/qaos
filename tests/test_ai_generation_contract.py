@@ -20,6 +20,20 @@ class DeterministicProvider(AIProvider):
         return f"deterministic::{prompt}"
 
 
+def test_default_engine_resolves_builtin_mock_provider() -> None:
+    engine = AIEngine()
+
+    evidence = engine.generate_with_evidence("default request")
+
+    assert engine.provider().name == "mock"
+    assert "mock" in all_providers()
+    assert "base" not in all_providers()
+    assert evidence == GenerationEvidence(
+        prompt="default request",
+        output="[MOCK AI] Response to: default request",
+    )
+
+
 def test_injected_provider_returns_immutable_generation_evidence() -> None:
     registry_before = dict(all_providers())
     default_provider_before = default_engine.provider()
