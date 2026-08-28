@@ -42,7 +42,7 @@ def test_execution_engine_returns_report_without_reflection(monkeypatch) -> None
     assert log.events == ["get-plan", "process-queue", "save-plan"]
 
 
-def test_pipeline_produces_one_reflection_and_one_learning_call(monkeypatch) -> None:
+def test_pipeline_produces_one_reflection_and_one_learning_call() -> None:
     """Only ExecutivePipeline coordinates reflection and learning once."""
     log = CallLog()
     objective = SimpleNamespace(goal="exactly once")
@@ -82,15 +82,43 @@ def test_pipeline_produces_one_reflection_and_one_learning_call(monkeypatch) -> 
             assert value is reflection
             log.events.append("learn")
 
-    monkeypatch.setattr(pipeline_module, "classifier_manager", Classifier())
-    monkeypatch.setattr(pipeline_module, "council_manager", Council())
-    monkeypatch.setattr(pipeline_module, "planner_manager", Planner())
-    monkeypatch.setattr(pipeline_module, "execution_manager", Execution())
-    monkeypatch.setattr(pipeline_module, "reflection_manager", Reflection())
-    monkeypatch.setattr(pipeline_module, "learning_manager", Learning())
+    pipeline = ExecutivePipeline(
+        classifier=Classifier(),
+        council=Council(),
+        planner=Planner(),
+        execution=Execution(),
+        reflection=Reflection(),
+        learning=Learning(),
+    )
 
-    assert ExecutivePipeline().execute(objective, result) is result
+    assert pipeline.execute(objective, result) is result
     assert result.reflection is reflection
     assert log.events == [
         "classify", "delegate", "plan", "execute", "reflect", "learn"
     ]
+
+
+def test_pipeline_default_constructor_retains_default_managers(monkeypatch) -> None:
+    defaults = {
+        "classifier": object(),
+        "council": object(),
+        "planner": object(),
+        "execution": object(),
+        "reflection": object(),
+        "learning": object(),
+    }
+    monkeypatch.setattr(pipeline_module, "classifier_manager", defaults["classifier"])
+    monkeypatch.setattr(pipeline_module, "council_manager", defaults["council"])
+    monkeypatch.setattr(pipeline_module, "planner_manager", defaults["planner"])
+    monkeypatch.setattr(pipeline_module, "execution_manager", defaults["execution"])
+    monkeypatch.setattr(pipeline_module, "reflection_manager", defaults["reflection"])
+    monkeypatch.setattr(pipeline_module, "learning_manager", defaults["learning"])
+
+    pipeline = ExecutivePipeline()
+
+    assert pipeline._classifier is defaults["classifier"]
+    assert pipeline._council is defaults["council"]
+    assert pipeline._planner is defaults["planner"]
+    assert pipeline._execution is defaults["execution"]
+    assert pipeline._reflection is defaults["reflection"]
+    assert pipeline._learning is defaults["learning"]

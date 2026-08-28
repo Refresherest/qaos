@@ -15,6 +15,27 @@ class ExecutivePipeline:
     Executes the standard QAOS objective pipeline.
     """
 
+    def __init__(
+        self,
+        *,
+        classifier=None,
+        council=None,
+        planner=None,
+        execution=None,
+        reflection=None,
+        learning=None,
+    ):
+        self._classifier = (
+            classifier_manager if classifier is None else classifier
+        )
+        self._council = council_manager if council is None else council
+        self._planner = planner_manager if planner is None else planner
+        self._execution = execution_manager if execution is None else execution
+        self._reflection = (
+            reflection_manager if reflection is None else reflection
+        )
+        self._learning = learning_manager if learning is None else learning
+
     def execute(
         self,
         objective,
@@ -25,7 +46,7 @@ class ExecutivePipeline:
         #
 
         result.classification = (
-            classifier_manager.classify(
+            self._classifier.classify(
                 objective
             )
         )
@@ -35,7 +56,7 @@ class ExecutivePipeline:
         #
 
         result.assignment = (
-            council_manager.delegate(
+            self._council.delegate(
                 objective
             )
         )
@@ -45,7 +66,7 @@ class ExecutivePipeline:
         #
 
         result.plan = (
-            planner_manager.plan(
+            self._planner.plan(
                 objective
             )
         )
@@ -55,7 +76,7 @@ class ExecutivePipeline:
         #
 
         report = (
-            execution_manager.execute(
+            self._execution.execute(
                 objective
             )
         )
@@ -67,7 +88,7 @@ class ExecutivePipeline:
         #
 
         reflection = (
-            reflection_manager.reflect(
+            self._reflection.reflect(
                 objective,
                 report,
             )
@@ -79,7 +100,7 @@ class ExecutivePipeline:
         # Learning
         #
 
-        learning_manager.learn(
+        self._learning.learn(
             reflection
         )
 
