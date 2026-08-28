@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-027 base:** `b924d5f` (`feat/operational-builder-chain`)
+**WO-028 base:** `717e433` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -42,7 +42,10 @@ by OpenHands Cloud parent-runtime startup.
 - OWNER-DECISION-002 approves Option A and resolves CONTRADICTION-002. Gates
   1–3 remain prerequisites; Gates 4–5 are mandatory acceptance criteria of the
   separately scoped first Content OS slice.
-- Current verification passes 29 tests. See VERIFICATION-018.
+- WO-028 implements the bounded `Brief -> Reviewed Draft Artifact` slice in a
+  separate `content_os` package. Success, invalid-brief, provider-failure,
+  review-outcome, isolation, and test-provider governance behavior are proven.
+- Current verification passes 35 tests. See VERIFICATION-021.
 
 ## Verified Builder Chain State
 
@@ -72,21 +75,20 @@ by OpenHands Cloud parent-runtime startup.
 
 ## Product Direction
 
-The owner has accepted PROPOSAL-004 through OWNER-DECISION-001 and revised its
-sequencing through OWNER-DECISION-002. Content OS is a downstream consumer of
-QAOS, and `Brief -> Reviewed Draft Artifact` is the approved first slice.
-External publishing is excluded; Gates 1–3 must pass before implementation;
-Gates 4–5 must pass as first-slice acceptance criteria; and `ACCEPT`, `REVISE`,
-and `BLOCKED` are the accepted review terms for now. A separate first-slice work
-order is authorized to be issued but has not yet been issued.
+The owner accepted PROPOSAL-004 through OWNER-DECISION-001 and revised its
+sequencing through OWNER-DECISION-002. The `Brief -> Reviewed Draft Artifact`
+first slice is implemented and verified. Gates 1–5 pass. External publishing,
+production providers, UI, retries, and later Content OS features remain
+excluded. `ACCEPT`, `REVISE`, and `BLOCKED` remain the review terms for this
+slice.
 
 ## Open Priorities
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Issue one bounded first-slice implementation work order for `Brief ->
-   Reviewed Draft Artifact`, with Gates 4–5 as mandatory acceptance criteria.
-3. Do not expand that work order into publishing, UI, retries, production
-   providers, or other explicitly excluded features.
+2. Review the verified first-slice evidence and choose the next bounded QAOS or
+   Content OS increment through a new owner-authorized work order.
+3. Do not infer production-provider readiness or expand into publishing, UI,
+   retries, or other excluded features from this test-only slice.
 4. Address FINDING-004, pre-existing dead `qaos.queue.queue_db`, and registry string-key
    findings only through separate work orders if they become prioritized.

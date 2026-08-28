@@ -6,6 +6,7 @@ QAOS AI Provider Base Class
 class AIProvider:
 
     name = "base"
+    test_only = False
 
     def initialize(self):
         print(f"[AI] Initializing {self.name}")
