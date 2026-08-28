@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "65585db",
   "core_baseline": "615cbbb",
-  "status": "pre_execution_objective_lifecycle_decision_required_builder_chain_blocked",
+  "status": "pre_execution_failure_ownership_decision_required_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-061-operational-readiness-gap-assessment.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-062-pre-execution-failure-ownership-decision.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -74,7 +74,8 @@
     "WO-067",
     "WO-068",
     "WO-069",
-    "WO-070"
+    "WO-070",
+    "WO-071"
   ],
   "blocked_work_orders": [
     {
@@ -95,5 +96,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Resolve FINDING-033 by choosing ownership for pre-execution Objective failure before changing lifecycle behavior."
+  "next_action": "Owner selects Option A, B, or C in DECISION-REQUEST-008; pre-execution lifecycle changes remain unauthorized."
 }

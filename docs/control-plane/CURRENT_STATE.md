@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-070 base:** `0a5d076` (`feat/operational-builder-chain`)
+**WO-071 base:** `390a552` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -158,6 +158,9 @@ by OpenHands Cloud parent-runtime startup.
 - WO-070 reproduces FINDING-033: a failure before ExecutionManager starts leaves
   the application-created Objective persisted as pending even though execution
   fails. Lifecycle ownership requires an owner decision; no code changed.
+- WO-071 records DECISION-REQUEST-008 with three ownership options for
+  FINDING-033. Option A, an OperationalSession-owned conditional pending-to-fail
+  transition, is recommended; no product code changed.
 - Current verification passes 106 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-061.
@@ -201,8 +204,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Resolve FINDING-033 by choosing ownership for pre-execution Objective
-   failure before changing lifecycle behavior.
+2. Select Option A, B, or C in DECISION-REQUEST-008; pre-execution lifecycle
+   changes remain unauthorized pending that decision.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
