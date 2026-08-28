@@ -29,15 +29,17 @@ class ExecutionManager:
         # Execute objective
         #
 
-        report = engine.execute(
-            objective
-        )
+        self._objectives.start(objective)
 
-        #
-        # Persist objective state
-        #
+        try:
+            report = engine.execute(
+                objective
+            )
+        except Exception:
+            self._objectives.fail(objective)
+            raise
 
-        self._objectives.save()
+        self._objectives.complete(objective)
 
         return report
 

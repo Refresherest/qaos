@@ -10,7 +10,7 @@ from qaos.execution.manager import ExecutionManager
 from qaos.execution.registry import ExecutionRegistry
 
 
-def test_explicit_execution_manager_runs_engine_before_objective_save() -> None:
+def test_explicit_execution_manager_owns_successful_objective_lifecycle() -> None:
     objective = SimpleNamespace(goal="explicit execution manager")
     report = object()
     calls = []
@@ -21,16 +21,59 @@ def test_explicit_execution_manager_runs_engine_before_objective_save() -> None:
             return report
 
     class Objectives:
-        def save(self):
-            calls.append(("save", None))
+        def start(self, value):
+            calls.append(("start", value))
+
+        def complete(self, value):
+            calls.append(("complete", value))
+
+        def fail(self, value):
+            calls.append(("fail", value))
 
     registry = ExecutionRegistry()
     registry.register("default", Engine())
     manager = ExecutionManager(registry=registry, objectives=Objectives())
 
     assert manager.execute(objective) is report
-    assert calls == [("execute", objective), ("save", None)]
+    assert calls == [
+        ("start", objective),
+        ("execute", objective),
+        ("complete", objective),
+    ]
     assert manager.engines() is registry.all()
+
+
+def test_explicit_execution_manager_fails_objective_and_reraises() -> None:
+    objective = SimpleNamespace(goal="failed execution manager")
+    calls = []
+
+    class Engine:
+        def execute(self, value):
+            calls.append(("execute", value))
+            raise RuntimeError("engine failed")
+
+    class Objectives:
+        def start(self, value):
+            calls.append(("start", value))
+
+        def complete(self, value):
+            calls.append(("complete", value))
+
+        def fail(self, value):
+            calls.append(("fail", value))
+
+    registry = ExecutionRegistry()
+    registry.register("default", Engine())
+    manager = ExecutionManager(registry=registry, objectives=Objectives())
+
+    with pytest.raises(RuntimeError, match="engine failed"):
+        manager.execute(objective)
+
+    assert calls == [
+        ("start", objective),
+        ("execute", objective),
+        ("fail", objective),
+    ]
 
 
 def test_explicit_execution_manager_requires_default_engine() -> None:

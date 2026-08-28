@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — NOT IN WO-058 SCOPE`
+`RESOLVED — WO-059`
 
 ## Evidence
 
@@ -18,8 +18,9 @@ ExecutionResult and persisted Objective state disagree after successful
 execution. The integration is operational, but objective lifecycle reporting is
 not coherent.
 
-## Required Resolution
+## Resolution
 
-Define which existing executive boundary owns Objective start, complete, and
-failure transitions in a separate work order. Do not add transitions to multiple
-layers or infer failure persistence behavior without that scope decision.
+WO-059 assigns execution lifecycle ownership to ExecutionManager, the existing
+boundary that already owns the selected ObjectiveManager. It starts before
+engine execution, completes after success, and fails then re-raises engine
+errors. Objective entities remain state-only and no other layer transitions them.

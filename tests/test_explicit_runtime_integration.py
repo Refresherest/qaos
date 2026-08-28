@@ -154,7 +154,10 @@ def test_kernel_runs_fully_explicit_isolated_runtime(tmp_path) -> None:
     assert len(stores.reflection_db.load()) == 1
     assert len(stores.memory_db.load()) == 1
     assert len(stores.knowledge_db.load()) == 1
-    assert objective.status == "pending"
+    assert objective.status == "completed"
+    assert objective.started is not None
+    assert objective.completed is not None
+    assert stores.objective_db.load()[0]["status"] == "completed"
     assert logger.messages == [
         "Executive executing 'isolated runtime objective'",
         "Executive execution complete.",

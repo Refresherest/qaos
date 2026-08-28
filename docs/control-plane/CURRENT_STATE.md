@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-058 base:** `0300555` (`feat/operational-builder-chain`)
+**WO-059 base:** `f027701` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -119,9 +119,11 @@ by OpenHands Cloud parent-runtime startup.
   reflection, and learning all complete without active-data writes.
 - FINDING-031 records that the successful ExecutionResult and completed queue
   coexist with a canonical Objective that remains `pending`.
-- Current verification passes 89 tests. The architecture inspector no longer
+- WO-059 resolves FINDING-031 by assigning start/complete/fail lifecycle ownership
+  to ExecutionManager, the existing boundary that owns ObjectiveManager.
+- Current verification passes 90 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-051.
+  VERIFICATION-052.
 
 ## Verified Builder Chain State
 
