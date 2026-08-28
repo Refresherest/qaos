@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-026 base:** `c57aaaf` (`feat/operational-builder-chain`)
+**WO-027 base:** `b924d5f` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -39,6 +39,9 @@ by OpenHands Cloud parent-runtime startup.
 - WO-026 records CONTRADICTION-002: Gate 4 requires Content OS-specific brief
   validation and review behavior, while OWNER-DECISION-001 requires Gate 4 to
   pass before Content OS implementation. No product code was changed.
+- OWNER-DECISION-002 approves Option A and resolves CONTRADICTION-002. Gates
+  1–3 remain prerequisites; Gates 4–5 are mandatory acceptance criteria of the
+  separately scoped first Content OS slice.
 - Current verification passes 29 tests. See VERIFICATION-018.
 
 ## Verified Builder Chain State
@@ -69,20 +72,21 @@ by OpenHands Cloud parent-runtime startup.
 
 ## Product Direction
 
-The owner has accepted PROPOSAL-004 through OWNER-DECISION-001. Content OS is a
-downstream consumer of QAOS, and `Brief -> Reviewed Draft Artifact` is the
-approved first slice. External publishing is excluded; readiness Gates 2–5
-must pass first; and `ACCEPT`, `REVISE`, and `BLOCKED` are the accepted review
-terms for now. Content OS implementation remains gated, not yet authorized.
+The owner has accepted PROPOSAL-004 through OWNER-DECISION-001 and revised its
+sequencing through OWNER-DECISION-002. Content OS is a downstream consumer of
+QAOS, and `Brief -> Reviewed Draft Artifact` is the approved first slice.
+External publishing is excluded; Gates 1–3 must pass before implementation;
+Gates 4–5 must pass as first-slice acceptance criteria; and `ACCEPT`, `REVISE`,
+and `BLOCKED` are the accepted review terms for now. A separate first-slice work
+order is authorized to be issued but has not yet been issued.
 
 ## Open Priorities
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Obtain the owner's selection for DECISION-REQUEST-002. The CSA recommends
-   Option A: verify Gates 4–5 as acceptance criteria of the separately scoped
-   first Content OS slice.
-3. Do not begin Gate 4 or Content OS implementation until that sequencing
-   decision is recorded.
+2. Issue one bounded first-slice implementation work order for `Brief ->
+   Reviewed Draft Artifact`, with Gates 4–5 as mandatory acceptance criteria.
+3. Do not expand that work order into publishing, UI, retries, production
+   providers, or other explicitly excluded features.
 4. Address FINDING-004, pre-existing dead `qaos.queue.queue_db`, and registry string-key
    findings only through separate work orders if they become prioritized.

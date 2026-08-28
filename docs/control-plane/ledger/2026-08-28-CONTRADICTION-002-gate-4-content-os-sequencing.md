@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — OWNER DECISION REQUIRED`
+`RESOLVED — OWNER-DECISION-002 OPTION A`
 
 ## Classification
 
@@ -41,4 +41,6 @@ The safe current state is Gates 1–3 passed, Gate 4 awaiting reconciliation.
 
 ## Resolution
 
-See DECISION-REQUEST-002. Do not implement either side until the owner chooses.
+The owner approved DECISION-REQUEST-002 Option A. Gates 1–3 remain prerequisites
+to first-slice implementation; Gates 4–5 become mandatory acceptance criteria
+of the separately scoped first-slice work order. See OWNER-DECISION-002.
