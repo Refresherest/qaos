@@ -2,11 +2,7 @@
 QAOS Execution Manager
 """
 
-from .registry import (
-    register,
-    get,
-    all,
-)
+from .registry import execution_registry
 
 from .engine import ExecutionEngine
 
@@ -15,9 +11,13 @@ from qaos.objectives import objective_manager
 
 class ExecutionManager:
 
+    def __init__(self, *, registry=None, objectives=None):
+        self._registry = execution_registry if registry is None else registry
+        self._objectives = objective_manager if objectives is None else objectives
+
     def execute(self, objective):
 
-        engine = get("default")
+        engine = self._registry.get("default")
 
         if engine is None:
 
@@ -37,7 +37,7 @@ class ExecutionManager:
         # Persist objective state
         #
 
-        objective_manager.save()
+        self._objectives.save()
 
         return report
 
@@ -45,14 +45,14 @@ class ExecutionManager:
 
     def engines(self):
 
-        return all()
+        return self._registry.all()
 
 
 #
 # Register default execution engine
 #
 
-register(
+execution_registry.register(
     "default",
     ExecutionEngine(),
 )

@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-045 base:** `ed6f2e6` (`feat/operational-builder-chain`)
+**WO-046 base:** `a61b14d` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -84,9 +84,11 @@ by OpenHands Cloud parent-runtime startup.
   persistence. FINDING-017 is resolved.
 - WO-045 resolves FINDING-018: ExecutionEngine accepts explicit planner and
   queue collaborators while preserving execution order and default behavior.
-- Current verification passes 61 tests. The architecture inspector no longer
+- WO-046 resolves FINDING-019: ExecutionManager accepts an explicit engine
+  registry and ObjectiveManager while preserving execution-before-save order.
+- Current verification passes 64 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-038.
+  VERIFICATION-039.
 
 ## Verified Builder Chain State
 
