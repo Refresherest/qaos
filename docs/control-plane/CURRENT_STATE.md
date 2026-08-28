@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-062 base:** `169f308` (`feat/operational-builder-chain`)
+**WO-063 base:** `1291be2` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -130,9 +130,12 @@ by OpenHands Cloud parent-runtime startup.
 - WO-062 records DECISION-REQUEST-005 for the first application-facing
   consumer. Option A, an operational application session above Executive and
   Kernel, is recommended; no product code changed.
-- Current verification passes 91 tests. The architecture inspector no longer
+- OWNER-DECISION-005 selects Option A. WO-063 implements
+  `qaos.application.OperationalSession`, which owns one explicit workspace and
+  shared objective lifecycle while preserving Kernel and Executive contracts.
+- Current verification passes 99 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-054.
+  VERIFICATION-056.
 
 ## Verified Builder Chain State
 
@@ -173,8 +176,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Select Option A, B, or C in DECISION-REQUEST-005; application-session, CLI,
-   and raw-goal implementation remain unauthorized pending that decision.
+2. Decide whether the first adapter over OperationalSession should be CLI,
+   another local interface, or intentionally deferred.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
