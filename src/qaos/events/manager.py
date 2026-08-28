@@ -2,35 +2,40 @@
 QAOS Event Manager
 """
 
-from qaos.events.bus import event_bus
+from qaos.events.bus import EventBus, event_bus
 from qaos.events.event import Event
-from qaos.events.registry import (
-    subscribe,
-    handlers,
-    EVENTS,
-)
 
 
 class EventManager:
 
+    def __init__(self, bus=None, registry=None):
+        if bus is not None and registry is not None:
+            raise ValueError("provide either bus or registry, not both")
+
+        self._bus = bus or (
+            EventBus(registry=registry)
+            if registry is not None
+            else event_bus
+        )
+
     def subscribe(self, name, handler):
-        subscribe(name, handler)
+        self._bus.subscribe(name, handler)
 
     def emit(self, name, payload=None):
         event = Event(name, payload)
-        event_bus.publish(event)
+        self._bus.publish(event)
 
     def publish(self, event):
-        event_bus.publish(event)
+        self._bus.publish(event)
 
     def handlers(self, name):
-        return handlers(name)
+        return self._bus.handlers(name)
 
     def all(self):
-        return EVENTS
+        return self._bus.all()
 
     def clear(self):
-        EVENTS.clear()
+        self._bus.clear()
 
 
 event_manager = EventManager()
