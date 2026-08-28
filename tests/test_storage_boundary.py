@@ -364,3 +364,43 @@ def test_queue_registry_compatibility_functions_use_default_registry() -> None:
         registry.clear()
         for previous_item in previous:
             registry.add(previous_item)
+
+
+def test_explicit_knowledge_managers_have_isolated_registries(tmp_path) -> None:
+    from qaos.knowledge.manager import KnowledgeManager
+
+    first_stores = create_stores(tmp_path / "first-knowledge")
+    second_stores = create_stores(tmp_path / "second-knowledge")
+
+    first = KnowledgeManager(stores=first_stores)
+    second = KnowledgeManager(stores=second_stores)
+
+    first.create("first knowledge", "test", "one")
+    second.create("second knowledge", "test", "two")
+
+    assert [item["title"] for item in first_stores.knowledge_db.load()] == [
+        "first knowledge"
+    ]
+    assert [item["title"] for item in second_stores.knowledge_db.load()] == [
+        "second knowledge"
+    ]
+    assert first.get("second knowledge") is None
+    assert second.get("first knowledge") is None
+
+
+def test_knowledge_registry_compatibility_functions_use_default_registry() -> None:
+    from qaos.knowledge import registry
+    from qaos.knowledge.knowledge import Knowledge
+
+    knowledge = Knowledge("compatibility knowledge", "test", "content")
+    previous = registry.all().get(knowledge.title)
+
+    registry.register(knowledge)
+    try:
+        assert registry.get(knowledge.title) is knowledge
+        assert registry.all()[knowledge.title] is knowledge
+    finally:
+        if previous is None:
+            registry.all().pop(knowledge.title, None)
+        else:
+            registry.register(previous)

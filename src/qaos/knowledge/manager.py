@@ -5,18 +5,20 @@ QAOS Knowledge Manager
 from qaos.storage import create_stores, DATA
 
 from .knowledge import Knowledge
-from .registry import (
-    register,
-    get,
-    all,
-)
+from .registry import KnowledgeRegistry, knowledge_registry
 
 
 class KnowledgeManager:
 
-    def __init__(self, stores=None):
+    def __init__(self, stores=None, registry=None):
 
+        uses_default_stores = stores is None
         self._stores = stores or create_stores(DATA)
+        self._registry = registry or (
+            knowledge_registry
+            if uses_default_stores
+            else KnowledgeRegistry()
+        )
 
         self._load()
 
@@ -35,7 +37,7 @@ class KnowledgeManager:
 
             )
 
-            register(knowledge)
+            self._registry.register(knowledge)
 
     # ---------------------------------
 
@@ -43,7 +45,7 @@ class KnowledgeManager:
 
         data = []
 
-        for knowledge in all().values():
+        for knowledge in self._registry.all().values():
 
             data.append({
 
@@ -77,7 +79,7 @@ class KnowledgeManager:
 
         )
 
-        register(knowledge)
+        self._registry.register(knowledge)
 
         self._save()
 
@@ -87,15 +89,15 @@ class KnowledgeManager:
 
     def get(self, title):
 
-        return get(title)
+        return self._registry.get(title)
 
     def knowledge(self):
 
-        return all()
+        return self._registry.all()
 
     def reload(self):
 
-        all().clear()
+        self._registry.all().clear()
 
         self._load()
 
