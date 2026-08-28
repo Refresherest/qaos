@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "65585db",
   "core_baseline": "615cbbb",
-  "status": "manual_cli_smoke_verified_unclassified_objective_policy_open_builder_chain_blocked",
+  "status": "unclassified_objective_policy_decision_required_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-057-manual-cli-objective-smoke.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-058-unclassified-objective-policy-decision.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -70,7 +70,8 @@
     "WO-063",
     "WO-064",
     "WO-065",
-    "WO-066"
+    "WO-066",
+    "WO-067"
   ],
   "blocked_work_orders": [
     {
@@ -91,5 +92,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Resolve FINDING-032 by choosing whether unclassified objectives execute, receive a canonical default classification, or stop before delegation."
+  "next_action": "Owner selects Option A, B, or C in DECISION-REQUEST-007; unclassified-objective behavior changes remain unauthorized."
 }
