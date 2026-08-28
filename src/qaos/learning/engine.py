@@ -8,6 +8,10 @@ from qaos.knowledge import knowledge_manager
 
 class LearningEngine:
 
+    def __init__(self, *, memory=None, knowledge=None):
+        self._memory = memory_manager if memory is None else memory
+        self._knowledge = knowledge_manager if knowledge is None else knowledge
+
     def learn(self, reflection):
 
         if hasattr(reflection.objective, "goal"):
@@ -28,7 +32,7 @@ class LearningEngine:
 
         if reflection.summary:
 
-            memory_manager.create(
+            self._memory.create(
                 title=goal,
                 content=reflection.summary,
                 category="reflection",
@@ -42,13 +46,13 @@ class LearningEngine:
 
         for success in reflection.successes:
 
-            memory_manager.create(
+            self._memory.create(
                 title=goal,
                 content=success,
                 category="success",
             )
 
-            knowledge_manager.create(
+            self._knowledge.create(
                 title=goal,
                 category="Experience",
                 content=success,
@@ -64,7 +68,7 @@ class LearningEngine:
 
         for failure in reflection.failures:
 
-            memory_manager.create(
+            self._memory.create(
                 title=goal,
                 content=failure,
                 category="failure",

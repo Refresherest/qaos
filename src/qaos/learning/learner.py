@@ -7,6 +7,9 @@ from .engine import learning_engine
 
 class Learner:
 
+    def __init__(self, engine=None):
+        self._engine = learning_engine if engine is None else engine
+
     def learn(self, reflection):
 
         print(
@@ -14,7 +17,7 @@ class Learner:
             f"{reflection.objective.goal}"
         )
 
-        return learning_engine.learn(
+        return self._engine.learn(
             reflection
         )
 

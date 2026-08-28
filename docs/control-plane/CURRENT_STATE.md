@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-046 base:** `a61b14d` (`feat/operational-builder-chain`)
+**WO-047 base:** `7ad0050` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -86,9 +86,13 @@ by OpenHands Cloud parent-runtime startup.
   queue collaborators while preserving execution order and default behavior.
 - WO-046 resolves FINDING-019: ExecutionManager accepts an explicit engine
   registry and ObjectiveManager while preserving execution-before-save order.
-- Current verification passes 64 tests. The architecture inspector no longer
+- WO-047 resolves FINDING-020: LearningManager, Learner, and LearningEngine form
+  an explicit chain to isolated memory and knowledge managers.
+- FINDING-021 records an unrelated reloaded-reflection identity mismatch in
+  Learner; the live canonical Objective path is unaffected and no fix is implied.
+- Current verification passes 66 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-039.
+  VERIFICATION-040.
 
 ## Verified Builder Chain State
 
