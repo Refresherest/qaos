@@ -7,7 +7,7 @@ from .classifier import IntentClassifier
 
 def create_default_classifier():
     """Create an isolated classifier with the canonical built-in rules."""
-    service = IntentClassifier()
+    service = IntentClassifier(fallback="general_objective")
 
     for keyword, classification in (
         ("architecture", "validate_architecture"),

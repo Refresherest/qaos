@@ -43,6 +43,15 @@ def test_operational_session_executes_goal_in_one_workspace(tmp_path) -> None:
     ]
 
 
+def test_operational_session_classifies_unmatched_goal_as_general(tmp_path) -> None:
+    session = OperationalSession(create_stores(tmp_path / "general"))
+
+    result = session.execute_goal("ship the next useful thing")
+
+    assert result.completed is True
+    assert result.classification == "general_objective"
+
+
 @pytest.mark.parametrize("goal", ["", "   "])
 def test_operational_session_rejects_empty_goal_without_persistence(
     tmp_path,

@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-067 base:** `08ab283` (`feat/operational-builder-chain`)
+**WO-068 base:** `ef0b703` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -148,9 +148,12 @@ by OpenHands Cloud parent-runtime startup.
 - WO-067 records DECISION-REQUEST-007 with three policies for FINDING-032.
   Option B, canonical `general_objective` fallback with continued execution, is
   recommended; no product code changed.
-- Current verification passes 103 tests. The architecture inspector no longer
+- OWNER-DECISION-007 selects Option B. WO-068 configures the canonical default
+  classifier with `general_objective` fallback after explicit rules miss while
+  preserving custom classifier control. FINDING-032 is resolved.
+- Current verification passes 106 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-058.
+  VERIFICATION-061.
 
 ## Verified Builder Chain State
 
@@ -191,8 +194,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Select Option A, B, or C in DECISION-REQUEST-007; unclassified-objective
-   behavior changes remain unauthorized pending that decision.
+2. Select the next QAOS operational-readiness gap through a separate
+   evidence-led work order; do not infer classification-driven routing.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

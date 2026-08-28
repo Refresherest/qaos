@@ -5,9 +5,10 @@ QAOS Intent Classifier
 
 class IntentClassifier:
 
-    def __init__(self):
+    def __init__(self, fallback=None):
 
         self._rules = {}
+        self._fallback = fallback
 
     # -------------------------------------------------
 
@@ -91,7 +92,7 @@ class IntentClassifier:
 
                 return skill
 
-        return None
+        return self._fallback
 
     # -------------------------------------------------
 

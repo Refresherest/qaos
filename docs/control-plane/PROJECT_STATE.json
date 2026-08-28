@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "65585db",
   "core_baseline": "615cbbb",
-  "status": "unclassified_objective_policy_decision_required_builder_chain_blocked",
+  "status": "general_objective_fallback_verified_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-058-unclassified-objective-policy-decision.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-059-general-objective-classification-fallback.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -71,7 +71,8 @@
     "WO-064",
     "WO-065",
     "WO-066",
-    "WO-067"
+    "WO-067",
+    "WO-068"
   ],
   "blocked_work_orders": [
     {
@@ -80,9 +81,7 @@
     }
   ],
   "open_contradictions": [],
-  "open_findings": [
-    "FINDING-032"
-  ],
+  "open_findings": [],
   "owner_product_priority": "Content OS",
   "content_os_authority_state": "first_slice_verified_under_owner_decisions_001_and_002",
   "content_os_readiness": {
@@ -92,5 +91,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Owner selects Option A, B, or C in DECISION-REQUEST-007; unclassified-objective behavior changes remain unauthorized."
+  "next_action": "Select the next QAOS operational-readiness gap through a separate evidence-led work order; classification-driven routing remains unauthorized."
 }

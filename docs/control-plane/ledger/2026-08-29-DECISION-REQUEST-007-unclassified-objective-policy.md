@@ -2,7 +2,7 @@
 
 ## Status
 
-`OWNER DECISION REQUIRED`
+`RESOLVED — OWNER-DECISION-007`
 
 ## Evidence
 

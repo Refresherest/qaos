@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — DECISION REQUIRED`
+`RESOLVED — WO-068`
 
 ## Evidence
 
@@ -27,3 +27,10 @@ delegation.
 WO-066 is verification-only and does not authorize classifier or pipeline
 changes. Resolve this policy through a separate owner decision before changing
 behavior.
+
+## Resolution
+
+OWNER-DECISION-007 selected canonical `general_objective` fallback with
+continued execution. WO-068 implements that fallback for the canonical default
+classifier while preserving explicit-rule precedence and custom classifier
+control.
