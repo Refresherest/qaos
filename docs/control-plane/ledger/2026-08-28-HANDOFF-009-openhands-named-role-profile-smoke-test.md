@@ -82,3 +82,35 @@ restoration.
 
 Met. One fresh Cloud attempt was run and recorded. Do not retry or alter Cloud
 settings without a new owner instruction or platform-state change.
+
+## Continuation Preflight After Local Endpoint Allow Rules
+
+The owner reported that RAV Endpoint Protection rules for the local Codex CUA
+runtime processes had been changed to `Allow`. This was treated as a platform
+state change authorizing one parent-runtime preflight before any further
+SMOKE-002 delegation attempt.
+
+A new **No Repository Connected** OpenHands conversation reached `Waiting for
+task`. The following parent-only prompt was then submitted:
+
+```text
+Reply exactly: QAOS-PARENT-RUNTIME-OK
+```
+
+OpenHands again displayed:
+
+```text
+Error occurred
+Waiting for runtime to start...
+```
+
+No model response, repository access, agent discovery, delegation, or named
+profile resolution occurred. The repository-connected SMOKE-002 chain was
+therefore not started.
+
+This reproduction after the local allow-rule change does not establish that
+RAV caused or did not cause the Cloud failure, but it makes the three QAOS
+named bindings and repository-defined agents irrelevant to the observed
+failure point. The next investigation must target OpenHands parent-runtime
+startup evidence rather than changing QAOS agent files, profiles, credentials,
+or provider settings.
