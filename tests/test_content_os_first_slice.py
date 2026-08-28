@@ -12,6 +12,7 @@ from content_os import (
 from qaos.ai import AIEngine, AIProvider
 from qaos.ai.engine import engine as default_engine
 from qaos.ai.registry import all_providers
+from qaos.artifacts import ArtifactManager
 from qaos.storage import create_stores
 
 
@@ -70,6 +71,9 @@ def test_success_produces_one_reviewed_artifact_and_completed_objective(tmp_path
     assert len(stores.plan_db.load()) == 1
     assert stores.plan_db.load()[0]["tasks"][0]["status"] == "completed"
     assert len(stores.artifact_db.load()) == 1
+    assert ArtifactManager(stores=stores).get(result.artifact.title).title == (
+        result.artifact.title
+    )
     assert dict(all_providers()) == registry_before
     assert default_engine.provider() is default_provider_before
 

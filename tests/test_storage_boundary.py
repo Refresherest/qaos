@@ -197,6 +197,27 @@ def test_artifact_registry_compatibility_functions_use_default_registry() -> Non
             registry.register(previous)
 
 
+def test_artifact_manager_resolves_string_identity_after_reload(tmp_path) -> None:
+    from qaos.artifacts.manager import ArtifactManager
+
+    stores = create_stores(tmp_path / "artifact-identity")
+    manager = ArtifactManager(stores=stores)
+    artifact = manager.create(
+        "persistent artifact identity",
+        "draft",
+        "test",
+        "test objective",
+        "content",
+    )
+
+    assert manager.get(artifact.title) is artifact
+    assert manager.get(artifact) is artifact
+
+    reloaded = ArtifactManager(stores=stores)
+
+    assert reloaded.get(artifact.title).title == artifact.title
+
+
 def test_explicit_objective_managers_have_isolated_registries(tmp_path) -> None:
     from qaos.objectives.manager import ObjectiveManager
 

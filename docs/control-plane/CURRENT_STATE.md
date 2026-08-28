@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-029 base:** `36d5d17` (`feat/operational-builder-chain`)
+**WO-030 base:** `29c3291` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -47,7 +47,9 @@ by OpenHands Cloud parent-runtime startup.
   review-outcome, isolation, and test-provider governance behavior are proven.
 - WO-029 resolves FINDING-004: the built-in MockProvider is explicitly named
   `mock`, matching default configuration and AIEngine selection.
-- Current verification passes 36 tests. See VERIFICATION-022.
+- WO-030 resolves FINDING-005: ArtifactManager resolves canonical string titles
+  immediately and after persistence reload, preserving entity-object lookup.
+- Current verification passes 37 tests. See VERIFICATION-023.
 
 ## Verified Builder Chain State
 
@@ -92,5 +94,5 @@ slice.
    Content OS increment through a new owner-authorized work order.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
-4. Address the pre-existing dead `qaos.queue.queue_db` and registry string-key
-   findings only through separate work orders if they become prioritized.
+4. Address the pre-existing dead `qaos.queue.queue_db` and remaining registry
+   string-key findings only through separate work orders if prioritized.

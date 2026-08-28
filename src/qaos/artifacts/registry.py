@@ -12,7 +12,7 @@ class ArtifactRegistry:
         self._registry[artifact.title] = artifact
 
     def get(self, title):
-        if hasattr(title, "title"):
+        if not isinstance(title, str) and hasattr(title, "title"):
             title = title.title
 
         return self._registry.get(title)
