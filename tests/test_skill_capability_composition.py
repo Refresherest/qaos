@@ -88,6 +88,37 @@ agent = agent_manager.get("default")
 assert capability_manager.get("system") is system_capability
 assert agent.execute(item) is task
 assert task.status == "completed"
+assert item.status == "pending"
+"""
+    environment = os.environ.copy()
+    environment["PYTHONPATH"] = str(SOURCE_ROOT)
+
+    result = subprocess.run(
+        [sys.executable, "-c", code],
+        cwd=REPOSITORY_ROOT,
+        env=environment,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+
+
+def test_default_worker_completes_queue_item_lifecycle_in_clean_process() -> None:
+    code = """
+from qaos.planner import Task
+from qaos.queue import QueueItem
+from qaos.workers import default_worker
+
+task = Task("default worker lifecycle")
+item = QueueItem("default worker objective", "default", action=task)
+assert default_worker.execute(item) is task
+assert task.status == "completed"
+assert item.status == "completed"
+assert item.started is not None
+assert item.completed is not None
+assert item.result == "Completed: default worker objective"
 """
     environment = os.environ.copy()
     environment["PYTHONPATH"] = str(SOURCE_ROOT)

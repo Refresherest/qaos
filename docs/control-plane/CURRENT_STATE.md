@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-056 base:** `e02c1c3` (`feat/operational-builder-chain`)
+**WO-057 base:** `968eec9` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -112,9 +112,11 @@ by OpenHands Cloud parent-runtime startup.
 - WO-056 resolves FINDING-029 by applying the established built-in package
   registration pattern to the canonical `system_capability`; the complete
   default Agent-to-Skill-to-Capability path passes in a clean process.
-- Current verification passes 87 tests. The architecture inspector no longer
+- WO-057 resolves FINDING-030: DefaultWorker now completes successful QueueItem
+  lifecycle state, timestamps, and result while preserving delegated outputs.
+- Current verification passes 88 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-049.
+  VERIFICATION-050.
 
 ## Verified Builder Chain State
 

@@ -2,6 +2,8 @@
 QAOS Default Worker
 """
 
+from datetime import datetime
+
 from qaos.agents import agent_manager
 
 
@@ -22,6 +24,9 @@ class DefaultWorker:
     # ----------------------------------
 
     def execute(self, item):
+
+        item.status = "running"
+        item.started = datetime.now()
 
         print(
             f"[Worker:{self.name}] "
@@ -46,7 +51,15 @@ class DefaultWorker:
         # Delegate execution
         #
 
-        return agent.execute(item)
+        result = agent.execute(item)
+
+        item.status = "completed"
+        item.completed = datetime.now()
+
+        if item.result is None:
+            item.result = f"Completed: {item.objective}"
+
+        return result
 
     # ----------------------------------
 
