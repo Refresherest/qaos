@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-041 base:** `ff9550d` (`feat/operational-builder-chain`)
+**WO-042 base:** `c60034a` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -74,9 +74,11 @@ by OpenHands Cloud parent-runtime startup.
   composed executive service without importing a default singleton.
 - WO-041 resolves FINDING-016: Dispatcher and Kernel accept isolated command
   surfaces while preserving every default CLI command and result contract.
+- WO-042 records FINDING-017 and DECISION-REQUEST-003: the first executive
+  invocation boundary requires an owner choice and no product code changed.
 - Current verification passes 57 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-034.
+  VERIFICATION-035.
 
 ## Verified Builder Chain State
 
@@ -123,3 +125,5 @@ slice.
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
    evidence-backed work order.
+5. Select DECISION-REQUEST-003 Option A, B, or C before implementing executive
+   invocation through Kernel or CLI.
