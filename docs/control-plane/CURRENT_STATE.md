@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-059 base:** `f027701` (`feat/operational-builder-chain`)
+**WO-060 base:** `65585db` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -121,9 +121,12 @@ by OpenHands Cloud parent-runtime startup.
   coexist with a canonical Objective that remains `pending`.
 - WO-059 resolves FINDING-031 by assigning start/complete/fail lifecycle ownership
   to ExecutionManager, the existing boundary that owns ObjectiveManager.
+- WO-060 records DECISION-REQUEST-004: the verified explicit runtime has no
+  authorized production composition root. Option A, an Executive composition
+  factory, is recommended; no product code changed.
 - Current verification passes 90 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-052.
+  VERIFICATION-053.
 
 ## Verified Builder Chain State
 
@@ -164,8 +167,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Review the verified first-slice evidence and choose the next bounded QAOS or
-   Content OS increment through a new owner-authorized work order.
+2. Select Option A, B, or C in DECISION-REQUEST-004 for the production
+   composition root.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

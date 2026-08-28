@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-29",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "f027701",
+  "branch_baseline": "65585db",
   "core_baseline": "615cbbb",
-  "status": "full_explicit_runtime_and_objective_lifecycle_verified_builder_chain_blocked",
+  "status": "full_explicit_runtime_verified_composition_root_decision_required_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-050-execution-objective-lifecycle.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-051-operational-composition-root-decision.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -63,7 +63,8 @@
     "WO-056",
     "WO-057",
     "WO-058",
-    "WO-059"
+    "WO-059",
+    "WO-060"
   ],
   "blocked_work_orders": [
     {
@@ -82,5 +83,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Owner selects one next bounded QAOS or Content OS increment; CLI and raw-goal execution remain unauthorized."
+  "next_action": "Owner selects Option A, B, or C in DECISION-REQUEST-004; CLI and raw-goal execution remain unauthorized."
 }
