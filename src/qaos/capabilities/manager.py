@@ -2,18 +2,18 @@
 QAOS Capability Manager
 """
 
-from .registry import (
-    register,
-    unregister,
-    get,
-    all,
-)
+from .registry import capability_registry
 
 
 class CapabilityManager:
     """
     Central manager for QAOS capabilities.
     """
+
+    def __init__(self, registry=None):
+        self._registry = (
+            capability_registry if registry is None else registry
+        )
 
     # ----------------------------------
 
@@ -22,7 +22,7 @@ class CapabilityManager:
         Register a capability.
         """
 
-        register(capability)
+        self._registry.register(capability)
 
     # ----------------------------------
 
@@ -31,7 +31,7 @@ class CapabilityManager:
         Remove a capability.
         """
 
-        unregister(name)
+        self._registry.unregister(name)
 
     # ----------------------------------
 
@@ -40,7 +40,7 @@ class CapabilityManager:
         Return a capability.
         """
 
-        return get(name)
+        return self._registry.get(name)
 
     # ----------------------------------
 
@@ -49,7 +49,7 @@ class CapabilityManager:
         Return all registered capabilities.
         """
 
-        return all()
+        return self._registry.all()
 
     # ----------------------------------
 

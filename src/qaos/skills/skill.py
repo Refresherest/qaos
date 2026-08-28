@@ -11,10 +11,14 @@ class Skill:
         self,
         name,
         capability,
+        capabilities=None,
     ):
 
         self.name = name
         self.capability = capability
+        self._capabilities = (
+            capability_manager if capabilities is None else capabilities
+        )
 
     # ---------------------------------
 
@@ -25,7 +29,7 @@ class Skill:
             f"Executing '{item.objective}'"
         )
 
-        capability = capability_manager.get(
+        capability = self._capabilities.get(
             self.capability
         )
 

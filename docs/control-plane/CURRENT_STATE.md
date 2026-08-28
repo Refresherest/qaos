@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-054 base:** `7eeb7a1` (`feat/operational-builder-chain`)
+**WO-055 base:** `36269c7` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -105,9 +105,13 @@ by OpenHands Cloud parent-runtime startup.
   retain caller-selected worker and agent ownership through isolated registries.
 - WO-054 resolves FINDING-027: Agent, SkillResolver, and SkillManager now retain
   caller-selected skill ownership through an isolated SkillRegistry.
-- Current verification passes 83 tests. The architecture inspector no longer
+- WO-055 resolves FINDING-028: Skill and CapabilityManager now retain
+  caller-selected capability ownership through an isolated CapabilityRegistry.
+- FINDING-029 records that the built-in `system` capability exists but is not
+  registered in the default lifecycle; WO-055 does not choose that lifecycle.
+- Current verification passes 86 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-047.
+  VERIFICATION-048.
 
 ## Verified Builder Chain State
 
