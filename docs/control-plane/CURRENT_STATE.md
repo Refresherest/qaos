@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-065 base:** `e6cc61a` (`feat/operational-builder-chain`)
+**WO-066 base:** `97524c1` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -139,6 +139,12 @@ by OpenHands Cloud parent-runtime startup.
 - OWNER-DECISION-006 selects Option A. WO-065 implements the one-shot
   `objective --workspace <path> <goal...>` CLI adapter with deterministic 0/1/2
   process statuses and no implicit active-data target.
+- WO-066 manually verifies that adapter against a fresh disposable workspace:
+  exit 0, one completed objective, five completed tasks, six completed queue
+  items, and persisted reflection, memory, and knowledge evidence. Active data
+  remained unchanged and the disposable workspace was removed.
+- FINDING-032 records that an unmatched goal reports `Classification: None`
+  while continuing successfully; the desired policy requires an owner decision.
 - Current verification passes 103 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-058.
@@ -182,8 +188,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Run one owner-approved manual CLI smoke test against a fresh disposable
-   workspace, or stop before further interface expansion.
+2. Resolve FINDING-032 by choosing whether unclassified objectives execute,
+   receive a canonical default classification, or stop before delegation.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
