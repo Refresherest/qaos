@@ -33,3 +33,15 @@ class Kernel:
 
     def execute(self, command: str, *args) -> bool:
         return self.dispatcher.dispatch(command, *args)
+
+    def execute_objective(self, objective):
+        from qaos.objectives.objective import Objective
+
+        if not isinstance(objective, Objective):
+            raise TypeError("objective must be a canonical QAOS Objective")
+
+        executive = self.runtime.get("executive")
+        if executive is None:
+            raise RuntimeError("executive service is not registered")
+
+        return executive.execute(objective)

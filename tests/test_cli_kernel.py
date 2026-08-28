@@ -7,8 +7,12 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
+from qaos.config import create_configuration
 from qaos.kernel.kernel import Kernel
 from qaos.kernel.dispatcher import Dispatcher
+from qaos.objectives.objective import Objective
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
@@ -46,6 +50,40 @@ def test_kernel_registers_explicit_executive_service() -> None:
     kernel = Kernel(executive=executive)
 
     assert kernel.runtime.get("executive") is executive
+
+
+def test_kernel_executes_canonical_objective_through_runtime_service(tmp_path) -> None:
+    objective = Objective("execute explicit objective")
+    expected_result = object()
+    received = []
+
+    class Executive:
+        def execute(self, value):
+            received.append(value)
+            return expected_result
+
+    kernel = Kernel(
+        configuration=create_configuration(tmp_path),
+        executive=Executive(),
+    )
+
+    assert kernel.execute_objective(objective) is expected_result
+    assert received == [objective]
+    assert not (tmp_path / "objectives.json").exists()
+
+
+def test_kernel_rejects_noncanonical_objective() -> None:
+    kernel = Kernel(executive=object())
+
+    with pytest.raises(TypeError, match="canonical QAOS Objective"):
+        kernel.execute_objective("raw goal")
+
+
+def test_kernel_requires_registered_executive_for_objective() -> None:
+    kernel = Kernel()
+
+    with pytest.raises(RuntimeError, match="executive service is not registered"):
+        kernel.execute_objective(Objective("missing service"))
 
 
 def test_cli_help_runs_without_legacy_runtime_bootstrap() -> None:

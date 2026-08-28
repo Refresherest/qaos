@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — OPTION A AUTHORIZED; IMPLEMENTATION PENDING`
+`RESOLVED — WO-044`
 
 ## Evidence
 
@@ -21,6 +21,7 @@ choices yet.
 
 ## Required Resolution
 
-OWNER-DECISION-003 selects Option A. A separate work order may implement only
-the approved programmatic `Kernel.execute_objective(objective)` boundary; the
-finding remains open until that implementation is verified.
+OWNER-DECISION-003 selected Option A. WO-044 implements and verifies only the
+approved programmatic `Kernel.execute_objective(objective)` boundary. Canonical
+input, explicit service resolution, unchanged result return, missing-service
+failure, and no implicit persistence are proven.

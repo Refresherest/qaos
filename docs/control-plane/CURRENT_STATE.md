@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-043 base:** `eaff473` (`feat/operational-builder-chain`)
+**WO-044 base:** `69a31e5` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -79,9 +79,12 @@ by OpenHands Cloud parent-runtime startup.
 - OWNER-DECISION-003 selects Option A: a programmatic
   `Kernel.execute_objective(objective)` boundary. WO-043 records this decision;
   implementation remains a separate work order.
-- Current verification passes 57 tests. The architecture inspector no longer
+- WO-044 implements Option A: Kernel validates a canonical Objective, resolves
+  the explicit Runtime executive, returns its result, and performs no implicit
+  persistence. FINDING-017 is resolved.
+- Current verification passes 60 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-035.
+  VERIFICATION-037.
 
 ## Verified Builder Chain State
 
@@ -128,5 +131,5 @@ slice.
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
    evidence-backed work order.
-5. Issue one bounded work order implementing OWNER-DECISION-003 Option A. Do not
-   add a CLI command, create Objectives implicitly, or repurpose `run`.
+5. Do not infer CLI or raw-goal authorization from WO-044; those remain separate
+   future decisions.
