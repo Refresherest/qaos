@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-28",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "77f1a78",
+  "branch_baseline": "9072981",
   "core_baseline": "615cbbb",
-  "status": "content_os_first_slice_verified_artifact_and_memory_identities_retrievable_builder_chain_blocked",
+  "status": "content_os_first_slice_verified_qaos_package_tree_importable_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-28-HANDOFF-022-memory-string-identity.md",
+  "current_baseline": "ledger/2026-08-28-HANDOFF-023-retire-dead-queue-storage-module.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -35,7 +35,8 @@
     "WO-028",
     "WO-029",
     "WO-030",
-    "WO-031"
+    "WO-031",
+    "WO-032"
   ],
   "blocked_work_orders": [
     {

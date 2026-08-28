@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-031 base:** `77f1a78` (`feat/operational-builder-chain`)
+**WO-032 base:** `9072981` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -51,7 +51,10 @@ by OpenHands Cloud parent-runtime startup.
   immediately and after persistence reload, preserving entity-object lookup.
 - WO-031 resolves FINDING-006: MemoryManager resolves and unregisters canonical
   string titles immediately and after persistence reload.
-- Current verification passes 38 tests. See VERIFICATION-024.
+- WO-032 resolves FINDING-007 by retiring the dead, duplicate, unimportable
+  `qaos.queue.queue_db` module. The full 180-module QAOS import sweep now passes
+  without exclusions.
+- Current verification passes 39 tests. See VERIFICATION-025.
 
 ## Verified Builder Chain State
 
@@ -96,5 +99,5 @@ slice.
    Content OS increment through a new owner-authorized work order.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
-4. Address the pre-existing dead `qaos.queue.queue_db` and any other registry
-   findings only through separate work orders if prioritized.
+4. Address any newly prioritized architecture finding only through its own
+   evidence-backed work order.
