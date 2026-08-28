@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-052 base:** `652dade` (`feat/operational-builder-chain`)
+**WO-053 base:** `3ff01c5` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -101,9 +101,11 @@ by OpenHands Cloud parent-runtime startup.
   council, objective, and queue ownership through an instantiable registry.
 - WO-052 resolves FINDING-025: QueueManager now retains a caller-selected worker
   service while preserving default worker resolution and queue persistence.
-- Current verification passes 77 tests. The architecture inspector no longer
+- WO-053 resolves FINDING-026: WorkerManager, DefaultWorker, and AgentManager now
+  retain caller-selected worker and agent ownership through isolated registries.
+- Current verification passes 80 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-045.
+  VERIFICATION-046.
 
 ## Verified Builder Chain State
 

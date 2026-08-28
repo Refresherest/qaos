@@ -16,6 +16,9 @@ class DefaultWorker:
 
     name = "default"
 
+    def __init__(self, agents=None):
+        self._agents = agent_manager if agents is None else agents
+
     # ----------------------------------
 
     def execute(self, item):
@@ -29,7 +32,7 @@ class DefaultWorker:
         # Resolve the default agent
         #
 
-        agent = agent_manager.get(
+        agent = self._agents.get(
             "default"
         )
 
