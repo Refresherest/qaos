@@ -105,3 +105,51 @@ def test_operational_session_rejects_invalid_configuration(tmp_path) -> None:
             create_stores(tmp_path),
             configuration=object(),
         )
+
+
+def test_operational_session_fails_pending_objective_and_reraises(tmp_path) -> None:
+    stores = create_stores(tmp_path / "pre-execution-failure")
+    session = OperationalSession(stores)
+    error = RuntimeError("pre-execution failure")
+
+    class FailingKernel:
+        def execute_objective(self, _objective):
+            raise error
+
+    session._kernel = FailingKernel()
+
+    with pytest.raises(RuntimeError) as caught:
+        session.execute_goal("fail before execution starts")
+
+    assert caught.value is error
+    persisted = stores.objective_db.load()[0]
+    assert persisted["status"] == "failed"
+    assert persisted["started"] is None
+    assert persisted["completed"] is not None
+
+
+def test_operational_session_does_not_overwrite_downstream_failure(tmp_path) -> None:
+    stores = create_stores(tmp_path / "downstream-failure")
+    session = OperationalSession(stores)
+    fail_calls = []
+    fail = session._objectives.fail
+
+    def record_fail(objective):
+        fail_calls.append(objective)
+        fail(objective)
+
+    session._objectives.fail = record_fail
+
+    class DownstreamFailure:
+        def execute_objective(self, objective):
+            session._objectives.start(objective)
+            session._objectives.fail(objective)
+            raise RuntimeError("downstream failure")
+
+    session._kernel = DownstreamFailure()
+
+    with pytest.raises(RuntimeError, match="downstream failure"):
+        session.execute_goal("fail after execution starts")
+
+    assert len(fail_calls) == 1
+    assert stores.objective_db.load()[0]["status"] == "failed"

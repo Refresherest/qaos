@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — DECISION REQUIRED`
+`RESOLVED — WO-072`
 
 ## Evidence
 
@@ -36,3 +36,10 @@ ExecutionManager is reached.
 
 WO-070 is characterization only. Resolve lifecycle ownership through an owner
 decision before changing OperationalSession, Executive, or ObjectiveManager.
+
+## Resolution
+
+OWNER-DECISION-008 selected OperationalSession ownership for a failure that
+escapes while its created Objective remains pending. WO-072 conditionally
+persists `pending -> failed`, re-raises the original exception, and leaves any
+downstream transition untouched.

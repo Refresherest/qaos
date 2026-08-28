@@ -44,4 +44,10 @@ class OperationalSession:
             raise ValueError("goal must be a non-empty string")
 
         objective = self._objectives.create(goal.strip())
-        return self._kernel.execute_objective(objective)
+
+        try:
+            return self._kernel.execute_objective(objective)
+        except Exception:
+            if objective.status == "pending":
+                self._objectives.fail(objective)
+            raise

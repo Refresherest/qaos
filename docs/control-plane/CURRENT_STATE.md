@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-071 base:** `390a552` (`feat/operational-builder-chain`)
+**WO-072 base:** `465361d` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -161,9 +161,13 @@ by OpenHands Cloud parent-runtime startup.
 - WO-071 records DECISION-REQUEST-008 with three ownership options for
   FINDING-033. Option A, an OperationalSession-owned conditional pending-to-fail
   transition, is recommended; no product code changed.
-- Current verification passes 106 tests. The architecture inspector no longer
+- OWNER-DECISION-008 selects Option A. WO-072 makes OperationalSession fail and
+  persist only a still-pending Objective when Kernel raises, preserves the
+  original exception, and leaves downstream transitions untouched.
+  FINDING-033 is resolved.
+- Current verification passes 108 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-061.
+  VERIFICATION-065.
 
 ## Verified Builder Chain State
 
@@ -204,8 +208,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Select Option A, B, or C in DECISION-REQUEST-008; pre-execution lifecycle
-   changes remain unauthorized pending that decision.
+2. Perform the next evidence-led operational-readiness assessment; do not infer
+   post-execution failure or retry policy from WO-072.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
