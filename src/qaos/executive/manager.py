@@ -18,20 +18,28 @@ class ExecutiveManager:
     Orchestrator.
     """
 
+    def __init__(self, orchestrator_service=None, logger_service=None):
+        self._orchestrator = (
+            orchestrator
+            if orchestrator_service is None
+            else orchestrator_service
+        )
+        self._logger = logger if logger_service is None else logger_service
+
     def execute(
         self,
         objective,
     ):
 
-        logger.info(
+        self._logger.info(
             f"Executive executing '{objective.goal}'"
         )
 
-        result = orchestrator.execute(
+        result = self._orchestrator.execute(
             objective
         )
 
-        logger.info(
+        self._logger.info(
             "Executive execution complete."
         )
 

@@ -19,6 +19,9 @@ class ExecutiveOrchestrator:
     The actual work is performed by the ExecutivePipeline.
     """
 
+    def __init__(self, pipeline=None):
+        self._pipeline = executive_pipeline if pipeline is None else pipeline
+
     def execute(self, objective):
 
         result = ExecutionResult(
@@ -27,7 +30,7 @@ class ExecutiveOrchestrator:
 
         try:
 
-            executive_pipeline.execute(
+            self._pipeline.execute(
                 objective,
                 result,
             )
