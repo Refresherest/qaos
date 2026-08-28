@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-28",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "8484e98",
+  "branch_baseline": "5994fcb",
   "core_baseline": "615cbbb",
-  "status": "classifier_planning_and_learning_stages_explicitly_composable_builder_chain_blocked",
+  "status": "classifier_council_planning_execution_and_learning_stages_explicitly_composable_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-28-HANDOFF-041-classifier-stage-composition.md",
+  "current_baseline": "ledger/2026-08-28-HANDOFF-042-council-stage-composition.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -54,7 +54,8 @@
     "WO-047",
     "WO-048",
     "WO-049",
-    "WO-050"
+    "WO-050",
+    "WO-051"
   ],
   "blocked_work_orders": [
     {

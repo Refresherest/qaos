@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-050 base:** `8484e98` (`feat/operational-builder-chain`)
+**WO-051 base:** `5994fcb` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -97,9 +97,11 @@ by OpenHands Cloud parent-runtime startup.
   services through the complete planning chain.
 - WO-050 resolves FINDING-023: ClassifierManager now retains a caller-selected
   IntentClassifier-compatible service while preserving its default ruleset.
-- Current verification passes 72 tests. The architecture inspector no longer
+- WO-051 resolves FINDING-024: CouncilManager and Delegator now retain selected
+  council, objective, and queue ownership through an instantiable registry.
+- Current verification passes 75 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-043.
+  VERIFICATION-044.
 
 ## Verified Builder Chain State
 

@@ -2,7 +2,7 @@
 QAOS Executive Council Manager
 """
 
-from .registry import get, all
+from .registry import council_registry
 from .delegator import delegator
 
 from qaos.queue import (
@@ -13,15 +13,22 @@ from qaos.queue import (
 
 class CouncilManager:
 
+    def __init__(self, registry=None, delegator_service=None, queue=None):
+        self._registry = council_registry if registry is None else registry
+        self._delegator = (
+            delegator if delegator_service is None else delegator_service
+        )
+        self._queue = queue_manager if queue is None else queue
+
     def members(self):
 
-        return all()
+        return self._registry.all()
 
     # -------------------------------------
 
     def execute(self, name):
 
-        member = get(name)
+        member = self._registry.get(name)
 
         if member is None:
 
@@ -35,7 +42,7 @@ class CouncilManager:
 
     def initialize(self):
 
-        for member in all().values():
+        for member in self._registry.all().values():
 
             member.initialize()
 
@@ -43,7 +50,7 @@ class CouncilManager:
 
     def shutdown(self):
 
-        for member in all().values():
+        for member in self._registry.all().values():
 
             member.shutdown()
 
@@ -55,7 +62,7 @@ class CouncilManager:
         Executive Council member.
         """
 
-        assignment = delegator.assign(
+        assignment = self._delegator.assign(
             objective
         )
 
@@ -64,7 +71,7 @@ class CouncilManager:
             assignee=assignment.member.title,
         )
 
-        queue_manager.add(item)
+        self._queue.add(item)
 
         print(
             f"[Queue] Added objective for "
