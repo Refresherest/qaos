@@ -141,6 +141,26 @@ def test_memory_registry_compatibility_functions_use_default_registry() -> None:
             registry.register(previous)
 
 
+def test_memory_manager_string_identity_lifecycle_after_reload(tmp_path) -> None:
+    from qaos.memory.manager import MemoryManager
+
+    stores = create_stores(tmp_path / "memory-identity")
+    manager = MemoryManager(stores=stores)
+    memory = manager.create("persistent memory identity", "content")
+
+    assert manager.get(memory.title) is memory
+    assert manager.get(memory) is memory
+
+    reloaded = MemoryManager(stores=stores)
+
+    assert reloaded.get(memory.title).title == memory.title
+
+    reloaded.unregister(memory.title)
+
+    assert reloaded.get(memory.title) is None
+    assert stores.memory_db.load() == []
+
+
 def test_explicit_artifact_managers_have_isolated_registries(tmp_path) -> None:
     from qaos.artifacts.manager import ArtifactManager
 

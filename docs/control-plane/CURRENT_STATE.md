@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-030 base:** `29c3291` (`feat/operational-builder-chain`)
+**WO-031 base:** `77f1a78` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -49,7 +49,9 @@ by OpenHands Cloud parent-runtime startup.
   `mock`, matching default configuration and AIEngine selection.
 - WO-030 resolves FINDING-005: ArtifactManager resolves canonical string titles
   immediately and after persistence reload, preserving entity-object lookup.
-- Current verification passes 37 tests. See VERIFICATION-023.
+- WO-031 resolves FINDING-006: MemoryManager resolves and unregisters canonical
+  string titles immediately and after persistence reload.
+- Current verification passes 38 tests. See VERIFICATION-024.
 
 ## Verified Builder Chain State
 
@@ -94,5 +96,5 @@ slice.
    Content OS increment through a new owner-authorized work order.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
-4. Address the pre-existing dead `qaos.queue.queue_db` and remaining registry
-   string-key findings only through separate work orders if prioritized.
+4. Address the pre-existing dead `qaos.queue.queue_db` and any other registry
+   findings only through separate work orders if prioritized.

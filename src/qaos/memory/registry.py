@@ -12,13 +12,13 @@ class MemoryRegistry:
         self._registry[memory.title] = memory
 
     def unregister(self, title):
-        if hasattr(title, "title"):
+        if not isinstance(title, str) and hasattr(title, "title"):
             title = title.title
 
         self._registry.pop(title, None)
 
     def get(self, title):
-        if hasattr(title, "title"):
+        if not isinstance(title, str) and hasattr(title, "title"):
             title = title.title
 
         return self._registry.get(title)
