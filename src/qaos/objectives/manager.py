@@ -116,5 +116,40 @@ class ObjectiveManager:
 
         return self._registry.all()
 
+    # ---------------------------------
+
+    def assign(self, objective, member):
+
+        objective.assign(member)
+        self._save()
+
+    # ---------------------------------
+
+    def assign_plan(self, objective, plan):
+
+        objective.assign_plan(plan)
+        self._save()
+
+    # ---------------------------------
+
+    def start(self, objective):
+
+        objective.start()
+        self._save()
+
+    # ---------------------------------
+
+    def complete(self, objective):
+
+        objective.complete()
+        self._save()
+
+    # ---------------------------------
+
+    def fail(self, objective):
+
+        objective.fail()
+        self._save()
+
 
 objective_manager = ObjectiveManager()

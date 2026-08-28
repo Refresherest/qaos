@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-032 base:** `9072981` (`feat/operational-builder-chain`)
+**WO-033 base:** `425b9fe` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -54,7 +54,11 @@ by OpenHands Cloud parent-runtime startup.
 - WO-032 resolves FINDING-007 by retiring the dead, duplicate, unimportable
   `qaos.queue.queue_db` module. The full 180-module QAOS import sweep now passes
   without exclusions.
-- Current verification passes 39 tests. See VERIFICATION-025.
+- WO-033 resolves FINDING-008: Objective transitions are state-only, while the
+  explicitly selected ObjectiveManager owns persistence. Council uses the
+  default manager explicitly and Content OS uses its isolated manager.
+- Current verification passes 41 tests. The architecture inspector no longer
+  reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`. See VERIFICATION-026.
 
 ## Verified Builder Chain State
 

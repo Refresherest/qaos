@@ -1,7 +1,5 @@
 """Bounded Brief -> Reviewed Draft Artifact orchestration."""
 
-from datetime import datetime
-
 from qaos.ai import AIEngine
 from qaos.artifacts import ArtifactManager
 from qaos.objectives import ObjectiveManager
@@ -40,7 +38,7 @@ class BriefToReviewedDraft:
         objective = self._objectives.create(
             f"Create {brief.requested_content_type}: {brief.working_title}"
         )
-        self._set_objective_status(objective, "running")
+        self._objectives.start(objective)
 
         plan = self._planner.create(objective)
         task = plan.add_task("Generate one reviewed draft artifact")
@@ -54,7 +52,7 @@ class BriefToReviewedDraft:
         except Exception:
             task.fail()
             self._planner.save()
-            self._set_objective_status(objective, "failed")
+            self._objectives.fail(objective)
             return FirstSliceResult(
                 status="blocked",
                 objective=objective,
@@ -82,12 +80,12 @@ class BriefToReviewedDraft:
         if review.outcome is ReviewOutcome.ACCEPT:
             task.complete()
             self._planner.save()
-            self._set_objective_status(objective, "completed")
+            self._objectives.complete(objective)
             status = "completed"
         else:
             task.fail()
             self._planner.save()
-            self._set_objective_status(objective, "failed")
+            self._objectives.fail(objective)
             status = review.outcome.value.lower()
 
         return FirstSliceResult(
@@ -97,17 +95,6 @@ class BriefToReviewedDraft:
             review=review,
             evidence=evidence,
         )
-
-    def _set_objective_status(self, objective, status):
-        now = datetime.now().isoformat()
-        objective.status = status
-
-        if status == "running":
-            objective.started = now
-        elif status in {"completed", "failed"}:
-            objective.completed = now
-
-        self._objectives.save()
 
     @staticmethod
     def _prompt_for(brief):

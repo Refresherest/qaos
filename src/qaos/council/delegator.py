@@ -4,6 +4,7 @@ QAOS Council Delegator
 
 from qaos.council.assignment import Assignment
 from qaos.council.registry import all
+from qaos.objectives import objective_manager
 
 
 class Delegator:
@@ -31,7 +32,7 @@ class Delegator:
                 iter(council.values())
             )
 
-        objective.assign(member)
+        objective_manager.assign(objective, member)
 
         return Assignment(
             member,

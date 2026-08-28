@@ -40,19 +40,11 @@ class Objective:
 
         self.owner = member
 
-        from qaos.objectives import objective_manager
-
-        objective_manager._save()
-
     # ----------------------------------
 
     def assign_plan(self, plan):
 
         self.plan = plan
-
-        from qaos.objectives import objective_manager
-
-        objective_manager._save()
 
     # ----------------------------------
 
@@ -62,10 +54,6 @@ class Objective:
 
         self.started = datetime.now().isoformat()
 
-        from qaos.objectives import objective_manager
-
-        objective_manager._save()
-
     # ----------------------------------
 
     def complete(self):
@@ -74,10 +62,6 @@ class Objective:
 
         self.completed = datetime.now().isoformat()
 
-        from qaos.objectives import objective_manager
-
-        objective_manager._save()
-
     # ----------------------------------
 
     def fail(self):
@@ -85,10 +69,6 @@ class Objective:
         self.status = "failed"
 
         self.completed = datetime.now().isoformat()
-
-        from qaos.objectives import objective_manager
-
-        objective_manager._save()
 
     # ----------------------------------
 
