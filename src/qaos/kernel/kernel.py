@@ -20,6 +20,7 @@ class Kernel:
         logger=None,
         event_bus=None,
         executive=None,
+        dispatcher=None,
     ):
         configuration = configuration or create_configuration()
         self.runtime = create_runtime(
@@ -28,7 +29,7 @@ class Kernel:
             event_bus=event_bus,
             executive=executive,
         )
-        self.dispatcher = Dispatcher()
+        self.dispatcher = Dispatcher() if dispatcher is None else dispatcher
 
     def execute(self, command: str, *args) -> bool:
         return self.dispatcher.dispatch(command, *args)

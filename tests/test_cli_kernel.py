@@ -8,19 +8,36 @@ import sys
 from pathlib import Path
 
 from qaos.kernel.kernel import Kernel
-import qaos.kernel.kernel as kernel_module
+from qaos.kernel.dispatcher import Dispatcher
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 SOURCE_ROOT = REPOSITORY_ROOT / "src"
 
 
-def test_kernel_dispatches_arguments_to_command_handler(monkeypatch) -> None:
+def test_kernel_dispatches_arguments_to_explicit_command_handler() -> None:
     captured = []
-    monkeypatch.setattr(kernel_module.Dispatcher, "dispatch", lambda self, name, *args: captured.append((name, args)) or True)
+    dispatcher = Dispatcher(
+        commands={
+            "run": lambda *args: captured.append(("run", args)),
+        }
+    )
 
-    assert Kernel().execute("run", "worker") is True
+    assert Kernel(dispatcher=dispatcher).execute("run", "worker") is True
     assert captured == [("run", ("worker",))]
+
+
+def test_explicit_empty_dispatcher_has_no_default_commands(capsys) -> None:
+    dispatcher = Dispatcher(commands={})
+
+    assert dispatcher.dispatch("about") is False
+    assert capsys.readouterr().out == "Unknown command: about\n"
+
+
+def test_default_dispatcher_retains_default_command_mapping() -> None:
+    from qaos.commands.registry import COMMANDS
+
+    assert Dispatcher()._commands is COMMANDS
 
 
 def test_kernel_registers_explicit_executive_service() -> None:

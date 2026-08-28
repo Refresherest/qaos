@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-040 base:** `13206b3` (`feat/operational-builder-chain`)
+**WO-041 base:** `ff9550d` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -72,9 +72,11 @@ by OpenHands Cloud parent-runtime startup.
   explicit ExecutiveOrchestrator and ExecutiveManager, including logging.
 - WO-040 resolves FINDING-015: Runtime and Kernel can retain an explicitly
   composed executive service without importing a default singleton.
-- Current verification passes 55 tests. The architecture inspector no longer
+- WO-041 resolves FINDING-016: Dispatcher and Kernel accept isolated command
+  surfaces while preserving every default CLI command and result contract.
+- Current verification passes 57 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-033.
+  VERIFICATION-034.
 
 ## Verified Builder Chain State
 
