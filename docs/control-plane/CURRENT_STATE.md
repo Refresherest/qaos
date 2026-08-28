@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-049 base:** `b194eb9` (`feat/operational-builder-chain`)
+**WO-050 base:** `8484e98` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -95,9 +95,11 @@ by OpenHands Cloud parent-runtime startup.
 - WO-049 resolves FINDING-022: PlannerManager, PlanGenerator, ContextManager,
   RetrievalManager, and RetrievalEngine now retain caller-selected workspace
   services through the complete planning chain.
-- Current verification passes 70 tests. The architecture inspector no longer
+- WO-050 resolves FINDING-023: ClassifierManager now retains a caller-selected
+  IntentClassifier-compatible service while preserving its default ruleset.
+- Current verification passes 72 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-042.
+  VERIFICATION-043.
 
 ## Verified Builder Chain State
 
