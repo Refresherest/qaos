@@ -24,7 +24,8 @@
     "WO-016",
     "WO-017",
     "WO-019",
-    "WO-020"
+    "WO-020",
+    "WO-021"
   ],
   "blocked_work_orders": [
     {
@@ -35,6 +36,6 @@
   "open_contradictions": [],
   "open_findings": [],
   "owner_product_priority": "Content OS",
-  "content_os_authority_state": "owner_priority_only_no_accepted_contract",
-  "next_action": "Create and obtain owner approval for a bounded CSA Content OS architectural characterization work order; do not implement Content OS before approval."
+  "content_os_authority_state": "characterized_in_proposal_004_pending_owner_decision",
+  "next_action": "Owner must approve, revise, or reject the five decisions in PROPOSAL-004 before a QAOS-readiness or Content OS implementation work order is issued."
 }

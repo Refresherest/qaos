@@ -55,17 +55,19 @@ by OpenHands Cloud parent-runtime startup.
 ## Product Direction
 
 The owner has identified Content OS as the intended first downstream product
-that QAOS should build. The tracked control plane does not yet establish its
-domain boundary, contract, dependency order, or acceptance criteria. Content
-OS implementation is therefore not authorized until the CSA issues a separate
-bounded work package and the owner approves it.
+that QAOS should build. WO-021 and PROPOSAL-004 now characterize a proposed
+QAOS/Content OS boundary, five readiness gates, and a first
+`Brief -> Reviewed Draft Artifact` slice. These are pending owner decisions,
+not accepted product architecture. Content OS implementation remains
+unauthorized.
 
 ## Open Priorities
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Define and owner-approve a bounded Content OS architectural
-   characterization work order before implementing downstream-product code.
+2. Approve, revise, or reject the five Content OS decisions in PROPOSAL-004.
+   If approved, issue a separate QAOS-readiness work order for Gates 2–5 before
+   implementing downstream-product code.
 3. Characterize other storage-backed manager/registry lifecycles only when a
    downstream dependency or separate work order requires it; WO-020 proves the
    MemoryManager contract only.
