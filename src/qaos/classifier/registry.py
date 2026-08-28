@@ -4,51 +4,23 @@ QAOS Intent Classifier Registry
 
 from .classifier import IntentClassifier
 
-classifier = IntentClassifier()
 
-#
-# Architecture
-#
+def create_default_classifier():
+    """Create an isolated classifier with the canonical built-in rules."""
+    service = IntentClassifier()
 
-classifier.register(
-    "architecture",
-    "validate_architecture",
-)
+    for keyword, classification in (
+        ("architecture", "validate_architecture"),
+        ("design", "design_system"),
+        ("plugin", "design_system"),
+        ("code", "review_code"),
+        ("review", "review_code"),
+        ("delegate", "delegate_work"),
+        ("objective", "analyze_objective"),
+    ):
+        service.register(keyword, classification)
 
-classifier.register(
-    "design",
-    "design_system",
-)
+    return service
 
-classifier.register(
-    "plugin",
-    "design_system",
-)
 
-#
-# Code
-#
-
-classifier.register(
-    "code",
-    "review_code",
-)
-
-classifier.register(
-    "review",
-    "review_code",
-)
-
-#
-# Executive
-#
-
-classifier.register(
-    "delegate",
-    "delegate_work",
-)
-
-classifier.register(
-    "objective",
-    "analyze_objective",
-)
+classifier = create_default_classifier()

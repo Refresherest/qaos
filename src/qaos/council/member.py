@@ -13,6 +13,7 @@ class CouncilMember(Agent):
         name,
         title,
         description,
+        registry=None,
     ):
         super().__init__(
             name=name,
@@ -20,7 +21,10 @@ class CouncilMember(Agent):
             description=description,
         )
 
-        register(self)
+        if registry is None:
+            register(self)
+        else:
+            registry.register(self)
 
     def initialize(self):
         print(f"[Council] Initializing {self.title}")

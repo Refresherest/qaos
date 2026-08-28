@@ -7,11 +7,12 @@ from .member import CouncilMember
 
 class ChiefOfStaff(CouncilMember):
 
-    def __init__(self):
+    def __init__(self, registry=None):
         super().__init__(
             name="chief_of_staff",
             title="AI Chief of Staff",
             description="Executive coordination and strategic oversight.",
+            registry=registry,
         )
 
     def run(self):

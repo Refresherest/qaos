@@ -16,6 +16,8 @@ from .result import (
     ExecutionResult,
 )
 
+from .factory import create_executive
+
 __all__ = [
 
     "ExecutiveManager",
@@ -25,5 +27,7 @@ __all__ = [
     "orchestrator",
 
     "ExecutionResult",
+
+    "create_executive",
 
 ]
