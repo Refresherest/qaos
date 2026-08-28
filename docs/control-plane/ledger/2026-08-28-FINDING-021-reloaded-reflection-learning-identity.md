@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — NOT IN WO-047 SCOPE`
+`RESOLVED — WO-048`
 
 ## Evidence
 
@@ -18,6 +18,7 @@ Learning directly from a persisted/reloaded reflection is not currently safe.
 
 ## Required Resolution
 
-Characterize the intended persisted-reflection learning contract in a separate
-work order. Do not infer that string identity should be rehydrated or that Learner
-should normalize it without an explicit scope decision.
+LearningEngine already established support for canonical Objective and string
+identity. WO-048 applies the same normalization to Learner's diagnostic output
+and proves persisted reload-to-learning behavior without rehydration or schema
+change.

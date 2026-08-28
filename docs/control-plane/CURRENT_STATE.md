@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-047 base:** `7ad0050` (`feat/operational-builder-chain`)
+**WO-048 base:** `6bd5efc` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -88,11 +88,13 @@ by OpenHands Cloud parent-runtime startup.
   registry and ObjectiveManager while preserving execution-before-save order.
 - WO-047 resolves FINDING-020: LearningManager, Learner, and LearningEngine form
   an explicit chain to isolated memory and knowledge managers.
-- FINDING-021 records an unrelated reloaded-reflection identity mismatch in
-  Learner; the live canonical Objective path is unaffected and no fix is implied.
-- Current verification passes 66 tests. The architecture inspector no longer
+- WO-047 recorded FINDING-021 as an unrelated reloaded-reflection identity
+  mismatch in Learner; the live canonical Objective path was unaffected.
+- WO-048 resolves FINDING-021 by applying LearningEngine's established
+  Objective-or-string identity normalization in Learner without rehydration.
+- Current verification passes 67 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-040.
+  VERIFICATION-041.
 
 ## Verified Builder Chain State
 

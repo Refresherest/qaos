@@ -12,9 +12,12 @@ class Learner:
 
     def learn(self, reflection):
 
+        objective = reflection.objective
+        goal = objective.goal if hasattr(objective, "goal") else objective
+
         print(
             f"[Learner] Learning from "
-            f"{reflection.objective.goal}"
+            f"{goal}"
         )
 
         return self._engine.learn(

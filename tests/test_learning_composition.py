@@ -11,6 +11,7 @@ from qaos.learning.manager import LearningManager
 from qaos.memory.manager import MemoryManager
 from qaos.objectives.objective import Objective
 from qaos.reflection import Reflection
+from qaos.reflection.manager import ReflectionManager
 from qaos.storage import create_stores
 
 
@@ -59,3 +60,25 @@ def test_default_learning_constructors_retain_default_services(monkeypatch) -> N
     assert engine._knowledge is default_knowledge
     assert constructed_learner._engine is default_engine
     assert manager._learner is default_learner
+
+
+def test_learner_accepts_reloaded_reflection_string_identity(tmp_path, capsys) -> None:
+    stores = create_stores(tmp_path / "reloaded-reflection")
+    objective = Objective("persisted reflection identity")
+    ReflectionManager(stores=stores).create(objective, summary="summary")
+    reloaded = ReflectionManager(stores=stores).get(objective.goal)
+    received = []
+
+    class Engine:
+        def learn(self, reflection):
+            received.append(reflection)
+            return "learned"
+
+    result = Learner(engine=Engine()).learn(reloaded)
+
+    assert result == "learned"
+    assert received == [reloaded]
+    assert reloaded.objective == objective.goal
+    assert capsys.readouterr().out == (
+        "[Learner] Learning from persisted reflection identity\n"
+    )
