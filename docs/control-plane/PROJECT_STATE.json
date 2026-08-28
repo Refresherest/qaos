@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "65585db",
   "core_baseline": "615cbbb",
-  "status": "operational_application_session_verified_builder_chain_blocked",
+  "status": "operational_session_verified_adapter_decision_required_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-054-operational-application-session.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-055-operational-session-adapter-decision.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -67,7 +67,8 @@
     "WO-060",
     "WO-061",
     "WO-062",
-    "WO-063"
+    "WO-063",
+    "WO-064"
   ],
   "blocked_work_orders": [
     {
@@ -86,5 +87,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Owner decides whether the first adapter over OperationalSession is CLI, another local interface, or intentionally deferred."
+  "next_action": "Owner selects Option A, B, or C in DECISION-REQUEST-006; adapter implementation remains unauthorized."
 }
