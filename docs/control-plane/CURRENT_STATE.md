@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-048 base:** `6bd5efc` (`feat/operational-builder-chain`)
+**WO-049 base:** `b194eb9` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -92,9 +92,12 @@ by OpenHands Cloud parent-runtime startup.
   mismatch in Learner; the live canonical Objective path was unaffected.
 - WO-048 resolves FINDING-021 by applying LearningEngine's established
   Objective-or-string identity normalization in Learner without rehydration.
-- Current verification passes 67 tests. The architecture inspector no longer
+- WO-049 resolves FINDING-022: PlannerManager, PlanGenerator, ContextManager,
+  RetrievalManager, and RetrievalEngine now retain caller-selected workspace
+  services through the complete planning chain.
+- Current verification passes 70 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-041.
+  VERIFICATION-042.
 
 ## Verified Builder Chain State
 

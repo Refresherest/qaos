@@ -13,7 +13,7 @@ from .generator import plan_generator
 
 class PlannerManager:
 
-    def __init__(self, stores=None, registry=None):
+    def __init__(self, stores=None, registry=None, generator=None):
 
         uses_default_stores = stores is None
 
@@ -23,6 +23,7 @@ class PlannerManager:
             if uses_default_stores
             else PlanRegistry()
         )
+        self._generator = plan_generator if generator is None else generator
 
         self._load()
 
@@ -99,7 +100,7 @@ class PlannerManager:
 
     def plan(self, objective):
 
-        return plan_generator.generate(
+        return self._generator.generate(
             self,
             objective,
         )

@@ -7,9 +7,12 @@ from qaos.context import context_manager
 
 class PlanGenerator:
 
+    def __init__(self, context=None):
+        self._context = context_manager if context is None else context
+
     def generate(self, planner_manager, objective):
 
-        context = context_manager.create(
+        context = self._context.create(
             objective
         )
 

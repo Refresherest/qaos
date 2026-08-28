@@ -9,6 +9,17 @@ from qaos.artifacts import artifact_manager
 
 class RetrievalEngine:
 
+    def __init__(
+        self,
+        *,
+        memory=None,
+        knowledge=None,
+        artifacts=None,
+    ):
+        self._memory = memory_manager if memory is None else memory
+        self._knowledge = knowledge_manager if knowledge is None else knowledge
+        self._artifacts = artifact_manager if artifacts is None else artifacts
+
     def search(self, query):
 
         results = {
@@ -23,7 +34,7 @@ class RetrievalEngine:
         # Search Memory
         # -------------------------
 
-        for memory in memory_manager.memories().values():
+        for memory in self._memory.memories().values():
 
             text = str(memory).lower()
 
@@ -34,7 +45,7 @@ class RetrievalEngine:
         # Search Knowledge
         # -------------------------
 
-        for knowledge in knowledge_manager.knowledge().values():
+        for knowledge in self._knowledge.knowledge().values():
 
             text = (
                 knowledge.title
@@ -51,7 +62,7 @@ class RetrievalEngine:
         # Search Artifacts
         # -------------------------
 
-        for artifact in artifact_manager.artifacts().values():
+        for artifact in self._artifacts.artifacts().values():
 
             text = (
                 artifact.title

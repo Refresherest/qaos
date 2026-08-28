@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-28",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "6bd5efc",
+  "branch_baseline": "b194eb9",
   "core_baseline": "615cbbb",
-  "status": "learning_stage_composable_reloaded_identity_supported_builder_chain_blocked",
+  "status": "planning_and_learning_stages_explicitly_composable_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-28-HANDOFF-039-reloaded-reflection-learning-identity.md",
+  "current_baseline": "ledger/2026-08-28-HANDOFF-040-planning-stage-composition.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -52,7 +52,8 @@
     "WO-045",
     "WO-046",
     "WO-047",
-    "WO-048"
+    "WO-048",
+    "WO-049"
   ],
   "blocked_work_orders": [
     {

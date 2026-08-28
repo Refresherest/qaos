@@ -3,22 +3,29 @@ QAOS Context Manager
 """
 
 from .context import Context
-from .registry import (
-    register,
-    get,
-    all,
-)
+from .registry import ContextRegistry, context_registry
 
 from qaos.retrieval import retrieval_manager
 
 
 class ContextManager:
 
+    def __init__(self, retrieval=None, registry=None):
+        uses_default_retrieval = retrieval is None
+        self._retrieval = (
+            retrieval_manager if uses_default_retrieval else retrieval
+        )
+        self._registry = registry or (
+            context_registry
+            if uses_default_retrieval
+            else ContextRegistry()
+        )
+
     def create(self, objective):
 
         context = Context(objective)
 
-        results = retrieval_manager.search(
+        results = self._retrieval.search(
             objective.goal
         )
 
@@ -50,17 +57,17 @@ class ContextManager:
                 artifact
             )
 
-        register(context)
+        self._registry.register(context)
 
         return context
 
     def get(self, objective):
 
-        return get(objective)
+        return self._registry.get(objective)
 
     def contexts(self):
 
-        return all()
+        return self._registry.all()
 
 
 context_manager = ContextManager()
