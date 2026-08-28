@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "65585db",
   "core_baseline": "615cbbb",
-  "status": "general_objective_fallback_verified_builder_chain_blocked",
+  "status": "general_objective_cli_smoke_verified_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-059-general-objective-classification-fallback.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-060-general-objective-cli-smoke.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -72,7 +72,8 @@
     "WO-065",
     "WO-066",
     "WO-067",
-    "WO-068"
+    "WO-068",
+    "WO-069"
   ],
   "blocked_work_orders": [
     {
@@ -91,5 +92,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Select the next QAOS operational-readiness gap through a separate evidence-led work order; classification-driven routing remains unauthorized."
+  "next_action": "Perform an evidence-led operational-readiness gap assessment before selecting another implementation work order."
 }
