@@ -12,6 +12,7 @@ import pytest
 from qaos.config import create_configuration
 from qaos.kernel.kernel import Kernel
 from qaos.kernel.dispatcher import Dispatcher
+from qaos.main import main
 from qaos.objectives.objective import Objective
 
 
@@ -101,3 +102,70 @@ def test_cli_help_runs_without_legacy_runtime_bootstrap() -> None:
     assert result.returncode == 0, result.stderr
     assert "QAOS Command Line Interface" in result.stdout
     assert "Logger initialized" not in result.stdout
+    assert "objective --workspace <path> <goal>" in result.stdout
+
+
+def test_cli_objective_requires_explicit_workspace(capsys) -> None:
+    assert main(["objective", "a goal without workspace"]) == 2
+
+    captured = capsys.readouterr()
+    assert captured.out == ""
+    assert "objective --workspace <path> <goal>" in captured.err
+
+
+def test_cli_objective_returns_execution_status(monkeypatch, capsys) -> None:
+    received = []
+
+    class Result:
+        completed = True
+
+    monkeypatch.setattr(
+        "qaos.main.execute_objective_command",
+        lambda workspace, goal: received.append((workspace, goal)) or Result(),
+    )
+
+    assert main(
+        ["objective", "--workspace", "selected-workspace", "build", "QAOS"]
+    ) == 0
+    assert received == [("selected-workspace", "build QAOS")]
+    assert capsys.readouterr().err == ""
+
+
+def test_cli_objective_returns_failure_status(monkeypatch, capsys) -> None:
+    def fail(_workspace, _goal):
+        raise RuntimeError("bounded failure")
+
+    monkeypatch.setattr("qaos.main.execute_objective_command", fail)
+
+    assert main(["objective", "--workspace", "workspace", "goal"]) == 1
+    assert "Objective execution failed: bounded failure" in capsys.readouterr().err
+
+
+def test_cli_objective_executes_in_selected_workspace(tmp_path) -> None:
+    environment = os.environ.copy()
+    environment["PYTHONPATH"] = str(SOURCE_ROOT)
+    workspace = tmp_path / "cli-workspace"
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "qaos.main",
+            "objective",
+            "--workspace",
+            str(workspace),
+            "CLI operational objective",
+        ],
+        cwd=REPOSITORY_ROOT,
+        env=environment,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert "Objective: CLI operational objective" in result.stdout
+    assert "Status: completed" in result.stdout
+    assert "Classification: analyze_objective" in result.stdout
+    assert "Assignee: chief_technology_officer" in result.stdout
+    assert (workspace / "objectives.json").exists()
+    assert (workspace / "queue.json").exists()

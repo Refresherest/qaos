@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "65585db",
   "core_baseline": "615cbbb",
-  "status": "operational_session_verified_adapter_decision_required_builder_chain_blocked",
+  "status": "one_shot_cli_objective_adapter_verified_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-055-operational-session-adapter-decision.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-056-one-shot-cli-objective-adapter.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -68,7 +68,8 @@
     "WO-061",
     "WO-062",
     "WO-063",
-    "WO-064"
+    "WO-064",
+    "WO-065"
   ],
   "blocked_work_orders": [
     {
@@ -87,5 +88,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Owner selects Option A, B, or C in DECISION-REQUEST-006; adapter implementation remains unauthorized."
+  "next_action": "Run one owner-approved manual CLI smoke test against a fresh disposable workspace, or stop before further interface expansion."
 }

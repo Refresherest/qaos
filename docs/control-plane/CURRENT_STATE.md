@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-064 base:** `eea5858` (`feat/operational-builder-chain`)
+**WO-065 base:** `e6cc61a` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -136,9 +136,12 @@ by OpenHands Cloud parent-runtime startup.
 - WO-064 records DECISION-REQUEST-006 for the first adapter over
   OperationalSession. Option A, a one-shot CLI objective operation requiring
   an explicit workspace, is recommended; no product code changed.
-- Current verification passes 99 tests. The architecture inspector no longer
+- OWNER-DECISION-006 selects Option A. WO-065 implements the one-shot
+  `objective --workspace <path> <goal...>` CLI adapter with deterministic 0/1/2
+  process statuses and no implicit active-data target.
+- Current verification passes 103 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-056.
+  VERIFICATION-058.
 
 ## Verified Builder Chain State
 
@@ -179,8 +182,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Select Option A, B, or C in DECISION-REQUEST-006; adapter implementation
-   remains unauthorized pending that decision.
+2. Run one owner-approved manual CLI smoke test against a fresh disposable
+   workspace, or stop before further interface expansion.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
