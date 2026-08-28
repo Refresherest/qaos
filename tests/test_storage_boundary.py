@@ -325,3 +325,42 @@ def test_plan_registry_compatibility_functions_use_default_registry() -> None:
             registry.unregister(objective)
         else:
             registry.register(previous)
+
+
+def test_explicit_queue_managers_have_isolated_registries(tmp_path) -> None:
+    from qaos.queue import QueueItem, QueueManager
+
+    first_stores = create_stores(tmp_path / "first-queue")
+    second_stores = create_stores(tmp_path / "second-queue")
+
+    first = QueueManager(stores=first_stores)
+    second = QueueManager(stores=second_stores)
+
+    first.add(QueueItem("first objective", "first assignee"))
+    second.add(QueueItem("second objective", "second assignee"))
+
+    assert [item["objective"] for item in first_stores.queue_db.load()] == [
+        "first objective"
+    ]
+    assert [item["objective"] for item in second_stores.queue_db.load()] == [
+        "second objective"
+    ]
+    assert [item.objective for item in first.items()] == ["first objective"]
+    assert [item.objective for item in second.items()] == ["second objective"]
+
+
+def test_queue_registry_compatibility_functions_use_default_registry() -> None:
+    from qaos.queue import QueueItem
+    from qaos.queue import registry
+
+    previous = registry.all()
+    item = QueueItem("compatibility queue objective", "compatibility assignee")
+
+    registry.clear()
+    registry.add(item)
+    try:
+        assert registry.all() == [item]
+    finally:
+        registry.clear()
+        for previous_item in previous:
+            registry.add(previous_item)

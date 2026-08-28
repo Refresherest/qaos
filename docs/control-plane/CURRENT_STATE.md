@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-033 base:** `425b9fe` (`feat/operational-builder-chain`)
+**WO-034 base:** `f9e21c9` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -57,8 +57,12 @@ by OpenHands Cloud parent-runtime startup.
 - WO-033 resolves FINDING-008: Objective transitions are state-only, while the
   explicitly selected ObjectiveManager owns persistence. Council uses the
   default manager explicitly and Content OS uses its isolated manager.
-- Current verification passes 41 tests. The architecture inspector no longer
-  reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`. See VERIFICATION-026.
+- WO-034 resolves FINDING-009: explicitly stored QueueManagers now own private
+  registry state, while the default manager and compatibility functions retain
+  the default registry.
+- Current verification passes 43 tests. The architecture inspector no longer
+  reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
+  VERIFICATION-027.
 
 ## Verified Builder Chain State
 

@@ -2,16 +2,32 @@
 QAOS Queue Registry
 """
 
-_QUEUE = []
+class QueueRegistry:
+    """Queue state owned by one queue-manager lifecycle."""
+
+    def __init__(self):
+        self._queue = []
+
+    def add(self, item):
+        self._queue.append(item)
+
+    def all(self):
+        return list(self._queue)
+
+    def clear(self):
+        self._queue.clear()
+
+
+queue_registry = QueueRegistry()
 
 
 def add(item):
-    _QUEUE.append(item)
+    queue_registry.add(item)
 
 
 def all():
-    return list(_QUEUE)
+    return queue_registry.all()
 
 
 def clear():
-    _QUEUE.clear()
+    queue_registry.clear()

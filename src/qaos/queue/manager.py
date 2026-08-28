@@ -7,11 +7,7 @@ from datetime import datetime
 from qaos.storage import create_stores, DATA
 
 from .item import QueueItem
-from .registry import (
-    add,
-    all,
-    clear,
-)
+from .registry import QueueRegistry, queue_registry
 
 from qaos.workers import worker_manager
 from qaos.planner import Task
@@ -19,9 +15,15 @@ from qaos.planner import Task
 
 class QueueManager:
 
-    def __init__(self, stores=None):
+    def __init__(self, stores=None, registry=None):
 
+        uses_default_stores = stores is None
         self._stores = stores or create_stores(DATA)
+        self._registry = registry or (
+            queue_registry
+            if uses_default_stores
+            else QueueRegistry()
+        )
 
         self._load()
 
@@ -29,7 +31,7 @@ class QueueManager:
 
     def _load(self):
 
-        clear()
+        self._registry.clear()
 
         for data in self._stores.queue_db.load():
 
@@ -80,7 +82,7 @@ class QueueManager:
                 else None
             )
 
-            add(item)
+            self._registry.add(item)
 
     # -------------------------------------------------
 
@@ -88,7 +90,7 @@ class QueueManager:
 
         data = []
 
-        for item in all():
+        for item in self._registry.all():
 
             action = None
 
@@ -128,7 +130,7 @@ class QueueManager:
 
     def add(self, item):
 
-        add(item)
+        self._registry.add(item)
 
         self._save()
 
@@ -136,7 +138,7 @@ class QueueManager:
 
     def items(self):
 
-        return all()
+        return self._registry.all()
 
     # -------------------------------------------------
 
@@ -146,7 +148,7 @@ class QueueManager:
             "default"
         )
 
-        for item in all():
+        for item in self._registry.all():
 
             if item.status != "pending":
                 continue
@@ -159,7 +161,7 @@ class QueueManager:
 
     def clear(self):
 
-        clear()
+        self._registry.clear()
 
         self._save()
 

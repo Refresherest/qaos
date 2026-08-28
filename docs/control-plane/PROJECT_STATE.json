@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-28",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "425b9fe",
+  "branch_baseline": "f9e21c9",
   "core_baseline": "615cbbb",
-  "status": "content_os_first_slice_verified_objective_lifecycle_isolated_builder_chain_blocked",
+  "status": "content_os_first_slice_verified_queue_manager_isolated_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-28-HANDOFF-024-objective-manager-lifecycle-ownership.md",
+  "current_baseline": "ledger/2026-08-28-HANDOFF-025-queue-manager-isolation.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -37,7 +37,8 @@
     "WO-030",
     "WO-031",
     "WO-032",
-    "WO-033"
+    "WO-033",
+    "WO-034"
   ],
   "blocked_work_orders": [
     {
