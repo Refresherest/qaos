@@ -2,40 +2,50 @@
 QAOS Plan Registry
 """
 
-_registry = {}
+class PlanRegistry:
+    """Registry state owned by one planner-manager lifecycle."""
+
+    def __init__(self):
+        self._registry = {}
+
+    def register(self, plan):
+        objective = plan.objective
+
+        if hasattr(objective, "goal"):
+            objective = objective.goal
+
+        self._registry[objective] = plan
+
+    def unregister(self, objective):
+        if hasattr(objective, "goal"):
+            objective = objective.goal
+
+        self._registry.pop(objective, None)
+
+    def get(self, objective):
+        if hasattr(objective, "goal"):
+            objective = objective.goal
+
+        return self._registry.get(objective)
+
+    def all(self):
+        return self._registry
+
+
+plan_registry = PlanRegistry()
 
 
 def register(plan):
-
-    objective = plan.objective
-
-    if hasattr(objective, "goal"):
-        objective = objective.goal
-
-    _registry[objective] = plan
+    plan_registry.register(plan)
 
 
 def unregister(objective):
-
-    if hasattr(objective, "goal"):
-        objective = objective.goal
-
-    _registry.pop(
-        objective,
-        None,
-    )
+    plan_registry.unregister(objective)
 
 
 def get(objective):
-
-    if hasattr(objective, "goal"):
-        objective = objective.goal
-
-    return _registry.get(
-        objective
-    )
+    return plan_registry.get(objective)
 
 
 def all():
-
-    return _registry
+    return plan_registry.all()

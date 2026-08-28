@@ -237,3 +237,50 @@ def test_objective_registry_compatibility_functions_use_default_registry() -> No
             registry.unregister(objective)
         else:
             registry.register(previous)
+
+
+def test_explicit_planner_managers_have_isolated_registries(tmp_path) -> None:
+    from qaos.objectives.objective import Objective
+    from qaos.planner.manager import PlannerManager
+
+    first_stores = create_stores(tmp_path / "first-plans")
+    second_stores = create_stores(tmp_path / "second-plans")
+
+    first = PlannerManager(stores=first_stores)
+    second = PlannerManager(stores=second_stores)
+
+    first_objective = Objective("first plan objective")
+    second_objective = Objective("second plan objective")
+    first_plan = first.create(first_objective)
+    second_plan = second.create(second_objective)
+
+    assert [item["objective"] for item in first_stores.plan_db.load()] == [
+        "first plan objective"
+    ]
+    assert [item["objective"] for item in second_stores.plan_db.load()] == [
+        "second plan objective"
+    ]
+    assert first.get(first_objective) is first_plan
+    assert second.get(second_objective) is second_plan
+    assert first.get(second_objective) is None
+    assert second.get(first_objective) is None
+
+
+def test_plan_registry_compatibility_functions_use_default_registry() -> None:
+    from qaos.objectives.objective import Objective
+    from qaos.planner import registry
+    from qaos.planner.plan import Plan
+
+    objective = Objective("compatibility plan objective")
+    plan = Plan(objective)
+    previous = registry.all().get(objective.goal)
+
+    registry.register(plan)
+    try:
+        assert registry.get(objective) is plan
+        assert registry.all()[objective.goal] is plan
+    finally:
+        if previous is None:
+            registry.unregister(objective)
+        else:
+            registry.register(previous)

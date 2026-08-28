@@ -6,21 +6,23 @@ from qaos.storage import create_stores, DATA
 
 from .plan import Plan
 from .task import Task
-from .registry import (
-    register,
-    unregister,
-    get,
-    all,
-)
+from .registry import PlanRegistry, plan_registry
 
 from .generator import plan_generator
 
 
 class PlannerManager:
 
-    def __init__(self, stores=None):
+    def __init__(self, stores=None, registry=None):
+
+        uses_default_stores = stores is None
 
         self._stores = stores or create_stores(DATA)
+        self._registry = registry or (
+            plan_registry
+            if uses_default_stores
+            else PlanRegistry()
+        )
 
         self._load()
 
@@ -45,7 +47,7 @@ class PlannerManager:
                     )
                 )
 
-            register(plan)
+            self._registry.register(plan)
 
     # ---------------------------------
 
@@ -53,7 +55,7 @@ class PlannerManager:
 
         data = []
 
-        for plan in all().values():
+        for plan in self._registry.all().values():
 
             objective = plan.objective
 
@@ -87,7 +89,7 @@ class PlannerManager:
             objective
         )
 
-        register(plan)
+        self._registry.register(plan)
 
         self._save()
 
@@ -106,7 +108,7 @@ class PlannerManager:
 
     def register(self, plan):
 
-        register(plan)
+        self._registry.register(plan)
 
         self._save()
 
@@ -114,7 +116,7 @@ class PlannerManager:
 
     def unregister(self, objective):
 
-        unregister(objective)
+        self._registry.unregister(objective)
 
         self._save()
 
@@ -122,13 +124,13 @@ class PlannerManager:
 
     def get(self, objective):
 
-        return get(objective)
+        return self._registry.get(objective)
 
     # ---------------------------------
 
     def plans(self):
 
-        return all()
+        return self._registry.all()
 
     # ---------------------------------
 

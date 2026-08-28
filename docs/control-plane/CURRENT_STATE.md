@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-023 base:** `bc9ab99` (`feat/operational-builder-chain`)
+**WO-024 base:** `dc86eb6` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -30,8 +30,11 @@ by OpenHands Cloud parent-runtime startup.
 - WO-023 verifies the same private-registry contract for explicitly stored
   ObjectiveManagers without changing default compatibility behavior or the
   Objective entity self-persistence contract.
-- Current verification passes 25 tests, including 11 focused
-  storage-boundary tests. See VERIFICATION-016.
+- WO-024 verifies private registry state for explicitly stored PlannerManagers.
+  Memory, Artifact, Objective, and Plan workspace isolation now satisfy Content
+  OS readiness Gate 2.
+- Current verification passes 27 tests, including 13 focused
+  storage-boundary tests. See VERIFICATION-017.
 
 ## Verified Builder Chain State
 
@@ -71,9 +74,9 @@ terms for now. Content OS implementation remains gated, not yet authorized.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Continue readiness Gate 2 one dependency at a time. Memory, Artifact, and
-   Objective isolation are proven; Plan workspace isolation remains pending.
-3. After Gate 2, establish the injected deterministic generation contract and
-   end-to-end success/failure evidence required by Gates 3–5.
+2. Gate 2 is passed. Issue a separate bounded work order to establish the
+   injected deterministic generation contract required by Gate 3.
+3. After Gate 3, establish the end-to-end success and failure evidence required
+   by Gates 4–5.
 4. Address pre-existing dead `qaos.queue.queue_db` and registry string-key
    findings only through separate work orders if they become prioritized.

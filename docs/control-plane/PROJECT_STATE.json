@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-28",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "bc9ab99",
+  "branch_baseline": "dc86eb6",
   "core_baseline": "615cbbb",
-  "status": "content_os_boundary_accepted_readiness_gate_2_partial_builder_chain_blocked",
+  "status": "content_os_boundary_accepted_readiness_gate_2_passed_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-28-HANDOFF-014-objective-manager-isolation.md",
+  "current_baseline": "ledger/2026-08-28-HANDOFF-015-planner-manager-isolation.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -27,7 +27,8 @@
     "WO-020",
     "WO-021",
     "WO-022",
-    "WO-023"
+    "WO-023",
+    "WO-024"
   ],
   "blocked_work_orders": [
     {
@@ -41,10 +42,10 @@
   "content_os_authority_state": "proposal_004_accepted_by_owner_decision_001",
   "content_os_readiness": {
     "gate_1": "passed",
-    "gate_2": "partial_memory_artifact_and_objective_passed_plan_pending",
+    "gate_2": "passed",
     "gate_3": "pending",
     "gate_4": "pending",
     "gate_5": "pending"
   },
-  "next_action": "Issue one bounded work order for PlannerManager workspace isolation as the final dependency of Content OS readiness Gate 2."
+  "next_action": "Issue one bounded work order for the injected deterministic generation contract required by Content OS readiness Gate 3."
 }
