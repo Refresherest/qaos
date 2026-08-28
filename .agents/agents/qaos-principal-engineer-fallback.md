@@ -4,7 +4,7 @@ description: Provides the PE fallback when the primary PE model invocation fails
 tools:
   - terminal
   - file_editor
-model: inherit
+model: QAOS_PE
 skills:
   - qaos-architecture-awareness
   - qaos-principal-engineer

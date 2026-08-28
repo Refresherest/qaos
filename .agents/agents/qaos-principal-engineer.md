@@ -6,7 +6,7 @@ description: >
 tools:
   - terminal
   - file_editor
-model: inherit
+model: QAOS_PE
 skills:
   - qaos-architecture-awareness
   - qaos-principal-engineer

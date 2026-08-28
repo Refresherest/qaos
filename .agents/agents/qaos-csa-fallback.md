@@ -3,7 +3,7 @@ name: qaos-csa-fallback
 description: Provides the CSA fallback when the primary CSA model invocation fails.
 tools:
   - terminal
-model: inherit
+model: QAOS_CSA
 skills:
   - qaos-architecture-awareness
 max_iteration_per_run: 20

@@ -3,7 +3,7 @@ name: qaos-reviewer-fallback
 description: Provides the Reviewer fallback when the primary reviewer model invocation fails.
 tools:
   - terminal
-model: inherit
+model: QAOS_REVIEWER
 skills:
   - qaos-reviewer
 max_iteration_per_run: 30

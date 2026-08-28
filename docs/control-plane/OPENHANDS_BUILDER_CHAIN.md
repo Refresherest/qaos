@@ -4,20 +4,22 @@
 
 The project defines six OpenHands file-based sub-agents in `.agents/agents/`:
 
-| Stage | Primary agent | Current smoke-test model | Technical fallback agent | Current smoke-test model |
+| Stage | Primary agent | SMOKE-002 profile | Technical fallback agent | SMOKE-002 profile |
 | --- | --- | --- | --- | --- |
-| Architecture | `qaos-csa` | `inherit` (parent conversation model) | `qaos-csa-fallback` | `inherit` (parent conversation model) |
-| Implementation | `qaos-principal-engineer` | `inherit` (parent conversation model) | `qaos-principal-engineer-fallback` | `inherit` (parent conversation model) |
-| Independent review | `qaos-reviewer` | `inherit` (parent conversation model) | `qaos-reviewer-fallback` | `inherit` (parent conversation model) |
+| Architecture | `qaos-csa` | `QAOS_CSA` | `qaos-csa-fallback` | `QAOS_CSA` |
+| Implementation | `qaos-principal-engineer` | `QAOS_PE` | `qaos-principal-engineer-fallback` | `QAOS_PE` |
+| Independent review | `qaos-reviewer` | `QAOS_REVIEWER` | `qaos-reviewer-fallback` | `QAOS_REVIEWER` |
 
-For the current OpenHands Cloud smoke test, every sub-agent inherits the
-parent conversation model. This deliberately avoids named-profile resolution
-because Cloud delegation reported an empty profile store. It proves the
-CSA-to-PE-to-Reviewer orchestration path only; it does not prove independent
-role models or model-level fallback routing. The fallback *agents* are used
-only for a technical agent/model execution failure (for example provider
-error, authentication error, timeout, or malformed tool response), not for a
-hard problem, disagreement, failed test, or an architectural block.
+SMOKE-002 binds every primary and fallback agent to its matching role profile.
+The owner reports that `QAOS_CSA`, `QAOS_PE`, and `QAOS_REVIEWER` each point to
+an OmniRoute role combination and have passed end-to-end profile smoke tests.
+This bounded run tests whether delegated file-based agents can resolve those
+named profiles. It does not designate or validate any model for QAOS product
+work, and it does not prove provider-level fallback behavior. The fallback
+*agents* are used only for a technical agent/model execution failure (for
+example provider error, authentication error, timeout, or malformed tool
+response), not for a hard problem, disagreement, failed test, or an
+architectural block.
 
 ## Required Flow
 
@@ -73,7 +75,11 @@ files, exact verification results, and next owner action.
 - Turn on the OpenHands Critic as an additional guard when the signed-in Cloud
   settings session is available. Critic output is advisory and does not replace
   `qaos-reviewer`.
-- The parent Cloud LLM profile must be selected and tested before a smoke run.
-- This inherited-model configuration is a temporary orchestration proof. A
-  controlled SDK or Agent Server profile store is required before QAOS can
-  claim independent role models or ordered model-level fallback.
+- The three named role profiles must exist in the delegated Cloud profile
+  store before a smoke run.
+- If delegated named-profile resolution fails during SMOKE-002, restore all
+  six agents to `model: inherit`, publish the restoration, record the exact
+  error, and stop.
+- Named role-profile execution remains transport evidence. QAOS cannot claim
+  model validation, designation, or ordered provider-level fallback from this
+  smoke test.
