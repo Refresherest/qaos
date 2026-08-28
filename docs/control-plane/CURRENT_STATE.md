@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-035 base:** `aec672d` (`feat/operational-builder-chain`)
+**WO-036 base:** `36a7b34` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -62,9 +62,11 @@ by OpenHands Cloud parent-runtime startup.
   the default registry.
 - WO-035 resolves FINDING-010: explicitly stored KnowledgeManagers now own
   private registry state, preventing cross-workspace lookup and persistence.
-- Current verification passes 45 tests. The architecture inspector no longer
+- WO-036 resolves FINDING-011: explicitly stored ReflectionManagers now own
+  private registry state while objective/string identity behavior remains.
+- Current verification passes 47 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-028.
+  VERIFICATION-029.
 
 ## Verified Builder Chain State
 

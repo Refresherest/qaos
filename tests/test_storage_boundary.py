@@ -404,3 +404,42 @@ def test_knowledge_registry_compatibility_functions_use_default_registry() -> No
             registry.all().pop(knowledge.title, None)
         else:
             registry.register(previous)
+
+
+def test_explicit_reflection_managers_have_isolated_registries(tmp_path) -> None:
+    from qaos.reflection.manager import ReflectionManager
+
+    first_stores = create_stores(tmp_path / "first-reflections")
+    second_stores = create_stores(tmp_path / "second-reflections")
+
+    first = ReflectionManager(stores=first_stores)
+    second = ReflectionManager(stores=second_stores)
+
+    first.create("first objective", summary="one")
+    second.create("second objective", summary="two")
+
+    assert [item["objective"] for item in first_stores.reflection_db.load()] == [
+        "first objective"
+    ]
+    assert [item["objective"] for item in second_stores.reflection_db.load()] == [
+        "second objective"
+    ]
+    assert first.get("second objective") is None
+    assert second.get("first objective") is None
+
+
+def test_reflection_registry_compatibility_functions_use_default_registry() -> None:
+    from qaos.reflection import registry
+    from qaos.reflection.reflection import Reflection
+
+    reflection = Reflection("compatibility reflection objective", "summary")
+    previous = registry.get(reflection.objective)
+
+    registry.register(reflection)
+    try:
+        assert registry.get(reflection.objective) is reflection
+        assert registry.all()[reflection.objective] is reflection
+    finally:
+        registry.unregister(reflection.objective)
+        if previous is not None:
+            registry.register(previous)

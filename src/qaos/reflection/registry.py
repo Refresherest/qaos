@@ -2,40 +2,46 @@
 QAOS Reflection Registry
 """
 
-_registry = {}
+def _objective_key(objective):
+    if hasattr(objective, "goal"):
+        return objective.goal
+
+    return objective
+
+
+class ReflectionRegistry:
+    """Registry state owned by one reflection-manager lifecycle."""
+
+    def __init__(self):
+        self._registry = {}
+
+    def register(self, reflection):
+        self._registry[_objective_key(reflection.objective)] = reflection
+
+    def unregister(self, objective):
+        self._registry.pop(_objective_key(objective), None)
+
+    def get(self, objective):
+        return self._registry.get(_objective_key(objective))
+
+    def all(self):
+        return self._registry
+
+
+reflection_registry = ReflectionRegistry()
 
 
 def register(reflection):
-
-    objective = reflection.objective
-
-    if hasattr(objective, "goal"):
-        objective = objective.goal
-
-    _registry[objective] = reflection
+    reflection_registry.register(reflection)
 
 
 def unregister(objective):
-
-    if hasattr(objective, "goal"):
-        objective = objective.goal
-
-    _registry.pop(
-        objective,
-        None,
-    )
+    reflection_registry.unregister(objective)
 
 
 def get(objective):
-
-    if hasattr(objective, "goal"):
-        objective = objective.goal
-
-    return _registry.get(
-        objective
-    )
+    return reflection_registry.get(objective)
 
 
 def all():
-
-    return _registry
+    return reflection_registry.all()

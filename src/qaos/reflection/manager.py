@@ -5,19 +5,20 @@ QAOS Reflection Manager
 from qaos.storage import create_stores, DATA
 
 from .reflection import Reflection
-from .registry import (
-    register,
-    unregister,
-    get,
-    all,
-)
+from .registry import ReflectionRegistry, reflection_registry
 
 
 class ReflectionManager:
 
-    def __init__(self, stores=None):
+    def __init__(self, stores=None, registry=None):
 
+        uses_default_stores = stores is None
         self._stores = stores or create_stores(DATA)
+        self._registry = registry or (
+            reflection_registry
+            if uses_default_stores
+            else ReflectionRegistry()
+        )
 
         self._load()
 
@@ -48,7 +49,7 @@ class ReflectionManager:
 
             )
 
-            register(reflection)
+            self._registry.register(reflection)
 
     # -------------------------------------------------
 
@@ -56,7 +57,7 @@ class ReflectionManager:
 
         data = []
 
-        for reflection in all().values():
+        for reflection in self._registry.all().values():
 
             objective = reflection.objective
 
@@ -102,7 +103,7 @@ class ReflectionManager:
 
         )
 
-        register(reflection)
+        self._registry.register(reflection)
 
         self._save()
 
@@ -150,7 +151,7 @@ class ReflectionManager:
 
         )
 
-        register(reflection)
+        self._registry.register(reflection)
 
         self._save()
 
@@ -160,7 +161,7 @@ class ReflectionManager:
 
     def register(self, reflection):
 
-        register(reflection)
+        self._registry.register(reflection)
 
         self._save()
 
@@ -168,7 +169,7 @@ class ReflectionManager:
 
     def unregister(self, objective):
 
-        unregister(objective)
+        self._registry.unregister(objective)
 
         self._save()
 
@@ -176,13 +177,13 @@ class ReflectionManager:
 
     def get(self, objective):
 
-        return get(objective)
+        return self._registry.get(objective)
 
     # -------------------------------------------------
 
     def reflections(self):
 
-        return all()
+        return self._registry.all()
 
     # -------------------------------------------------
 
