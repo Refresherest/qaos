@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-28",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "997e414",
+  "branch_baseline": "c57aaaf",
   "core_baseline": "615cbbb",
-  "status": "content_os_boundary_accepted_readiness_gate_3_passed_builder_chain_blocked",
+  "status": "content_os_gate_4_sequencing_owner_decision_required_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-28-HANDOFF-016-deterministic-generation-contract.md",
+  "current_baseline": "ledger/2026-08-28-HANDOFF-017-gate-4-boundary-reconciliation.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -29,7 +29,8 @@
     "WO-022",
     "WO-023",
     "WO-024",
-    "WO-025"
+    "WO-025",
+    "WO-026"
   ],
   "blocked_work_orders": [
     {
@@ -37,7 +38,9 @@
       "reason": "OpenHands Cloud parent runtime failed before agent discovery, delegation, or named-profile resolution"
     }
   ],
-  "open_contradictions": [],
+  "open_contradictions": [
+    "CONTRADICTION-002"
+  ],
   "open_findings": [
     "FINDING-004"
   ],
@@ -47,8 +50,8 @@
     "gate_1": "passed",
     "gate_2": "passed",
     "gate_3": "passed",
-    "gate_4": "pending",
+    "gate_4": "pending_owner_sequencing_decision",
     "gate_5": "pending"
   },
-  "next_action": "Issue one bounded work order for the end-to-end success and failure contract required by Content OS readiness Gate 4."
+  "next_action": "Record the owner's selection for DECISION-REQUEST-002 Option A, B, or C before Gate 4 or Content OS implementation."
 }

@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-025 base:** `997e414` (`feat/operational-builder-chain`)
+**WO-026 base:** `c57aaaf` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -36,6 +36,9 @@ by OpenHands Cloud parent-runtime startup.
 - WO-025 adds explicitly injected, provider-neutral AI generation with immutable
   prompt/output evidence without mutating global provider selection. This
   satisfies Content OS readiness Gate 3.
+- WO-026 records CONTRADICTION-002: Gate 4 requires Content OS-specific brief
+  validation and review behavior, while OWNER-DECISION-001 requires Gate 4 to
+  pass before Content OS implementation. No product code was changed.
 - Current verification passes 29 tests. See VERIFICATION-018.
 
 ## Verified Builder Chain State
@@ -76,9 +79,10 @@ terms for now. Content OS implementation remains gated, not yet authorized.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Gates 2–3 are passed. Issue a separate bounded work order for the end-to-end
-   success and failure contract required by Gate 4.
-3. After Gate 4, establish the slice-specific governance evidence required by
-   Gate 5.
+2. Obtain the owner's selection for DECISION-REQUEST-002. The CSA recommends
+   Option A: verify Gates 4–5 as acceptance criteria of the separately scoped
+   first Content OS slice.
+3. Do not begin Gate 4 or Content OS implementation until that sequencing
+   decision is recorded.
 4. Address FINDING-004, pre-existing dead `qaos.queue.queue_db`, and registry string-key
    findings only through separate work orders if they become prioritized.
