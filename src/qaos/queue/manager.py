@@ -15,7 +15,7 @@ from qaos.planner import Task
 
 class QueueManager:
 
-    def __init__(self, stores=None, registry=None):
+    def __init__(self, stores=None, registry=None, workers=None):
 
         uses_default_stores = stores is None
         self._stores = stores or create_stores(DATA)
@@ -24,6 +24,7 @@ class QueueManager:
             if uses_default_stores
             else QueueRegistry()
         )
+        self._workers = worker_manager if workers is None else workers
 
         self._load()
 
@@ -144,7 +145,7 @@ class QueueManager:
 
     def process(self):
 
-        worker = worker_manager.get(
+        worker = self._workers.get(
             "default"
         )
 
