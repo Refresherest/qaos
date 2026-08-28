@@ -55,3 +55,13 @@ registry isolation contract, then repairs the tests and implementation within
 that approved boundary. Do not opportunistically patch only the assertion or
 clear global state in a test without deciding the production lifecycle
 contract.
+
+## Resolution
+
+Resolved by WO-020 on 2026-08-28 for the reproduced MemoryManager scope.
+Explicitly stored MemoryManager instances now own private registry state by
+default, while the default module manager retains the compatibility registry.
+The active-data test now verifies content and modification-time preservation.
+
+The equivalent pattern in other storage-backed managers was not asserted by
+this finding and remains outside the resolution scope.

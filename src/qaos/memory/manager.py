@@ -5,19 +5,21 @@ QAOS Memory Manager
 from qaos.storage import create_stores, DATA
 
 from .memory import Memory
-from .registry import (
-    register,
-    unregister,
-    get,
-    all,
-)
+from .registry import MemoryRegistry, memory_registry
 
 
 class MemoryManager:
 
-    def __init__(self, stores=None):
+    def __init__(self, stores=None, registry=None):
+
+        uses_default_stores = stores is None
 
         self._stores = stores or create_stores(DATA)
+        self._registry = registry or (
+            memory_registry
+            if uses_default_stores
+            else MemoryRegistry()
+        )
 
         self._load()
 
@@ -36,7 +38,7 @@ class MemoryManager:
                 ),
             )
 
-            register(memory)
+            self._registry.register(memory)
 
     # ---------------------------------
 
@@ -44,7 +46,7 @@ class MemoryManager:
 
         data = []
 
-        for memory in all().values():
+        for memory in self._registry.all().values():
 
             data.append({
 
@@ -76,7 +78,7 @@ class MemoryManager:
             category,
         )
 
-        register(memory)
+        self._registry.register(memory)
 
         self._save()
 
@@ -86,7 +88,7 @@ class MemoryManager:
 
     def register(self, memory):
 
-        register(memory)
+        self._registry.register(memory)
 
         self._save()
 
@@ -94,7 +96,7 @@ class MemoryManager:
 
     def unregister(self, title):
 
-        unregister(title)
+        self._registry.unregister(title)
 
         self._save()
 
@@ -102,13 +104,13 @@ class MemoryManager:
 
     def get(self, title):
 
-        return get(title)
+        return self._registry.get(title)
 
     # ---------------------------------
 
     def memories(self):
 
-        return all()
+        return self._registry.all()
 
     # ---------------------------------
 

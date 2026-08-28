@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-28",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "fecf534",
+  "branch_baseline": "064e8f0",
   "core_baseline": "615cbbb",
-  "status": "core_checkpoint_with_storage_isolation_findings_builder_chain_blocked_before_delegation",
+  "status": "core_memory_isolation_verified_builder_chain_blocked_before_delegation",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-28-HANDOFF-009-openhands-named-role-profile-smoke-test.md",
+  "current_baseline": "ledger/2026-08-28-HANDOFF-011-memory-manager-storage-isolation.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -22,7 +22,9 @@
     "WO-014",
     "WO-015",
     "WO-016",
-    "WO-017"
+    "WO-017",
+    "WO-019",
+    "WO-020"
   ],
   "blocked_work_orders": [
     {
@@ -31,10 +33,8 @@
     }
   ],
   "open_contradictions": [],
-  "open_findings": [
-    "FINDING-003"
-  ],
+  "open_findings": [],
   "owner_product_priority": "Content OS",
   "content_os_authority_state": "owner_priority_only_no_accepted_contract",
-  "next_action": "Owner-select a bounded storage-isolation repair work order or Content OS architectural characterization; do not implement Content OS against the unverified isolation boundary."
+  "next_action": "Create and obtain owner approval for a bounded CSA Content OS architectural characterization work order; do not implement Content OS before approval."
 }

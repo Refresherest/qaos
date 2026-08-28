@@ -2,11 +2,11 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**Branch baseline:** `fecf534` (`feat/operational-builder-chain`)
+**WO-020 base:** `064e8f0` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
-**Status:** Core recovery checkpoint established with two open storage-test
-findings; Builder Chain named-profile validation is blocked before delegation
+**Status:** Core recovery and reproduced MemoryManager storage isolation are
+verified; Builder Chain named-profile validation is blocked before delegation
 by OpenHands Cloud parent-runtime startup.
 
 ## Verified Core State
@@ -20,10 +20,11 @@ by OpenHands Cloud parent-runtime startup.
   active domain managers to explicit storage collections, removed the dead
   planner storage path, and preserved JSON semantics.
 - `ec2e879` committed the explicit storage boundary to `main`.
-- Current verification passes 17 of 19 tests. One failure is an invalid test
-  assumption that active `data/queue.json` is absent. The other exposes shared
-  module-level memory-registry state contaminating an explicitly injected
-  temporary store. See FINDING-003 and VERIFICATION-012.
+- WO-020 resolves FINDING-003 for MemoryManager: explicit stores receive private
+  registry state by default, the default module manager retains compatibility,
+  and active persisted data is verified unchanged.
+- Current verification passes 21 tests, including seven focused
+  storage-boundary tests. See VERIFICATION-013.
 
 ## Verified Builder Chain State
 
@@ -65,7 +66,8 @@ bounded work package and the owner approves it.
    do not change QAOS profiles or product code in response to that failure.
 2. Define and owner-approve a bounded Content OS architectural
    characterization work order before implementing downstream-product code.
-3. Define a separate work order to repair and verify explicit manager/storage
-   isolation before using that boundary for a downstream product.
+3. Characterize other storage-backed manager/registry lifecycles only when a
+   downstream dependency or separate work order requires it; WO-020 proves the
+   MemoryManager contract only.
 4. Address pre-existing dead `qaos.queue.queue_db` and registry string-key
    findings only through separate work orders if they become prioritized.

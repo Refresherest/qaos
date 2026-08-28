@@ -2,30 +2,45 @@
 QAOS Memory Registry
 """
 
-_registry = {}
+class MemoryRegistry:
+    """Registry state owned by one memory-manager lifecycle."""
+
+    def __init__(self):
+        self._registry = {}
+
+    def register(self, memory):
+        self._registry[memory.title] = memory
+
+    def unregister(self, title):
+        if hasattr(title, "title"):
+            title = title.title
+
+        self._registry.pop(title, None)
+
+    def get(self, title):
+        if hasattr(title, "title"):
+            title = title.title
+
+        return self._registry.get(title)
+
+    def all(self):
+        return self._registry
+
+
+memory_registry = MemoryRegistry()
 
 
 def register(memory):
-
-    _registry[memory.title] = memory
+    memory_registry.register(memory)
 
 
 def unregister(title):
-
-    if hasattr(title, "title"):
-        title = title.title
-
-    _registry.pop(title, None)
+    memory_registry.unregister(title)
 
 
 def get(title):
-
-    if hasattr(title, "title"):
-        title = title.title
-
-    return _registry.get(title)
+    return memory_registry.get(title)
 
 
 def all():
-
-    return _registry
+    return memory_registry.all()
