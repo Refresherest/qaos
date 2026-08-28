@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-057 base:** `968eec9` (`feat/operational-builder-chain`)
+**WO-058 base:** `0300555` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -114,9 +114,14 @@ by OpenHands Cloud parent-runtime startup.
   default Agent-to-Skill-to-Capability path passes in a clean process.
 - WO-057 resolves FINDING-030: DefaultWorker now completes successful QueueItem
   lifecycle state, timestamps, and result while preserving delegated outputs.
-- Current verification passes 88 tests. The architecture inspector no longer
+- WO-058 proves one fully explicit Kernel-to-Capability runtime using isolated
+  Stores: classification, delegation, five planned tasks, six QueueItems,
+  reflection, and learning all complete without active-data writes.
+- FINDING-031 records that the successful ExecutionResult and completed queue
+  coexist with a canonical Objective that remains `pending`.
+- Current verification passes 89 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-050.
+  VERIFICATION-051.
 
 ## Verified Builder Chain State
 

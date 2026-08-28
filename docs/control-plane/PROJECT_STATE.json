@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-29",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "968eec9",
+  "branch_baseline": "0300555",
   "core_baseline": "615cbbb",
-  "status": "default_execution_chain_and_queue_success_lifecycle_operational_builder_chain_blocked",
+  "status": "full_explicit_runtime_verified_objective_success_lifecycle_open_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-048-default-worker-queue-lifecycle.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-049-explicit-runtime-integration-proof.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -61,7 +61,8 @@
     "WO-054",
     "WO-055",
     "WO-056",
-    "WO-057"
+    "WO-057",
+    "WO-058"
   ],
   "blocked_work_orders": [
     {
@@ -70,7 +71,9 @@
     }
   ],
   "open_contradictions": [],
-  "open_findings": [],
+  "open_findings": [
+    "FINDING-031"
+  ],
   "owner_product_priority": "Content OS",
   "content_os_authority_state": "first_slice_verified_under_owner_decisions_001_and_002",
   "content_os_readiness": {
