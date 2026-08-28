@@ -5,18 +5,21 @@ QAOS Artifact Manager
 from qaos.storage import create_stores, DATA
 
 from .artifact import Artifact
-from .registry import (
-    register,
-    get,
-    all,
-)
+from .registry import ArtifactRegistry, artifact_registry
 
 
 class ArtifactManager:
 
-    def __init__(self, stores=None):
+    def __init__(self, stores=None, registry=None):
+
+        uses_default_stores = stores is None
 
         self._stores = stores or create_stores(DATA)
+        self._registry = registry or (
+            artifact_registry
+            if uses_default_stores
+            else ArtifactRegistry()
+        )
 
         self._load()
 
@@ -36,7 +39,7 @@ class ArtifactManager:
 
             )
 
-            register(artifact)
+            self._registry.register(artifact)
 
     # ---------------------------------
 
@@ -44,7 +47,7 @@ class ArtifactManager:
 
         data = []
 
-        for artifact in all().values():
+        for artifact in self._registry.all().values():
 
             data.append({
 
@@ -81,7 +84,7 @@ class ArtifactManager:
 
         )
 
-        register(artifact)
+        self._registry.register(artifact)
 
         self._save()
 
@@ -91,15 +94,15 @@ class ArtifactManager:
 
     def get(self, title):
 
-        return get(title)
+        return self._registry.get(title)
 
     def artifacts(self):
 
-        return all()
+        return self._registry.all()
 
     def reload(self):
 
-        all().clear()
+        self._registry.all().clear()
 
         self._load()
 

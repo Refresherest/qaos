@@ -2,10 +2,11 @@
 
 ## Authority State
 
-`PROPOSED — OWNER DECISION REQUIRED`
+`ACCEPTED — OWNER-DECISION-001`
 
-This document characterizes and recommends. It is not an accepted Content OS
-architecture and does not authorize implementation.
+The owner accepted all five requested decisions on 2026-08-28. This document
+now governs the first-slice boundary and dependency order. Content OS
+implementation remains gated by the approved QAOS readiness work.
 
 ## Owner-Stated Direction
 
@@ -185,3 +186,9 @@ Approve, revise, or reject each item independently:
 
 Approve items 1–4. Item 5 should be confirmed against the owner's preferred
 design and editorial language before it becomes a domain contract.
+
+## Owner Disposition
+
+All five items were approved. The `ACCEPT`, `REVISE`, and `BLOCKED` vocabulary
+is accepted for now and may be revised later through a new recorded decision.
+See OWNER-DECISION-001.

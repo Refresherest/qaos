@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-020 base:** `064e8f0` (`feat/operational-builder-chain`)
+**WO-022 base:** `cb3c73c` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -23,8 +23,12 @@ by OpenHands Cloud parent-runtime startup.
 - WO-020 resolves FINDING-003 for MemoryManager: explicit stores receive private
   registry state by default, the default module manager retains compatibility,
   and active persisted data is verified unchanged.
-- Current verification passes 21 tests, including seven focused
-  storage-boundary tests. See VERIFICATION-013.
+- OWNER-DECISION-001 accepts the Content OS boundary, first slice, exclusions,
+  readiness-first dependency order, and review vocabulary.
+- WO-022 verifies the same private-registry contract for explicitly stored
+  ArtifactManagers without changing default compatibility behavior.
+- Current verification passes 23 tests, including nine focused
+  storage-boundary tests. See VERIFICATION-015.
 
 ## Verified Builder Chain State
 
@@ -54,22 +58,19 @@ by OpenHands Cloud parent-runtime startup.
 
 ## Product Direction
 
-The owner has identified Content OS as the intended first downstream product
-that QAOS should build. WO-021 and PROPOSAL-004 now characterize a proposed
-QAOS/Content OS boundary, five readiness gates, and a first
-`Brief -> Reviewed Draft Artifact` slice. These are pending owner decisions,
-not accepted product architecture. Content OS implementation remains
-unauthorized.
+The owner has accepted PROPOSAL-004 through OWNER-DECISION-001. Content OS is a
+downstream consumer of QAOS, and `Brief -> Reviewed Draft Artifact` is the
+approved first slice. External publishing is excluded; readiness Gates 2–5
+must pass first; and `ACCEPT`, `REVISE`, and `BLOCKED` are the accepted review
+terms for now. Content OS implementation remains gated, not yet authorized.
 
 ## Open Priorities
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Approve, revise, or reject the five Content OS decisions in PROPOSAL-004.
-   If approved, issue a separate QAOS-readiness work order for Gates 2–5 before
-   implementing downstream-product code.
-3. Characterize other storage-backed manager/registry lifecycles only when a
-   downstream dependency or separate work order requires it; WO-020 proves the
-   MemoryManager contract only.
+2. Continue readiness Gate 2 one dependency at a time. Memory and Artifact
+   isolation are proven; Objective and Plan workspace isolation remain pending.
+3. After Gate 2, establish the injected deterministic generation contract and
+   end-to-end success/failure evidence required by Gates 3–5.
 4. Address pre-existing dead `qaos.queue.queue_db` and registry string-key
    findings only through separate work orders if they become prioritized.

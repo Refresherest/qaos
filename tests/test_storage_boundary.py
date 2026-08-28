@@ -139,3 +139,59 @@ def test_memory_registry_compatibility_functions_use_default_registry() -> None:
             registry.unregister(memory)
         else:
             registry.register(previous)
+
+
+def test_explicit_artifact_managers_have_isolated_registries(tmp_path) -> None:
+    from qaos.artifacts.manager import ArtifactManager
+
+    first_stores = create_stores(tmp_path / "first-artifacts")
+    second_stores = create_stores(tmp_path / "second-artifacts")
+
+    first = ArtifactManager(stores=first_stores)
+    second = ArtifactManager(stores=second_stores)
+
+    first_artifact = first.create(
+        "first",
+        "draft",
+        "test",
+        "objective-one",
+        "one",
+    )
+    second_artifact = second.create(
+        "second",
+        "draft",
+        "test",
+        "objective-two",
+        "two",
+    )
+
+    assert [item["title"] for item in first_stores.artifact_db.load()] == ["first"]
+    assert [item["title"] for item in second_stores.artifact_db.load()] == ["second"]
+    assert first.get(first_artifact) is first_artifact
+    assert second.get(second_artifact) is second_artifact
+    assert first.get(second_artifact) is None
+    assert second.get(first_artifact) is None
+
+
+def test_artifact_registry_compatibility_functions_use_default_registry() -> None:
+    from qaos.artifacts import registry
+    from qaos.artifacts.artifact import Artifact
+
+    artifact = Artifact(
+        "compatibility-artifact",
+        "test",
+        "test",
+        "test-objective",
+        "content",
+    )
+    previous = registry.all().get(artifact.title)
+
+    registry.register(artifact)
+    try:
+        assert registry.get(artifact) is artifact
+        assert registry.all()[artifact.title] is artifact
+    finally:
+        if previous is None:
+            registry.all().pop(artifact.title, None)
+        else:
+            registry.register(previous)

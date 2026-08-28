@@ -2,19 +2,35 @@
 QAOS Artifact Registry
 """
 
-_registry = {}
+class ArtifactRegistry:
+    """Registry state owned by one artifact-manager lifecycle."""
+
+    def __init__(self):
+        self._registry = {}
+
+    def register(self, artifact):
+        self._registry[artifact.title] = artifact
+
+    def get(self, title):
+        if hasattr(title, "title"):
+            title = title.title
+
+        return self._registry.get(title)
+
+    def all(self):
+        return self._registry
+
+
+artifact_registry = ArtifactRegistry()
 
 
 def register(artifact):
-
-    _registry[artifact.title] = artifact
+    artifact_registry.register(artifact)
 
 
 def get(title):
-
-    return _registry.get(title)
+    return artifact_registry.get(title)
 
 
 def all():
-
-    return _registry
+    return artifact_registry.all()

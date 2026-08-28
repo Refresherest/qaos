@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-28",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "064e8f0",
+  "branch_baseline": "cb3c73c",
   "core_baseline": "615cbbb",
-  "status": "core_memory_isolation_verified_builder_chain_blocked_before_delegation",
+  "status": "content_os_boundary_accepted_readiness_gate_2_partial_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-28-HANDOFF-011-memory-manager-storage-isolation.md",
+  "current_baseline": "ledger/2026-08-28-HANDOFF-013-artifact-manager-isolation.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -25,7 +25,8 @@
     "WO-017",
     "WO-019",
     "WO-020",
-    "WO-021"
+    "WO-021",
+    "WO-022"
   ],
   "blocked_work_orders": [
     {
@@ -36,6 +37,13 @@
   "open_contradictions": [],
   "open_findings": [],
   "owner_product_priority": "Content OS",
-  "content_os_authority_state": "characterized_in_proposal_004_pending_owner_decision",
-  "next_action": "Owner must approve, revise, or reject the five decisions in PROPOSAL-004 before a QAOS-readiness or Content OS implementation work order is issued."
+  "content_os_authority_state": "proposal_004_accepted_by_owner_decision_001",
+  "content_os_readiness": {
+    "gate_1": "passed",
+    "gate_2": "partial_memory_and_artifact_passed_objective_and_plan_pending",
+    "gate_3": "pending",
+    "gate_4": "pending",
+    "gate_5": "pending"
+  },
+  "next_action": "Issue one bounded work order for ObjectiveManager workspace isolation as the next dependency of Content OS readiness Gate 2."
 }
