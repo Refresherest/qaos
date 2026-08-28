@@ -15,7 +15,7 @@ class CallLog:
         self.events: list[str] = []
 
 
-def test_execution_engine_returns_report_without_reflection(monkeypatch) -> None:
+def test_execution_engine_returns_report_without_reflection() -> None:
     """Execution owns only execution output, never a reflection artifact."""
     log = CallLog()
     plan = SimpleNamespace(tasks=[])
@@ -32,14 +32,28 @@ def test_execution_engine_returns_report_without_reflection(monkeypatch) -> None
         def process(self):
             log.events.append("process-queue")
 
-    monkeypatch.setattr(execution_engine_module, "planner_manager", Planner())
-    monkeypatch.setattr(execution_engine_module, "queue_manager", Queue())
-
-    report = ExecutionEngine().execute(SimpleNamespace(goal="stage boundary"))
+    report = ExecutionEngine(
+        planner=Planner(),
+        queue=Queue(),
+    ).execute(SimpleNamespace(goal="stage boundary"))
 
     assert report.success is True
     assert not hasattr(report, "reflection")
     assert log.events == ["get-plan", "process-queue", "save-plan"]
+
+
+def test_execution_engine_default_constructor_retains_default_managers(
+    monkeypatch,
+) -> None:
+    default_planner = object()
+    default_queue = object()
+    monkeypatch.setattr(execution_engine_module, "planner_manager", default_planner)
+    monkeypatch.setattr(execution_engine_module, "queue_manager", default_queue)
+
+    engine = ExecutionEngine()
+
+    assert engine._planner is default_planner
+    assert engine._queue is default_queue
 
 
 def test_pipeline_produces_one_reflection_and_one_learning_call() -> None:

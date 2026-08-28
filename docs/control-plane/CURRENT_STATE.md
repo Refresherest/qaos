@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-044 base:** `69a31e5` (`feat/operational-builder-chain`)
+**WO-045 base:** `ed6f2e6` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -82,9 +82,11 @@ by OpenHands Cloud parent-runtime startup.
 - WO-044 implements Option A: Kernel validates a canonical Objective, resolves
   the explicit Runtime executive, returns its result, and performs no implicit
   persistence. FINDING-017 is resolved.
-- Current verification passes 60 tests. The architecture inspector no longer
+- WO-045 resolves FINDING-018: ExecutionEngine accepts explicit planner and
+  queue collaborators while preserving execution order and default behavior.
+- Current verification passes 61 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-037.
+  VERIFICATION-038.
 
 ## Verified Builder Chain State
 

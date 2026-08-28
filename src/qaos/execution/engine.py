@@ -18,6 +18,10 @@ class ExecutionEngine:
     happened during execution.
     """
 
+    def __init__(self, *, planner=None, queue=None):
+        self._planner = planner_manager if planner is None else planner
+        self._queue = queue_manager if queue is None else queue
+
     def execute(self, objective):
 
         report = ExecutionReport(objective)
@@ -37,13 +41,13 @@ class ExecutionEngine:
             # Obtain (or generate) the plan
             #
 
-            plan = planner_manager.get(
+            plan = self._planner.get(
                 objective.goal
             )
 
             if plan is None:
 
-                plan = planner_manager.plan(
+                plan = self._planner.plan(
                     objective
                 )
 
@@ -66,7 +70,7 @@ class ExecutionEngine:
                     action=task,
                 )
 
-                queue_manager.add(item)
+                self._queue.add(item)
 
             report.worker = "default"
 
@@ -74,13 +78,13 @@ class ExecutionEngine:
             # Execute queued work
             #
 
-            queue_manager.process()
+            self._queue.process()
 
             #
             # Persist planner state
             #
 
-            planner_manager.save()
+            self._planner.save()
 
             report.complete()
 
