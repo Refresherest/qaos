@@ -13,12 +13,20 @@ class Kernel:
     It delegates execution to the Runtime.
     """
 
-    def __init__(self, configuration=None, *, logger=None, event_bus=None):
+    def __init__(
+        self,
+        configuration=None,
+        *,
+        logger=None,
+        event_bus=None,
+        executive=None,
+    ):
         configuration = configuration or create_configuration()
         self.runtime = create_runtime(
             configuration,
             logger=logger,
             event_bus=event_bus,
+            executive=executive,
         )
         self.dispatcher = Dispatcher()
 

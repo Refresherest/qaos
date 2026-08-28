@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-28 UTC
 
-**WO-039 base:** `e9113d9` (`feat/operational-builder-chain`)
+**WO-040 base:** `13206b3` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -70,9 +70,11 @@ by OpenHands Cloud parent-runtime startup.
   for all six stages while preserving its default manager composition.
 - WO-039 resolves FINDING-014: an explicit pipeline can now flow through an
   explicit ExecutiveOrchestrator and ExecutiveManager, including logging.
-- Current verification passes 53 tests. The architecture inspector no longer
+- WO-040 resolves FINDING-015: Runtime and Kernel can retain an explicitly
+  composed executive service without importing a default singleton.
+- Current verification passes 55 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-032.
+  VERIFICATION-033.
 
 ## Verified Builder Chain State
 

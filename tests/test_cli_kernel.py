@@ -23,6 +23,14 @@ def test_kernel_dispatches_arguments_to_command_handler(monkeypatch) -> None:
     assert captured == [("run", ("worker",))]
 
 
+def test_kernel_registers_explicit_executive_service() -> None:
+    executive = object()
+
+    kernel = Kernel(executive=executive)
+
+    assert kernel.runtime.get("executive") is executive
+
+
 def test_cli_help_runs_without_legacy_runtime_bootstrap() -> None:
     environment = os.environ.copy()
     environment["PYTHONPATH"] = str(SOURCE_ROOT)
