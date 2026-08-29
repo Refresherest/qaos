@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-072 base:** `465361d` (`feat/operational-builder-chain`)
+**WO-073 base:** `9e0ffaa` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -165,6 +165,10 @@ by OpenHands Cloud parent-runtime startup.
   persist only a still-pending Objective when Kernel raises, preserves the
   original exception, and leaves downstream transitions untouched.
   FINDING-033 is resolved.
+- WO-073 reproduces FINDING-034: a delegated DefaultWorker exception leaves the
+  live QueueItem `running`, while its persisted and reloaded form remains
+  `pending`; the Task also remains `pending`. Queue-item failure lifecycle and
+  durable persistence ownership require an owner decision. No code changed.
 - Current verification passes 108 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-065.
@@ -208,8 +212,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Perform the next evidence-led operational-readiness assessment; do not infer
-   post-execution failure or retry policy from WO-072.
+2. Select a queue-worker failure ownership policy through DECISION-REQUEST-009;
+   no repair, retry, or recovery policy is authorized by WO-073.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
