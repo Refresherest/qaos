@@ -72,3 +72,8 @@ WO-086 implements and verifies the selected propagation contract without
 changing QueueManager processing. FINDING-036 remains open because QAOS still
 requires an explicit recovery selection and re-execution contract plus bounded
 enforcement that prevents ordinary processing from acting as recovery.
+
+WO-087 assesses that boundary. PROPOSAL-008 recommends targeted retry from the
+single failed item through the identified attempt's pending remainder, plus an
+ordinary-processing guard scoped by Objective ID. FINDING-036 remains open
+pending OWNER-DECISION-015 and separately bounded implementation.
