@@ -1,5 +1,9 @@
 # DECISION-REQUEST-014 — Objective Identity Propagation Contract
 
+## Status
+
+`RESOLVED — OWNER-DECISION-014 selected Option A`
+
 ## Decision Required
 
 Choose the Plan and QueueItem Objective-identity propagation and compatibility

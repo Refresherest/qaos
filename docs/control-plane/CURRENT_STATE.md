@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-084 base:** `ecc32b2` (`feat/operational-builder-chain`)
+**WO-085 base:** `2ae0d77` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -221,6 +221,10 @@ by OpenHands Cloud parent-runtime startup.
   PROPOSAL-007 recommends additive non-owning `objective_id` references, a dual
   PlanRegistry with complete-record persistence, and QueueItem pass-through
   without uniqueness or recovery semantics. No product code or schema changed.
+- OWNER-DECISION-014 selects Option A. WO-085 records additive non-owning
+  Objective ID references for Plan and QueueItem, dual Plan indexes, complete
+  Plan persistence, and legacy missing-reference pass-through. Migration and
+  recovery remain excluded. No product code or schema changed.
 - Current verification passes 118 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-076.
@@ -264,9 +268,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Select a Plan and QueueItem Objective-identity propagation contract through
-   DECISION-REQUEST-014. Implementation, migration, and recovery remain
-   unauthorized.
+2. Implement the bounded Plan and QueueItem Objective-identity propagation
+   contract governed by OWNER-DECISION-014. Do not migrate legacy data or add
+   recovery, filtering, continuation, or guard behavior.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

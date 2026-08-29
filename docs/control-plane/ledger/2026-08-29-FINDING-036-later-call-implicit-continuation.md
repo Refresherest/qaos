@@ -62,3 +62,8 @@ WO-083 implements and verifies the Objective identity foundation without
 changing Plan, QueueItem, or queue-processing behavior. FINDING-036 remains
 open pending separately governed downstream identity propagation and an
 explicit recovery operation.
+
+OWNER-DECISION-014 selects additive Plan and QueueItem Objective-ID references
+with dual Plan indexes and legacy pass-through. FINDING-036 remains open until
+the propagation contract and a separately governed recovery operation are
+implemented and verified.
