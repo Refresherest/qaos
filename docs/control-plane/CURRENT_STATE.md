@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-080 base:** `e145ce5` (`feat/operational-builder-chain`)
+**WO-081 base:** `adb995a` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -203,6 +203,10 @@ by OpenHands Cloud parent-runtime startup.
   and QueueItem as downstream references only. Goal text remains compatibility
   and display data. FINDING-036 stays open pending ID-generation, registry,
   persistence, and propagation contracts. No code or schema changed.
+- WO-081 completes the Objective identity contract assessment. PROPOSAL-006
+  recommends ObjectiveManager-injected opaque IDs, a canonical ID index plus a
+  latest-by-goal compatibility projection, and pass-through loading of legacy
+  unidentified records without migration inference. No code or schema changed.
 - Current verification passes 111 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-069.
@@ -246,9 +250,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Perform a bounded Objective identity contract assessment covering ID
-   generation, registry compatibility, and legacy loading; do not implement
-   entity, schema, migration, propagation, recovery, or guard changes.
+2. Select an Objective identity generation and compatibility contract through
+   DECISION-REQUEST-013; implementation, migration, propagation, and recovery
+   remain unauthorized.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
