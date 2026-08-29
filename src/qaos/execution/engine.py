@@ -51,6 +51,11 @@ class ExecutionEngine:
 
             report.plan = plan
 
+            # Assign canonical Task identity before queueing when supported.
+            prepare_tasks = getattr(self._planner, "prepare_tasks", None)
+            if callable(prepare_tasks):
+                prepare_tasks(plan)
+
             #
             # Queue every incomplete task
             #

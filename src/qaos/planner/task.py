@@ -7,9 +7,13 @@ from datetime import datetime
 
 class Task:
 
-    def __init__(self, description):
+    def __init__(self, description, task_id=None):
 
         self.description = description
+
+        self._task_id = None
+        if task_id is not None:
+            self._assign_identity(task_id)
 
         # compatibility
         self.name = description
@@ -18,6 +22,19 @@ class Task:
 
         self.started = None
         self.completed = None
+
+    @property
+    def task_id(self):
+        return self._task_id
+
+    def _assign_identity(self, task_id):
+        if not isinstance(task_id, str) or not task_id:
+            raise ValueError("task_id must be a non-empty string")
+
+        if self._task_id is not None and self._task_id != task_id:
+            raise ValueError("task_id is immutable once assigned")
+
+        self._task_id = task_id
 
     # ---------------------------------
 
@@ -44,7 +61,7 @@ class Task:
 
     def to_dict(self):
 
-        return {
+        data = {
 
             "description": self.description,
 
@@ -60,13 +77,19 @@ class Task:
 
         }
 
+        if self.task_id is not None:
+            data["task_id"] = self.task_id
+
+        return data
+
     # ---------------------------------
 
     @classmethod
     def from_dict(cls, data):
 
         task = cls(
-            data["description"]
+            data["description"],
+            task_id=data.get("task_id"),
         )
 
         task.status = data.get(

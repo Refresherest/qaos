@@ -51,6 +51,16 @@ class Plan:
 
     # ---------------------------------
 
+    def get_task_by_id(self, task_id):
+        matches = [task for task in self.tasks if task.task_id == task_id]
+
+        if len(matches) > 1:
+            raise ValueError(f"duplicate task_id in plan: {task_id}")
+
+        return matches[0] if matches else None
+
+    # ---------------------------------
+
     def completed(self):
 
         return all(

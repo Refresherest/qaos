@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — TASK IDENTITY CONTRACT SELECTED; IMPLEMENTATION REQUIRED`
+`RESOLVED — WO-091`
 
 ## Evidence
 
@@ -45,3 +45,8 @@ through DECISION-REQUEST-016 before implementing durable recovery.
 OWNER-DECISION-016 selects PlannerManager-assigned opaque Task IDs with
 non-owning QueueItem action references. FINDING-037 remains open until that
 foundation is implemented and verified across persistence reload.
+
+WO-091 implements and verifies Task identity assignment, Plan lookup, QueueItem
+action references, duplicate/mismatch rejection, legacy pass-through, and the
+operational pre-queue assignment path. Durable Task correlation now survives
+independent Plan and Queue reload, resolving FINDING-037.

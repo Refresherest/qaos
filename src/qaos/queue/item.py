@@ -11,6 +11,7 @@ class QueueItem:
         assignee,
         action=None,
         objective_id=None,
+        task_id=None,
     ):
         if hasattr(objective, "goal"):
             inherited_id = getattr(objective, "objective_id", None)
@@ -32,6 +33,23 @@ class QueueItem:
         self.objective = objective
         self.objective_id = objective_id
         self.assignee = assignee
+
+        if action is None:
+            if task_id is not None:
+                raise ValueError("task_id requires a QueueItem action")
+        else:
+            inherited_task_id = getattr(action, "task_id", None)
+            if task_id is not None and task_id != inherited_task_id:
+                raise ValueError("task_id does not match QueueItem action identity")
+            if task_id is None:
+                task_id = inherited_task_id
+
+        if task_id is not None and (
+            not isinstance(task_id, str) or not task_id
+        ):
+            raise ValueError("task_id must be a non-empty string or None")
+
+        self.task_id = task_id
 
         self.action = action
 

@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-090 base:** `5a086b2` (`feat/operational-builder-chain`)
+**WO-091 base:** `9f65b16` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -249,9 +249,14 @@ by OpenHands Cloud parent-runtime startup.
   immutable opaque Task IDs, explicit Plan Task lookup, and non-owning QueueItem
   action references with truthful legacy omission. Recovery remains blocked
   until this foundation is implemented and verified. No product code changed.
-- Current verification passes 127 tests. The architecture inspector no longer
+- WO-091 implements the Task identity foundation. PlannerManager assigns opaque
+  IDs to new Tasks before queueing or persistence, Plan provides explicit Task
+  lookup, QueueItem carries a validated non-owning action reference, and legacy
+  Tasks retain field omission. FINDING-037 is resolved; recovery remains a
+  separate work order.
+- Current verification passes 135 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-079.
+  VERIFICATION-084.
 
 ## Verified Builder Chain State
 
@@ -292,9 +297,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Implement the bounded Task identity and QueueItem action-reference foundation
-   governed by OWNER-DECISION-016. Do not implement recovery, migration, legacy
-   association, automatic retry, or public recovery exposure.
+2. Implement the bounded internal explicit recovery and attempt-scoped ordinary
+   processing guard governed by OWNER-DECISION-015. Do not add migration, legacy
+   association, automatic retry, audit evidence, or public recovery exposure.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

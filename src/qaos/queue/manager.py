@@ -54,6 +54,8 @@ class QueueManager:
 
                 objective_id=data.get("objective_id"),
 
+                task_id=data.get("task_id"),
+
             )
 
             item.status = data.get(
@@ -129,6 +131,9 @@ class QueueManager:
 
             if item.objective_id is not None:
                 record["objective_id"] = item.objective_id
+
+            if item.task_id is not None:
+                record["task_id"] = item.task_id
 
             data.append(record)
 

@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-29",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "5a086b2",
+  "branch_baseline": "9f65b16",
   "core_baseline": "615cbbb",
-  "status": "task_identity_selected_implementation_pending_recovery_blocked_builder_chain_blocked",
+  "status": "task_identity_verified_recovery_implementation_pending_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-081-task-identity-decision.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-082-task-identity-foundation.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -94,7 +94,8 @@
     "WO-087",
     "WO-088",
     "WO-089",
-    "WO-090"
+    "WO-090",
+    "WO-091"
   ],
   "blocked_work_orders": [
     {
@@ -104,8 +105,7 @@
   ],
   "open_contradictions": [],
   "open_findings": [
-    "FINDING-036",
-    "FINDING-037"
+    "FINDING-036"
   ],
   "owner_product_priority": "Content OS",
   "content_os_authority_state": "first_slice_verified_under_owner_decisions_001_and_002",
@@ -116,5 +116,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Implement the bounded Task identity and QueueItem action-reference foundation governed by OWNER-DECISION-016; recovery, migration, legacy association, and public exposure remain excluded."
+  "next_action": "Implement the bounded internal explicit recovery and attempt-scoped ordinary-processing guard governed by OWNER-DECISION-015; migration, legacy association, automatic retry, audit evidence, and public exposure remain excluded."
 }

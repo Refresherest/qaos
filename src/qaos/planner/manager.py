@@ -2,6 +2,8 @@
 QAOS Plan Manager
 """
 
+from uuid import uuid4
+
 from qaos.storage import create_stores, DATA
 
 from .plan import Plan
@@ -13,7 +15,13 @@ from .generator import plan_generator
 
 class PlannerManager:
 
-    def __init__(self, stores=None, registry=None, generator=None):
+    def __init__(
+        self,
+        stores=None,
+        registry=None,
+        generator=None,
+        task_id_generator=None,
+    ):
 
         uses_default_stores = stores is None
 
@@ -24,6 +32,8 @@ class PlannerManager:
             else PlanRegistry()
         )
         self._generator = plan_generator if generator is None else generator
+        self._task_id_generator = task_id_generator or (lambda: str(uuid4()))
+        self._legacy_tasks = set()
 
         self._load()
 
@@ -43,17 +53,21 @@ class PlannerManager:
                 [],
             ):
 
-                plan.tasks.append(
-                    Task.from_dict(
-                        task_data
-                    )
-                )
+                task = Task.from_dict(task_data)
+                plan.tasks.append(task)
+
+                if task.task_id is None:
+                    self._legacy_tasks.add(task)
 
             self._registry.register(plan)
+
+        self._validate_task_identities()
 
     # ---------------------------------
 
     def _save(self):
+
+        self._prepare_task_identities()
 
         data = []
 
@@ -62,6 +76,46 @@ class PlannerManager:
             data.append(plan.to_dict())
 
         self._stores.plan_db.save(data)
+
+    # ---------------------------------
+
+    def _prepare_task_identities(self):
+        seen = self._identified_tasks()
+
+        for plan in self._registry.records():
+            for task in plan.tasks:
+                if task.task_id is not None or task in self._legacy_tasks:
+                    continue
+
+                task_id = self._task_id_generator()
+                if task_id in seen:
+                    raise ValueError(f"duplicate task_id: {task_id}")
+
+                task._assign_identity(task_id)
+                seen[task_id] = task
+
+    # ---------------------------------
+
+    def _identified_tasks(self):
+        seen = {}
+
+        for plan in self._registry.records():
+            for task in plan.tasks:
+                if task.task_id is None:
+                    continue
+
+                existing = seen.get(task.task_id)
+                if existing is not None and existing is not task:
+                    raise ValueError(f"duplicate task_id: {task.task_id}")
+
+                seen[task.task_id] = task
+
+        return seen
+
+    # ---------------------------------
+
+    def _validate_task_identities(self):
+        self._identified_tasks()
 
     # ---------------------------------
 
@@ -125,6 +179,15 @@ class PlannerManager:
     def plan_records(self):
 
         return self._registry.records()
+
+    # ---------------------------------
+
+    def prepare_tasks(self, plan):
+
+        if plan not in self._registry.records():
+            raise ValueError("plan must be registered before Task preparation")
+
+        self._prepare_task_identities()
 
     # ---------------------------------
 
