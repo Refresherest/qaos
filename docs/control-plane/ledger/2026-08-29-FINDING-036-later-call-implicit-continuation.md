@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — IDENTITY PROPAGATED; EXPLICIT RECOVERY REQUIRED`
+`RESOLVED — WO-092`
 
 ## Evidence
 
@@ -86,3 +86,11 @@ WO-089 identifies FINDING-037 as a direct implementation blocker: persisted
 Plan Tasks and QueueItem actions have no canonical shared identity after reload.
 FINDING-036 remains open while Task correlation is resolved through a separate
 owner decision.
+
+WO-091 implements the Task identity foundation selected by
+OWNER-DECISION-016. WO-092 then implements and verifies the explicit recovery
+operation selected by OWNER-DECISION-015 plus the attempt-scoped ordinary
+processing guard. Pending items belonging to a failed identified attempt no
+longer continue through ordinary processing; explicit recovery validates and
+retries the failed item and its later pending remainder. Unidentified legacy
+records are not grouped or recoverable and retain their compatibility behavior.

@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-091 base:** `9f65b16` (`feat/operational-builder-chain`)
+**WO-092 base:** `81803f0` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -254,7 +254,15 @@ by OpenHands Cloud parent-runtime startup.
   lookup, QueueItem carries a validated non-owning action reference, and legacy
   Tasks retain field omission. FINDING-037 is resolved; recovery remains a
   separate work order.
-- Current verification passes 135 tests. The architecture inspector no longer
+- WO-092 implements internal explicit recovery selected by
+  OWNER-DECISION-015. Recovery validates the complete identified Objective,
+  Plan, Queue, and Task relationship before mutation; retries the one failed
+  item and its later pending remainder; synchronizes durable Plan and Queue
+  state; and keeps Objective lifecycle ownership in ExecutionManager. Ordinary
+  processing now skips pending work from failed identified attempts while
+  continuing unrelated and legacy work. FINDING-036 is resolved for identified
+  attempts; legacy unidentified records remain deliberately nonrecoverable.
+- Current verification passes 144 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-084.
 
@@ -297,9 +305,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Implement the bounded internal explicit recovery and attempt-scoped ordinary
-   processing guard governed by OWNER-DECISION-015. Do not add migration, legacy
-   association, automatic retry, audit evidence, or public recovery exposure.
+2. Assess a separately governed application-facing recovery boundary. Internal
+   explicit recovery is verified, but Kernel, CLI, and UI exposure remain
+   unauthorized.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

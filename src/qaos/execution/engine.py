@@ -99,5 +99,53 @@ class ExecutionEngine:
 
         return report
 
+    def validate_recovery(self, objective):
+
+        objective_id = getattr(objective, "objective_id", None)
+        if not isinstance(objective_id, str) or not objective_id:
+            raise ValueError("recovery requires an identified Objective")
+
+        plan = self._planner.get_by_objective_id(objective_id)
+        if plan is None or plan.objective_id != objective_id:
+            raise ValueError("recovery requires a matching persisted Plan")
+
+        targets = self._queue.validate_recovery(objective_id)
+        pairs = []
+
+        for item in targets:
+            task = plan.get_task_by_id(item.task_id)
+            if task is None:
+                raise ValueError("recovery QueueItem Task is missing from Plan")
+            if item.action is None or item.action.task_id != item.task_id:
+                raise ValueError("recovery QueueItem action identity is inconsistent")
+            if item.status != item.action.status or item.status != task.status:
+                raise ValueError("Plan and Queue recovery statuses do not match")
+            pairs.append((item, task))
+
+        return plan, tuple(pairs)
+
+    def recover(self, objective):
+
+        _plan, pairs = self.validate_recovery(objective)
+        canonical_tasks = {
+            item.task_id: task
+            for item, task in pairs
+        }
+
+        try:
+            result = self._queue.recover(
+                objective.objective_id,
+                canonical_tasks,
+            )
+        except Exception:
+            try:
+                self._planner.save()
+            except Exception:
+                pass
+            raise
+        else:
+            self._planner.save()
+            return result
+
 
 execution_engine = ExecutionEngine()

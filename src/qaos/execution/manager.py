@@ -45,6 +45,38 @@ class ExecutionManager:
 
     # ---------------------------------
 
+    def recover(self, objective_id):
+
+        if not isinstance(objective_id, str) or not objective_id:
+            raise ValueError("objective_id must be a non-empty string")
+
+        engine = self._registry.get("default")
+        if engine is None:
+            raise RuntimeError("No execution engine registered.")
+
+        objective = self._objectives.get_by_id(objective_id)
+        if objective is None:
+            raise ValueError("Objective not found for recovery")
+        if objective.status != "failed":
+            raise ValueError("only a failed Objective can be recovered")
+
+        engine.validate_recovery(objective)
+        self._objectives.start(objective)
+
+        try:
+            result = engine.recover(objective)
+        except Exception:
+            try:
+                self._objectives.fail(objective)
+            except Exception:
+                pass
+            raise
+
+        self._objectives.complete(objective)
+        return result
+
+    # ---------------------------------
+
     def engines(self):
 
         return self._registry.all()
