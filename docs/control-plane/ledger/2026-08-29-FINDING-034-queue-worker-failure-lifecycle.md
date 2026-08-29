@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — OWNER DECISION REQUIRED`
+`RESOLVED — WO-074`
 
 ## Evidence
 
@@ -41,3 +41,10 @@ state-transition and persistence responsibilities across those boundaries.
 WO-073 is characterization only. Resolve ownership through
 DECISION-REQUEST-009 before changing Worker, QueueManager, Task, Agent, Skill,
 or Capability behavior. Retry and recovery remain separate decisions.
+
+## Resolution
+
+OWNER-DECISION-009 selected Option A. WO-074 makes DefaultWorker conditionally
+fail the QueueItem it started, fail an associated Task only if that Task
+entered `running`, and re-raise the original exception. QueueManager persists
+the resulting state in its `finally` boundary.

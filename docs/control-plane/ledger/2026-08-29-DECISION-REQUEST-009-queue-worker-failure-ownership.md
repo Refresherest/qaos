@@ -1,5 +1,9 @@
 # DECISION-REQUEST-009 — Queue-Worker Failure Ownership
 
+## Status
+
+`RESOLVED — OWNER-DECISION-009`
+
 ## Decision Required
 
 Choose how QAOS records a delegated execution failure after DefaultWorker has

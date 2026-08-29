@@ -149,14 +149,15 @@ class QueueManager:
             "default"
         )
 
-        for item in self._registry.all():
+        try:
+            for item in self._registry.all():
 
-            if item.status != "pending":
-                continue
+                if item.status != "pending":
+                    continue
 
-            worker.execute(item)
-
-        self._save()
+                worker.execute(item)
+        finally:
+            self._save()
 
     # -------------------------------------------------
 

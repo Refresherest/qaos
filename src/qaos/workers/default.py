@@ -51,7 +51,21 @@ class DefaultWorker:
         # Delegate execution
         #
 
-        result = agent.execute(item)
+        try:
+            result = agent.execute(item)
+        except Exception:
+            if item.status == "running":
+                item.status = "failed"
+                item.completed = datetime.now()
+
+            action = item.action
+            if (
+                getattr(action, "status", None) == "running"
+                and callable(getattr(action, "fail", None))
+            ):
+                action.fail()
+
+            raise
 
         item.status = "completed"
         item.completed = datetime.now()

@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-29",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "9e0ffaa",
+  "branch_baseline": "9fa78bb",
   "core_baseline": "615cbbb",
-  "status": "queue_worker_failure_ownership_decision_pending_builder_chain_blocked",
+  "status": "queue_worker_failure_lifecycle_verified_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-064-queue-worker-failure-assessment.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-065-queue-worker-failure-lifecycle.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -77,7 +77,8 @@
     "WO-070",
     "WO-071",
     "WO-072",
-    "WO-073"
+    "WO-073",
+    "WO-074"
   ],
   "blocked_work_orders": [
     {
@@ -86,9 +87,7 @@
     }
   ],
   "open_contradictions": [],
-  "open_findings": [
-    "FINDING-034"
-  ],
+  "open_findings": [],
   "owner_product_priority": "Content OS",
   "content_os_authority_state": "first_slice_verified_under_owner_decisions_001_and_002",
   "content_os_readiness": {
@@ -98,5 +97,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Select a queue-worker failure ownership policy through DECISION-REQUEST-009; repair, retry, and recovery remain unauthorized."
+  "next_action": "Perform the next evidence-led operational-readiness assessment; retry, recovery, partial-plan, and persisted-error policy remain unauthorized."
 }

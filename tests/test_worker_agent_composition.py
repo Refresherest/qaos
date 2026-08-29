@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
+import pytest
+
 import qaos.agents.manager as agent_manager_module
 import qaos.workers.default as default_worker_module
 import qaos.workers.manager as worker_manager_module
 from qaos.agents.manager import AgentManager
 from qaos.agents.registry import AgentRegistry
+from qaos.planner import Task
 from qaos.queue import QueueItem, QueueManager
 from qaos.storage import create_stores
 from qaos.workers.default import DefaultWorker
@@ -88,3 +91,79 @@ def test_explicit_agent_and_worker_registries_are_isolated() -> None:
     assert second_agents.get(agent.name) is None
     assert first_workers.get(worker.name) is worker
     assert second_workers.get(worker.name) is None
+
+
+def test_worker_failure_persists_failed_item_and_preserves_pending_task(
+    tmp_path,
+) -> None:
+    stores = create_stores(tmp_path / "worker-failure-before-task")
+    failure = RuntimeError("delegated worker failure")
+
+    class Agent:
+        name = "default"
+
+        def execute(self, item):
+            raise failure
+
+    agents = AgentManager(registry=AgentRegistry())
+    agents.register(Agent())
+    workers = WorkerManager(
+        registry=WorkerRegistry(),
+        default=DefaultWorker(agents=agents),
+    )
+    queue = QueueManager(stores=stores, workers=workers)
+    item = QueueItem(
+        "worker failure before task",
+        "default",
+        action=Task("never-started task"),
+    )
+    queue.add(item)
+
+    with pytest.raises(RuntimeError) as caught:
+        queue.process()
+
+    assert caught.value is failure
+    assert item.status == "failed"
+    assert item.started is not None
+    assert item.completed is not None
+    assert item.action.status == "pending"
+    persisted = stores.queue_db.load()[0]
+    assert persisted["status"] == "failed"
+    assert persisted["completed"] is not None
+    assert persisted["action"]["status"] == "pending"
+
+
+def test_worker_failure_fails_and_persists_started_task(tmp_path) -> None:
+    stores = create_stores(tmp_path / "worker-failure-after-task-start")
+    failure = RuntimeError("task execution failure")
+
+    class Agent:
+        name = "default"
+
+        def execute(self, item):
+            item.action.start()
+            raise failure
+
+    agents = AgentManager(registry=AgentRegistry())
+    agents.register(Agent())
+    workers = WorkerManager(
+        registry=WorkerRegistry(),
+        default=DefaultWorker(agents=agents),
+    )
+    queue = QueueManager(stores=stores, workers=workers)
+    task = Task("started task")
+    item = QueueItem("worker failure after task start", "default", task)
+    queue.add(item)
+
+    with pytest.raises(RuntimeError) as caught:
+        queue.process()
+
+    assert caught.value is failure
+    assert item.status == "failed"
+    assert task.status == "failed"
+    assert task.started is not None
+    assert task.completed is not None
+    persisted = stores.queue_db.load()[0]
+    assert persisted["status"] == "failed"
+    assert persisted["action"]["status"] == "failed"
+    assert persisted["action"]["completed"] is not None
