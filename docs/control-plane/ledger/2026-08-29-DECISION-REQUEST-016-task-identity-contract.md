@@ -1,5 +1,9 @@
 # DECISION-REQUEST-016 — Task Identity Contract
 
+## Status
+
+`RESOLVED — OWNER-DECISION-016 selected Option A`
+
 ## Decision Required
 
 Choose how durable recovery correlates a QueueItem action with its canonical

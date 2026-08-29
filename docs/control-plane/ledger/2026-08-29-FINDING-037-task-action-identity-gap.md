@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — OWNER DECISION REQUIRED`
+`OPEN — TASK IDENTITY CONTRACT SELECTED; IMPLEMENTATION REQUIRED`
 
 ## Evidence
 
@@ -41,3 +41,7 @@ is intentionally non-unique. Recovery must not infer Task correlation.
 
 Select a canonical Task identity owner and QueueItem action-reference contract
 through DECISION-REQUEST-016 before implementing durable recovery.
+
+OWNER-DECISION-016 selects PlannerManager-assigned opaque Task IDs with
+non-owning QueueItem action references. FINDING-037 remains open until that
+foundation is implemented and verified across persistence reload.

@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-089 base:** `2cdc477` (`feat/operational-builder-chain`)
+**WO-090 base:** `5a086b2` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -245,6 +245,10 @@ by OpenHands Cloud parent-runtime startup.
   OWNER-DECISION-015 safely. PROPOSAL-009 recommends PlannerManager-assigned
   opaque Task identity and explicit QueueItem task references. No product code
   or schema changed.
+- OWNER-DECISION-016 selects Option A. WO-090 records PlannerManager-assigned
+  immutable opaque Task IDs, explicit Plan Task lookup, and non-owning QueueItem
+  action references with truthful legacy omission. Recovery remains blocked
+  until this foundation is implemented and verified. No product code changed.
 - Current verification passes 127 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-079.
@@ -288,9 +292,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Select a durable Task identity and QueueItem action-reference contract through
-   DECISION-REQUEST-016. Recovery implementation remains blocked; do not infer
-   Task correlation from description, position, or timestamps.
+2. Implement the bounded Task identity and QueueItem action-reference foundation
+   governed by OWNER-DECISION-016. Do not implement recovery, migration, legacy
+   association, automatic retry, or public recovery exposure.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
