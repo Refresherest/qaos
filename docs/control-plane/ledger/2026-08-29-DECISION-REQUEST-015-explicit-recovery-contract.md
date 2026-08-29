@@ -1,5 +1,9 @@
 # DECISION-REQUEST-015 — Explicit Recovery Contract
 
+## Status
+
+`RESOLVED — OWNER-DECISION-015 selected Option A`
+
 ## Decision Required
 
 Choose the failed-attempt recovery and ordinary-processing separation contract.

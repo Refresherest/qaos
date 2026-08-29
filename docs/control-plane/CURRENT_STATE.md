@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-087 base:** `0e2dbb8` (`feat/operational-builder-chain`)
+**WO-088 base:** `c1203eb` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -235,6 +235,10 @@ by OpenHands Cloud parent-runtime startup.
   ExecutionManager lifecycle ownership, and an ordinary-processing guard that
   skips only failed identified attempts while permitting unrelated work. No
   product code or schema changed.
+- OWNER-DECISION-015 selects Option A. WO-088 records explicit Objective-ID
+  recovery that retries the failed item then its pending remainder, preserves
+  completed and unrelated work, and prevents ordinary processing from silently
+  continuing failed identified attempts. No product code or schema changed.
 - Current verification passes 127 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-079.
@@ -278,9 +282,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Select an explicit recovery and ordinary-processing separation contract
-   through DECISION-REQUEST-015. Implementation, migration, and legacy
-   association remain unauthorized.
+2. Implement the bounded explicit recovery and ordinary-processing separation
+   contract governed by OWNER-DECISION-015. Do not add migration, legacy
+   association, automatic retry, Kernel/CLI exposure, or retry policy.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

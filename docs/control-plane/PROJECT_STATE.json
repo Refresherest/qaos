@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-29",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "0e2dbb8",
+  "branch_baseline": "c1203eb",
   "core_baseline": "615cbbb",
-  "status": "explicit_recovery_decision_pending_builder_chain_blocked",
+  "status": "explicit_recovery_selected_implementation_pending_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-078-explicit-recovery-contract.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-079-explicit-recovery-decision.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -91,7 +91,8 @@
     "WO-084",
     "WO-085",
     "WO-086",
-    "WO-087"
+    "WO-087",
+    "WO-088"
   ],
   "blocked_work_orders": [
     {
@@ -112,5 +113,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Select an explicit recovery and ordinary-processing separation contract through DECISION-REQUEST-015; implementation, migration, and legacy association remain unauthorized."
+  "next_action": "Implement the bounded explicit recovery and ordinary-processing separation contract governed by OWNER-DECISION-015; migration, legacy association, automatic retry, and public exposure remain excluded."
 }

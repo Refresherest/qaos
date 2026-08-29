@@ -77,3 +77,7 @@ WO-087 assesses that boundary. PROPOSAL-008 recommends targeted retry from the
 single failed item through the identified attempt's pending remainder, plus an
 ordinary-processing guard scoped by Objective ID. FINDING-036 remains open
 pending OWNER-DECISION-015 and separately bounded implementation.
+
+OWNER-DECISION-015 selects that contract. FINDING-036 remains open until the
+explicit recovery operation and attempt-scoped ordinary-processing guard are
+implemented and verified.
