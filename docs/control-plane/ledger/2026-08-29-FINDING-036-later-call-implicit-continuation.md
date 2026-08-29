@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — IDENTITY OWNER SELECTED; CONTRACTS REQUIRED`
+`OPEN — IDENTITY CONTRACT SELECTED; IMPLEMENTATION REQUIRED`
 
 ## Evidence
 
@@ -52,3 +52,8 @@ OWNER-DECISION-012 now designates Objective identity as that canonical attempt
 identity. FINDING-036 remains open until generation, registry, compatibility,
 persistence, propagation, and recovery contracts are separately approved and
 implemented.
+
+OWNER-DECISION-013 selects the Objective identity generation, registry, and
+legacy-loading contract. FINDING-036 remains open because the identity
+foundation, downstream references, and explicit recovery operation have not
+yet been implemented.

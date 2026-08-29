@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-081 base:** `adb995a` (`feat/operational-builder-chain`)
+**WO-082 base:** `74cfe27` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -207,6 +207,11 @@ by OpenHands Cloud parent-runtime startup.
   recommends ObjectiveManager-injected opaque IDs, a canonical ID index plus a
   latest-by-goal compatibility projection, and pass-through loading of legacy
   unidentified records without migration inference. No code or schema changed.
+- OWNER-DECISION-013 selects Option A. WO-082 records manager-injected opaque
+  Objective IDs, canonical ID plus latest-by-goal registry indexes, and truthful
+  pass-through of unidentified legacy records. Duplicate IDs fail closed; the
+  exact error type remains a bounded implementation detail. No code or schema
+  changed.
 - Current verification passes 111 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-069.
@@ -250,9 +255,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Select an Objective identity generation and compatibility contract through
-   DECISION-REQUEST-013; implementation, migration, propagation, and recovery
-   remain unauthorized.
+2. Implement the bounded Objective, ObjectiveManager, and ObjectiveRegistry
+   identity foundation governed by OWNER-DECISION-013. Do not propagate identity
+   to Plan or QueueItem, migrate legacy data, or add recovery behavior.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

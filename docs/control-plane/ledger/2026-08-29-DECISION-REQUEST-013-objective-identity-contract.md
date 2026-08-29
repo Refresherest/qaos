@@ -1,5 +1,9 @@
 # DECISION-REQUEST-013 — Objective Identity Contract
 
+## Status
+
+`RESOLVED — OWNER-DECISION-013 selected Option A`
+
 ## Decision Required
 
 Choose the Objective ID generation, registry compatibility, and legacy loading

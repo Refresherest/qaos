@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-29",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "adb995a",
+  "branch_baseline": "74cfe27",
   "core_baseline": "615cbbb",
-  "status": "objective_identity_contract_decision_pending_builder_chain_blocked",
+  "status": "objective_identity_contract_selected_implementation_pending_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-072-objective-identity-contract.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-073-objective-identity-contract-decision.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -85,7 +85,8 @@
     "WO-078",
     "WO-079",
     "WO-080",
-    "WO-081"
+    "WO-081",
+    "WO-082"
   ],
   "blocked_work_orders": [
     {
@@ -106,5 +107,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Select an Objective identity generation and compatibility contract through DECISION-REQUEST-013; implementation, migration, propagation, and recovery remain unauthorized."
+  "next_action": "Implement the bounded Objective identity foundation governed by OWNER-DECISION-013; Plan and QueueItem propagation, legacy migration, and recovery remain excluded."
 }
