@@ -7,9 +7,13 @@ from datetime import datetime
 
 class Objective:
 
-    def __init__(self, goal):
+    def __init__(self, goal, objective_id=None):
 
         self.goal = goal
+
+        self._objective_id = None
+        if objective_id is not None:
+            self._assign_identity(objective_id)
 
         self.status = "pending"
 
@@ -26,6 +30,19 @@ class Objective:
         self.started = None
 
         self.completed = None
+
+    @property
+    def objective_id(self):
+        return self._objective_id
+
+    def _assign_identity(self, objective_id):
+        if not isinstance(objective_id, str) or not objective_id:
+            raise ValueError("objective_id must be a non-empty string")
+
+        if self._objective_id is not None and self._objective_id != objective_id:
+            raise ValueError("objective_id is immutable once assigned")
+
+        self._objective_id = objective_id
 
     # ----------------------------------
 

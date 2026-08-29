@@ -2,6 +2,8 @@
 QAOS Objective Manager
 """
 
+from uuid import uuid4
+
 from qaos.storage import create_stores, DATA
 
 from .objective import Objective
@@ -10,7 +12,7 @@ from .registry import ObjectiveRegistry, objective_registry
 
 class ObjectiveManager:
 
-    def __init__(self, stores=None, registry=None):
+    def __init__(self, stores=None, registry=None, id_generator=None):
 
         uses_default_stores = stores is None
 
@@ -20,6 +22,7 @@ class ObjectiveManager:
             if uses_default_stores
             else ObjectiveRegistry()
         )
+        self._id_generator = id_generator or (lambda: str(uuid4()))
 
         self._load()
 
@@ -30,7 +33,8 @@ class ObjectiveManager:
         for item in self._stores.objective_db.load():
 
             objective = Objective(
-                item["goal"]
+                item["goal"],
+                objective_id=item.get("objective_id"),
             )
 
             objective.status = item.get(
@@ -50,9 +54,9 @@ class ObjectiveManager:
 
         data = []
 
-        for objective in self._registry.all().values():
+        for objective in self._registry.records():
 
-            data.append({
+            item = {
 
                 "goal": objective.goal,
 
@@ -64,7 +68,12 @@ class ObjectiveManager:
 
                 "completed": objective.completed,
 
-            })
+            }
+
+            if objective.objective_id is not None:
+                item["objective_id"] = objective.objective_id
+
+            data.append(item)
 
         self._stores.objective_db.save(data)
 
@@ -82,6 +91,8 @@ class ObjectiveManager:
 
         objective = Objective(goal)
 
+        self._assign_identity(objective)
+
         self._registry.register(objective)
 
         self._save()
@@ -91,6 +102,8 @@ class ObjectiveManager:
     # ---------------------------------
 
     def register(self, objective):
+
+        self._assign_identity(objective)
 
         self._registry.register(objective)
 
@@ -112,9 +125,28 @@ class ObjectiveManager:
 
     # ---------------------------------
 
+    def get_by_id(self, objective_id):
+
+        return self._registry.get_by_id(objective_id)
+
+    # ---------------------------------
+
     def objectives(self):
 
         return self._registry.all()
+
+    # ---------------------------------
+
+    def objective_records(self):
+
+        return self._registry.records()
+
+    # ---------------------------------
+
+    def _assign_identity(self, objective):
+
+        if objective.objective_id is None:
+            objective._assign_identity(self._id_generator())
 
     # ---------------------------------
 

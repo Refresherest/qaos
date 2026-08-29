@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-082 base:** `74cfe27` (`feat/operational-builder-chain`)
+**WO-083 base:** `bb5a610` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -212,9 +212,14 @@ by OpenHands Cloud parent-runtime startup.
   pass-through of unidentified legacy records. Duplicate IDs fail closed; the
   exact error type remains a bounded implementation detail. No code or schema
   changed.
-- Current verification passes 111 tests. The architecture inspector no longer
+- WO-083 implements the bounded Objective identity foundation. ObjectiveManager
+  assigns injectable opaque IDs to new Objectives; ObjectiveRegistry preserves
+  canonical ID lookup, latest-by-goal compatibility, and complete equal-goal
+  records; legacy missing-ID records remain unidentified; duplicate IDs fail
+  closed. Plan, QueueItem, migration, and recovery remain unchanged.
+- Current verification passes 118 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-069.
+  VERIFICATION-076.
 
 ## Verified Builder Chain State
 
@@ -255,9 +260,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Implement the bounded Objective, ObjectiveManager, and ObjectiveRegistry
-   identity foundation governed by OWNER-DECISION-013. Do not propagate identity
-   to Plan or QueueItem, migrate legacy data, or add recovery behavior.
+2. Define the bounded Plan and QueueItem Objective-identity propagation contract
+   before implementation. Do not migrate legacy data or add recovery behavior.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

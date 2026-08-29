@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — IDENTITY CONTRACT SELECTED; IMPLEMENTATION REQUIRED`
+`OPEN — IDENTITY FOUNDATION IMPLEMENTED; PROPAGATION AND RECOVERY REQUIRED`
 
 ## Evidence
 
@@ -57,3 +57,8 @@ OWNER-DECISION-013 selects the Objective identity generation, registry, and
 legacy-loading contract. FINDING-036 remains open because the identity
 foundation, downstream references, and explicit recovery operation have not
 yet been implemented.
+
+WO-083 implements and verifies the Objective identity foundation without
+changing Plan, QueueItem, or queue-processing behavior. FINDING-036 remains
+open pending separately governed downstream identity propagation and an
+explicit recovery operation.
