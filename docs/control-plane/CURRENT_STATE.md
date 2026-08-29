@@ -262,6 +262,11 @@ by OpenHands Cloud parent-runtime startup.
   processing now skips pending work from failed identified attempts while
   continuing unrelated and legacy work. FINDING-036 is resolved for identified
   attempts; legacy unidentified records remain deliberately nonrecoverable.
+- WO-093 assesses the application-facing recovery boundary. PROPOSAL-010
+  recommends Option A: a canonical-ID-only OperationalSession method that
+  delegates directly through a narrow Executive recovery service, returns the
+  canonical Objective, and leaves Kernel and CLI unchanged. No product code or
+  API changed; DECISION-REQUEST-017 requires owner selection.
 - Current verification passes 144 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-084.
@@ -305,9 +310,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Assess a separately governed application-facing recovery boundary. Internal
-   explicit recovery is verified, but Kernel, CLI, and UI exposure remain
-   unauthorized.
+2. Obtain the owner decision for DECISION-REQUEST-017. Option A, an
+   OperationalSession-only recovery boundary with unchanged Kernel and CLI, is
+   recommended.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

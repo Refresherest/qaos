@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "81803f0",
   "core_baseline": "615cbbb",
-  "status": "explicit_recovery_verified_public_boundary_unselected_builder_chain_blocked",
+  "status": "application_recovery_boundary_decision_pending_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-083-explicit-recovery.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-084-application-recovery-boundary-assessment.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -96,7 +96,8 @@
     "WO-089",
     "WO-090",
     "WO-091",
-    "WO-092"
+    "WO-092",
+    "WO-093"
   ],
   "blocked_work_orders": [
     {
@@ -115,5 +116,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Assess whether and how to expose the verified internal explicit recovery through a separately owner-approved application boundary; do not infer Kernel, CLI, or UI authorization."
+  "next_action": "Obtain the owner selection for DECISION-REQUEST-017; Option A, an OperationalSession-only canonical-ID recovery boundary with unchanged Kernel and CLI, is recommended."
 }
