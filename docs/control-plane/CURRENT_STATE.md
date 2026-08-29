@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-078 base:** `7259de7` (`feat/operational-builder-chain`)
+**WO-079 base:** `1d00513` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -192,6 +192,12 @@ by OpenHands Cloud parent-runtime startup.
   execution-attempt identity plus explicit recovery boundary must be designed
   before enforcement. Objective, Plan, QueueItem, schemas, and product code
   remain unchanged; FINDING-036 stays open pending that design.
+- WO-079 completes the bounded identity design assessment. Existing Objective
+  lifecycle already represents one operational invocation closely enough that
+  a separate ExecutionAttempt aggregate would duplicate state. PROPOSAL-005
+  recommends canonical opaque Objective identity as the attempt identity,
+  propagated by reference to Plan and QueueItem with legacy records remaining
+  unassigned and non-recoverable. No code or schema changed.
 - Current verification passes 111 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-069.
@@ -235,8 +241,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Perform a bounded execution-attempt identity design assessment; do not
-   implement schema, migration, recovery API, retry, or continuation guards.
+2. Select an execution-attempt identity design through DECISION-REQUEST-012;
+   no entity, registry, schema, migration, recovery API, or guard change is
+   authorized by WO-079.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
