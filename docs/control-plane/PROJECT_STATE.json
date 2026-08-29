@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-29",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "c1203eb",
+  "branch_baseline": "2cdc477",
   "core_baseline": "615cbbb",
-  "status": "explicit_recovery_selected_implementation_pending_builder_chain_blocked",
+  "status": "explicit_recovery_blocked_task_identity_decision_pending_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-079-explicit-recovery-decision.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-080-task-identity-recovery-blocker.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -92,7 +92,8 @@
     "WO-085",
     "WO-086",
     "WO-087",
-    "WO-088"
+    "WO-088",
+    "WO-089"
   ],
   "blocked_work_orders": [
     {
@@ -102,7 +103,8 @@
   ],
   "open_contradictions": [],
   "open_findings": [
-    "FINDING-036"
+    "FINDING-036",
+    "FINDING-037"
   ],
   "owner_product_priority": "Content OS",
   "content_os_authority_state": "first_slice_verified_under_owner_decisions_001_and_002",
@@ -113,5 +115,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Implement the bounded explicit recovery and ordinary-processing separation contract governed by OWNER-DECISION-015; migration, legacy association, automatic retry, and public exposure remain excluded."
+  "next_action": "Select a durable Task identity and QueueItem action-reference contract through DECISION-REQUEST-016; recovery implementation remains blocked and legacy inference remains prohibited."
 }

@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-088 base:** `c1203eb` (`feat/operational-builder-chain`)
+**WO-089 base:** `2cdc477` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -239,6 +239,12 @@ by OpenHands Cloud parent-runtime startup.
   recovery that retries the failed item then its pending remainder, preserves
   completed and unrelated work, and prevents ordinary processing from silently
   continuing failed identified attempts. No product code or schema changed.
+- WO-089 confirms FINDING-037: after reload, a Plan Task and its QueueItem action
+  are separate objects with no canonical Task identity. Resetting the queue copy
+  leaves the Plan copy failed, so durable coherent recovery cannot implement
+  OWNER-DECISION-015 safely. PROPOSAL-009 recommends PlannerManager-assigned
+  opaque Task identity and explicit QueueItem task references. No product code
+  or schema changed.
 - Current verification passes 127 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-079.
@@ -282,9 +288,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Implement the bounded explicit recovery and ordinary-processing separation
-   contract governed by OWNER-DECISION-015. Do not add migration, legacy
-   association, automatic retry, Kernel/CLI exposure, or retry policy.
+2. Select a durable Task identity and QueueItem action-reference contract through
+   DECISION-REQUEST-016. Recovery implementation remains blocked; do not infer
+   Task correlation from description, position, or timestamps.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

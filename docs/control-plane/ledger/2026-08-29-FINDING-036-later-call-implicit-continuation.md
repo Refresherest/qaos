@@ -81,3 +81,8 @@ pending OWNER-DECISION-015 and separately bounded implementation.
 OWNER-DECISION-015 selects that contract. FINDING-036 remains open until the
 explicit recovery operation and attempt-scoped ordinary-processing guard are
 implemented and verified.
+
+WO-089 identifies FINDING-037 as a direct implementation blocker: persisted
+Plan Tasks and QueueItem actions have no canonical shared identity after reload.
+FINDING-036 remains open while Task correlation is resolved through a separate
+owner decision.
