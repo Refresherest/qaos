@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — IDENTITY FOUNDATION IMPLEMENTED; PROPAGATION AND RECOVERY REQUIRED`
+`OPEN — IDENTITY PROPAGATED; EXPLICIT RECOVERY REQUIRED`
 
 ## Evidence
 
@@ -67,3 +67,8 @@ OWNER-DECISION-014 selects additive Plan and QueueItem Objective-ID references
 with dual Plan indexes and legacy pass-through. FINDING-036 remains open until
 the propagation contract and a separately governed recovery operation are
 implemented and verified.
+
+WO-086 implements and verifies the selected propagation contract without
+changing QueueManager processing. FINDING-036 remains open because QAOS still
+requires an explicit recovery selection and re-execution contract plus bounded
+enforcement that prevents ordinary processing from acting as recovery.

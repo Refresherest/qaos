@@ -10,8 +10,27 @@ class QueueItem:
         objective,
         assignee,
         action=None,
+        objective_id=None,
     ):
+        if hasattr(objective, "goal"):
+            inherited_id = getattr(objective, "objective_id", None)
+            if (
+                objective_id is not None
+                and inherited_id is not None
+                and objective_id != inherited_id
+            ):
+                raise ValueError("objective_id does not match Objective identity")
+            if objective_id is None:
+                objective_id = inherited_id
+            objective = objective.goal
+
+        if objective_id is not None and (
+            not isinstance(objective_id, str) or not objective_id
+        ):
+            raise ValueError("objective_id must be a non-empty string or None")
+
         self.objective = objective
+        self.objective_id = objective_id
         self.assignee = assignee
 
         self.action = action

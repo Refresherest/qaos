@@ -41,9 +41,7 @@ class ExecutionEngine:
             # Obtain (or generate) the plan
             #
 
-            plan = self._planner.get(
-                objective.goal
-            )
+            plan = self._planner.get(objective)
 
             if plan is None:
 
@@ -65,7 +63,7 @@ class ExecutionEngine:
                     continue
 
                 item = QueueItem(
-                    objective=objective.goal,
+                    objective=objective,
                     assignee="default",
                     action=task,
                 )

@@ -34,7 +34,8 @@ class PlannerManager:
         for item in self._stores.plan_db.load():
 
             plan = Plan(
-                item["objective"]
+                item["objective"],
+                objective_id=item.get("objective_id"),
             )
 
             for task_data in item.get(
@@ -56,29 +57,9 @@ class PlannerManager:
 
         data = []
 
-        for plan in self._registry.all().values():
+        for plan in self._registry.records():
 
-            objective = plan.objective
-
-            if hasattr(
-                objective,
-                "goal",
-            ):
-                objective = objective.goal
-
-            data.append({
-
-                "objective": objective,
-
-                "tasks": [
-
-                    task.to_dict()
-
-                    for task in plan.tasks
-
-                ],
-
-            })
+            data.append(plan.to_dict())
 
         self._stores.plan_db.save(data)
 
@@ -129,9 +110,21 @@ class PlannerManager:
 
     # ---------------------------------
 
+    def get_by_objective_id(self, objective_id):
+
+        return self._registry.get_by_objective_id(objective_id)
+
+    # ---------------------------------
+
     def plans(self):
 
         return self._registry.all()
+
+    # ---------------------------------
+
+    def plan_records(self):
+
+        return self._registry.records()
 
     # ---------------------------------
 

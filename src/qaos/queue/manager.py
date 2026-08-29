@@ -52,6 +52,8 @@ class QueueManager:
 
                 action=action,
 
+                objective_id=data.get("objective_id"),
+
             )
 
             item.status = data.get(
@@ -99,7 +101,7 @@ class QueueManager:
 
                 action = item.action.to_dict()
 
-            data.append({
+            record = {
 
                 "objective": item.objective,
 
@@ -123,7 +125,12 @@ class QueueManager:
                     else None
                 ),
 
-            })
+            }
+
+            if item.objective_id is not None:
+                record["objective_id"] = item.objective_id
+
+            data.append(record)
 
         self._stores.queue_db.save(data)
 

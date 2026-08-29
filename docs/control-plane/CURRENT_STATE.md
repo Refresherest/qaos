@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-085 base:** `2ae0d77` (`feat/operational-builder-chain`)
+**WO-086 base:** `7d3289b` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -225,9 +225,14 @@ by OpenHands Cloud parent-runtime startup.
   Objective ID references for Plan and QueueItem, dual Plan indexes, complete
   Plan persistence, and legacy missing-reference pass-through. Migration and
   recovery remain excluded. No product code or schema changed.
-- Current verification passes 118 tests. The architecture inspector no longer
+- WO-086 implements Objective-ID propagation through Plan, PlanRegistry,
+  PlannerManager, QueueItem, QueueManager, CouncilManager, and ExecutionEngine.
+  Equal-goal Plans remain complete and identity-addressable, multiple QueueItems
+  share one reference, and legacy missing-reference records remain unchanged.
+  Migration and recovery behavior remain excluded.
+- Current verification passes 127 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-076.
+  VERIFICATION-079.
 
 ## Verified Builder Chain State
 
@@ -268,9 +273,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Implement the bounded Plan and QueueItem Objective-identity propagation
-   contract governed by OWNER-DECISION-014. Do not migrate legacy data or add
-   recovery, filtering, continuation, or guard behavior.
+2. Define the bounded explicit recovery selection and re-execution contract for
+   identified Objectives. Do not migrate or associate legacy records and do not
+   change ordinary queue processing before owner approval.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

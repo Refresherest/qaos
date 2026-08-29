@@ -67,7 +67,7 @@ class CouncilManager:
         )
 
         item = QueueItem(
-            objective=objective.goal,
+            objective=objective,
             assignee=assignment.member.title,
         )
 
