@@ -1,5 +1,9 @@
 # DECISION-REQUEST-011 — Later-Call Continuation
 
+## Status
+
+`RESOLVED — OWNER-DECISION-011`
+
 ## Decision Required
 
 Choose whether an ordinary QueueManager processing call may continue pending

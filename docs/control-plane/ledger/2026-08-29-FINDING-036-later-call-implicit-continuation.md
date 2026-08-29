@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — OWNER DECISION REQUIRED`
+`OPEN — DIRECTION RECORDED; DESIGN REQUIRED`
 
 ## Evidence
 
@@ -40,3 +40,10 @@ QueueManager.process remains publicly callable and drains all pending work.
 WO-077 is characterization only. Resolve later-call continuation through
 DECISION-REQUEST-011 before changing QueueManager, QueueItem identity,
 ExecutionEngine, or recovery behavior.
+
+## Direction
+
+OWNER-DECISION-011 selected an explicit recovery boundary with attempt
+identity. Ordinary `process()` is not designated as recovery. Enforcement must
+wait for a separately approved design because current Objective, Plan, and
+QueueItem persistence has no canonical attempt identity.

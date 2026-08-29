@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-077 base:** `b620748` (`feat/operational-builder-chain`)
+**WO-078 base:** `7259de7` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -187,6 +187,11 @@ by OpenHands Cloud parent-runtime startup.
   silently executes the pending remainder and persists
   `completed, failed, completed`. QAOS has no attempt identity or authorized
   recovery boundary governing that continuation. No code changed.
+- OWNER-DECISION-011 selects Option A. WO-078 records that ordinary queue
+  processing is not an authorized recovery mechanism and that a canonical
+  execution-attempt identity plus explicit recovery boundary must be designed
+  before enforcement. Objective, Plan, QueueItem, schemas, and product code
+  remain unchanged; FINDING-036 stays open pending that design.
 - Current verification passes 111 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-069.
@@ -230,9 +235,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Select a later-call continuation policy through DECISION-REQUEST-011; no
-   recovery API, attempt identity, retry, or terminal-state change is
-   authorized by WO-077.
+2. Perform a bounded execution-attempt identity design assessment; do not
+   implement schema, migration, recovery API, retry, or continuation guards.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
