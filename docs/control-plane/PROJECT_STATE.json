@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-29",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "6ad9425",
+  "branch_baseline": "b620748",
   "core_baseline": "615cbbb",
-  "status": "fail_fast_partial_plan_contract_verified_builder_chain_blocked",
+  "status": "later_call_continuation_decision_pending_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-067-fail-fast-partial-plan-contract.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-068-later-call-continuation-assessment.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -80,7 +80,8 @@
     "WO-073",
     "WO-074",
     "WO-075",
-    "WO-076"
+    "WO-076",
+    "WO-077"
   ],
   "blocked_work_orders": [
     {
@@ -89,7 +90,9 @@
     }
   ],
   "open_contradictions": [],
-  "open_findings": [],
+  "open_findings": [
+    "FINDING-036"
+  ],
   "owner_product_priority": "Content OS",
   "content_os_authority_state": "first_slice_verified_under_owner_decisions_001_and_002",
   "content_os_readiness": {
@@ -99,5 +102,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Perform the next evidence-led operational-readiness assessment; continuation, retry, recovery, error aggregation, and new terminal states remain unauthorized."
+  "next_action": "Select a later-call continuation policy through DECISION-REQUEST-011; recovery APIs, attempt identity, retry, and new terminal states remain unauthorized."
 }
