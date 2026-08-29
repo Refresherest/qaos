@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-08-29",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "9fa78bb",
+  "branch_baseline": "a63d1e3",
   "core_baseline": "615cbbb",
-  "status": "queue_worker_failure_lifecycle_verified_builder_chain_blocked",
+  "status": "partial_plan_disposition_decision_pending_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-065-queue-worker-failure-lifecycle.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-066-partial-plan-disposition-assessment.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -78,7 +78,8 @@
     "WO-071",
     "WO-072",
     "WO-073",
-    "WO-074"
+    "WO-074",
+    "WO-075"
   ],
   "blocked_work_orders": [
     {
@@ -87,7 +88,9 @@
     }
   ],
   "open_contradictions": [],
-  "open_findings": [],
+  "open_findings": [
+    "FINDING-035"
+  ],
   "owner_product_priority": "Content OS",
   "content_os_authority_state": "first_slice_verified_under_owner_decisions_001_and_002",
   "content_os_readiness": {
@@ -97,5 +100,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Perform the next evidence-led operational-readiness assessment; retry, recovery, partial-plan, and persisted-error policy remain unauthorized."
+  "next_action": "Select a partial-plan disposition policy through DECISION-REQUEST-010; continuation, retry, recovery, and new terminal states remain unauthorized."
 }

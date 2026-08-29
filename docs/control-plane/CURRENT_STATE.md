@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-074 base:** `9fa78bb` (`feat/operational-builder-chain`)
+**WO-075 base:** `a63d1e3` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -173,6 +173,10 @@ by OpenHands Cloud parent-runtime startup.
   running QueueItem on delegated failure, conditionally fails only a Task that
   actually started, preserves the original exception, and makes QueueManager
   persist state before the exception escapes. FINDING-034 is resolved.
+- WO-075 characterizes FINDING-035: in a three-item queue, failure of the
+  second item persists the batch as `completed, failed, pending`; the third
+  item is not attempted. This state is internally consistent, but QAOS has no
+  designated partial-plan disposition policy. No code changed.
 - Current verification passes 110 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-067.
@@ -216,8 +220,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Perform the next evidence-led operational-readiness assessment; do not infer
-   retry, recovery, partial-plan, or persisted-error policy from WO-074.
+2. Select a partial-plan disposition policy through DECISION-REQUEST-010; no
+   continuation, retry, recovery, or new terminal state is authorized by
+   WO-075.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
