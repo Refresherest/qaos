@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-079 base:** `1d00513` (`feat/operational-builder-chain`)
+**WO-080 base:** `e145ce5` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -198,6 +198,11 @@ by OpenHands Cloud parent-runtime startup.
   recommends canonical opaque Objective identity as the attempt identity,
   propagated by reference to Plan and QueueItem with legacy records remaining
   unassigned and non-recoverable. No code or schema changed.
+- OWNER-DECISION-012 selects Option A. WO-080 designates immutable opaque
+  Objective identity as the canonical execution-attempt identity, with Plan
+  and QueueItem as downstream references only. Goal text remains compatibility
+  and display data. FINDING-036 stays open pending ID-generation, registry,
+  persistence, and propagation contracts. No code or schema changed.
 - Current verification passes 111 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-069.
@@ -241,9 +246,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Select an execution-attempt identity design through DECISION-REQUEST-012;
-   no entity, registry, schema, migration, recovery API, or guard change is
-   authorized by WO-079.
+2. Perform a bounded Objective identity contract assessment covering ID
+   generation, registry compatibility, and legacy loading; do not implement
+   entity, schema, migration, propagation, recovery, or guard changes.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

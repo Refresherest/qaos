@@ -1,5 +1,9 @@
 # DECISION-REQUEST-012 — Execution-Attempt Identity
 
+## Status
+
+`RESOLVED — OWNER-DECISION-012`
+
 ## Decision Required
 
 Choose the canonical owner of execution-attempt identity.

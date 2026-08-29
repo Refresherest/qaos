@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — DIRECTION RECORDED; DESIGN REQUIRED`
+`OPEN — IDENTITY OWNER SELECTED; CONTRACTS REQUIRED`
 
 ## Evidence
 
@@ -47,3 +47,8 @@ OWNER-DECISION-011 selected an explicit recovery boundary with attempt
 identity. Ordinary `process()` is not designated as recovery. Enforcement must
 wait for a separately approved design because current Objective, Plan, and
 QueueItem persistence has no canonical attempt identity.
+
+OWNER-DECISION-012 now designates Objective identity as that canonical attempt
+identity. FINDING-036 remains open until generation, registry, compatibility,
+persistence, propagation, and recovery contracts are separately approved and
+implemented.
