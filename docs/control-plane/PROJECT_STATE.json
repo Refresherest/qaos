@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "81803f0",
   "core_baseline": "615cbbb",
-  "status": "application_recovery_boundary_decision_pending_builder_chain_blocked",
+  "status": "application_recovery_boundary_selected_implementation_pending_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-08-29-HANDOFF-084-application-recovery-boundary-assessment.md",
+  "current_baseline": "ledger/2026-08-29-HANDOFF-085-application-recovery-boundary-decision.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -97,7 +97,8 @@
     "WO-090",
     "WO-091",
     "WO-092",
-    "WO-093"
+    "WO-093",
+    "WO-094"
   ],
   "blocked_work_orders": [
     {
@@ -116,5 +117,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Obtain the owner selection for DECISION-REQUEST-017; Option A, an OperationalSession-only canonical-ID recovery boundary with unchanged Kernel and CLI, is recommended."
+  "next_action": "Implement only OWNER-DECISION-017 across ExecutiveManager, create_executive, OperationalSession, and focused tests; Kernel, CLI, UI, automatic retry, migration, and audit evidence remain excluded."
 }

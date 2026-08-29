@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — OWNER DECISION REQUIRED`
+`RESOLVED — OWNER-DECISION-017 selected Option A`
 
 ## Decision Required
 
