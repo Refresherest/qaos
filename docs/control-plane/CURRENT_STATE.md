@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-29 UTC
 
-**WO-075 base:** `a63d1e3` (`feat/operational-builder-chain`)
+**WO-076 base:** `6ad9425` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -177,9 +177,14 @@ by OpenHands Cloud parent-runtime startup.
   second item persists the batch as `completed, failed, pending`; the third
   item is not attempted. This state is internally consistent, but QAOS has no
   designated partial-plan disposition policy. No code changed.
-- Current verification passes 110 tests. The architecture inspector no longer
+- OWNER-DECISION-010 selects Option A. WO-076 designates and regression-tests
+  the existing fail-fast processing boundary: stop at the first failure,
+  persist `completed, failed, pending`, preserve the original exception, and
+  leave continuation to a separately authorized recovery operation.
+  FINDING-035 is resolved without product-code changes.
+- Current verification passes 111 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-067.
+  VERIFICATION-069.
 
 ## Verified Builder Chain State
 
@@ -220,9 +225,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Select a partial-plan disposition policy through DECISION-REQUEST-010; no
-   continuation, retry, recovery, or new terminal state is authorized by
-   WO-075.
+2. Perform the next evidence-led operational-readiness assessment; continuation,
+   retry, recovery, error aggregation, and new terminal states remain
+   unauthorized.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

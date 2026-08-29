@@ -167,3 +167,78 @@ def test_worker_failure_fails_and_persists_started_task(tmp_path) -> None:
     assert persisted["status"] == "failed"
     assert persisted["action"]["status"] == "failed"
     assert persisted["action"]["completed"] is not None
+
+
+def test_queue_processing_is_fail_fast_and_preserves_unattempted_work(
+    tmp_path,
+) -> None:
+    stores = create_stores(tmp_path / "fail-fast-queue")
+    failure = RuntimeError("second task failure")
+    calls = []
+
+    class Agent:
+        name = "default"
+
+        def execute(self, item):
+            calls.append(item.objective)
+            item.action.start()
+            if len(calls) == 2:
+                raise failure
+            item.action.complete()
+            return item
+
+    agents = AgentManager(registry=AgentRegistry())
+    agents.register(Agent())
+    workers = WorkerManager(
+        registry=WorkerRegistry(),
+        default=DefaultWorker(agents=agents),
+    )
+    queue = QueueManager(stores=stores, workers=workers)
+    for index in range(1, 4):
+        queue.add(
+            QueueItem(
+                f"objective-{index}",
+                "default",
+                Task(f"task-{index}"),
+            )
+        )
+
+    with pytest.raises(RuntimeError) as caught:
+        queue.process()
+
+    assert caught.value is failure
+    assert calls == ["objective-1", "objective-2"]
+    assert [item.status for item in queue.items()] == [
+        "completed",
+        "failed",
+        "pending",
+    ]
+    assert [item.action.status for item in queue.items()] == [
+        "completed",
+        "failed",
+        "pending",
+    ]
+
+    persisted = stores.queue_db.load()
+    assert [item["status"] for item in persisted] == [
+        "completed",
+        "failed",
+        "pending",
+    ]
+    assert [item["action"]["status"] for item in persisted] == [
+        "completed",
+        "failed",
+        "pending",
+    ]
+
+    reloaded = QueueManager(stores=stores, workers=workers).items()
+    assert [item.status for item in reloaded] == [
+        "completed",
+        "failed",
+        "pending",
+    ]
+    assert [item.action.status for item in reloaded] == [
+        "completed",
+        "failed",
+        "pending",
+    ]

@@ -1,5 +1,9 @@
 # DECISION-REQUEST-010 — Partial-Plan Disposition
 
+## Status
+
+`RESOLVED — OWNER-DECISION-010`
+
 ## Decision Required
 
 Choose the disposition of later pending queue work when an earlier item fails

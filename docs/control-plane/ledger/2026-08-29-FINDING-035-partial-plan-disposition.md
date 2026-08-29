@@ -2,7 +2,7 @@
 
 ## Status
 
-`OPEN — OWNER DECISION REQUIRED`
+`RESOLVED — WO-076`
 
 ## Evidence
 
@@ -38,3 +38,10 @@ authorized to infer what should happen to later unattempted Tasks.
 WO-075 is characterization only. Resolve partial-plan disposition through
 DECISION-REQUEST-010 before changing QueueManager, ExecutionEngine, Task, or
 QueueItem behavior. Retry and recovery remain separate decisions.
+
+## Resolution
+
+OWNER-DECISION-010 selected Option A. WO-076 designates the existing fail-fast
+call boundary and adds regression coverage proving attempted order, exact
+exception identity, live state, persistence, and reload behavior. Continuation
+remains a separate, unauthorized recovery decision.
