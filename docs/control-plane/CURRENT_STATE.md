@@ -276,7 +276,12 @@ by OpenHands Cloud parent-runtime startup.
   Objective-ID recovery and returns its canonical Objective. ExecutiveManager
   delegates to the same ExecutionManager used by the composed pipeline, without
   invoking the normal pipeline. Kernel and CLI remain unchanged.
-- Current verification passes 152 tests. The architecture inspector no longer
+- WO-096 rehearses a real execution failure followed by reload and recovery.
+  FINDING-038 blocks this path: ordinary execution skips Plan persistence when
+  Queue processing raises. Recovery rejects the resulting stale Plan state.
+  Prior tests used coherent prepared state; they did not prove this lifecycle.
+  The disposable workspace was removed and active data remained unchanged.
+- The prior code baseline passes 152 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-088.
 
@@ -319,9 +324,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Perform a separately bounded disposable-workspace recovery rehearsal through
-   OperationalSession. Do not infer CLI/UI, automatic retry, migration, or audit
-   authorization from the verified programmatic boundary.
+2. Address FINDING-038 in a separately authorized work order: persist Plan
+   transitions after ordinary execution failure and prove recovery after reload.
+   Do not weaken preflight or repair historical active data.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

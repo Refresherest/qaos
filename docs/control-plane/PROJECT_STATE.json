@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "a2866e7",
   "core_baseline": "615cbbb",
-  "status": "application_recovery_verified_builder_chain_blocked",
+  "status": "recovery_rehearsal_blocked_plan_persistence_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-03-HANDOFF-086-application-recovery.md",
+  "current_baseline": "ledger/2026-09-03-HANDOFF-087-recovery-rehearsal.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -99,7 +99,8 @@
     "WO-092",
     "WO-093",
     "WO-094",
-    "WO-095"
+    "WO-095",
+    "WO-096"
   ],
   "blocked_work_orders": [
     {
@@ -108,7 +109,7 @@
     }
   ],
   "open_contradictions": [],
-  "open_findings": [],
+  "open_findings": ["FINDING-038"],
   "owner_product_priority": "Content OS",
   "content_os_authority_state": "first_slice_verified_under_owner_decisions_001_and_002",
   "content_os_readiness": {
@@ -118,5 +119,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Perform a bounded disposable-workspace OperationalSession recovery rehearsal; CLI/UI, automatic retry, migration, and audit evidence remain excluded."
+  "next_action": "Address FINDING-038 in a separately authorized work order: persist Plan transitions on ordinary execution failure and prove recovery after reload without weakening preflight or repairing historical data."
 }
