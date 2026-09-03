@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-03 UTC
 
-**WO-117 base:** `1c344c7` (`feat/operational-builder-chain`)
+**WO-118 base:** `99d67f9` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -341,6 +341,9 @@ by OpenHands Cloud parent-runtime startup.
 - WO-117 implements the explicit factory opt-in with per-instance routing and
   output binding, preserving defaults and global registries. 213 tests, compile
   and 188 imports pass; active data unchanged. See VERIFICATION-103.
+- WO-118 proposes explicit session-owned Objective/intent submission through
+  the existing Executive pipeline and PlannerManager-owned one-task planning.
+  Owner approval is pending; no submission API has been implemented.
 - The WO-108 regression run passes 182 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-099.
@@ -384,8 +387,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Assess explicit application submission of a validated Task intent while
-   preserving planning and lifecycle ownership. No submission API is yet approved.
+2. Obtain the owner decision on WO-118 Option A, including its explicit
+   session-to-Executive entry boundary. No submission implementation yet.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
