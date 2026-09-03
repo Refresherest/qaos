@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-03 UTC
 
-**WO-100 base:** `31de5be` (`feat/operational-builder-chain`)
+**WO-103 base:** `f04e975` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -299,9 +299,12 @@ by OpenHands Cloud parent-runtime startup.
 - WO-102 records OWNER-DECISION-019 selecting Option A: read-only complete
   Objective listing in an explicit workspace. Implementation remains a separate
   work order; no product code changed in this decision checkpoint.
-- Current verification passes 166 tests. The architecture inspector no longer
+- WO-103 implements OWNER-DECISION-019. The read-only objectives CLI lists all
+  persisted records with safely quoted identity, status and goal, including
+  repeated goals and legacy null IDs, while verified to make no workspace writes.
+- Current verification passes 177 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-093.
+  VERIFICATION-096.
 
 ## Verified Builder Chain State
 
@@ -342,8 +345,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Implement only OWNER-DECISION-019's read-only Objective listing with no-write
-   verification. UI, automatic retry, migration and audit changes remain excluded.
+2. Assess canonical Objective-ID reporting during CLI execution, especially
+   failures; do not alter existing output without owner authority.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
