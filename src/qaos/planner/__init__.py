@@ -3,6 +3,7 @@ QAOS Planner
 """
 
 from .task import Task
+from .intents import PythonFileIntent
 from .plan import Plan
 
 from .manager import (
@@ -20,6 +21,7 @@ from .registry import (
 __all__ = [
 
     "Task",
+    "PythonFileIntent",
     "Plan",
 
     "PlannerManager",

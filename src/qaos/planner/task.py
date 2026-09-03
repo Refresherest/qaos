@@ -3,13 +3,18 @@ QAOS Task
 """
 
 from datetime import datetime
+from .intents import PythonFileIntent, intent_from_dict
 
 
 class Task:
 
-    def __init__(self, description, task_id=None):
+    def __init__(self, description, task_id=None, intent=None):
 
         self.description = description
+
+        if intent is not None and not isinstance(intent, PythonFileIntent):
+            raise TypeError("intent must be a supported executable intent or None")
+        self.intent = intent
 
         self._task_id = None
         if task_id is not None:
@@ -80,6 +85,9 @@ class Task:
         if self.task_id is not None:
             data["task_id"] = self.task_id
 
+        if self.intent is not None:
+            data["intent"] = self.intent.to_dict()
+
         return data
 
     # ---------------------------------
@@ -90,6 +98,7 @@ class Task:
         task = cls(
             data["description"],
             task_id=data.get("task_id"),
+            intent=intent_from_dict(data["intent"]) if "intent" in data else None,
         )
 
         task.status = data.get(

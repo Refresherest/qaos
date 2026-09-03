@@ -13,6 +13,7 @@ from .system import (
     SystemCapability,
     system_capability,
 )
+from .python_file import PythonFileCapability
 from .registry import register
 
 #
@@ -27,4 +28,5 @@ __all__ = [
     "capability_manager",
     "SystemCapability",
     "system_capability",
+    "PythonFileCapability",
 ]
