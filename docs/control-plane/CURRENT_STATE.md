@@ -293,6 +293,9 @@ by OpenHands Cloud parent-runtime startup.
 - WO-100 implements the approved one-shot recovery CLI with exact workspace/ID
   selection, 0/1/2 statuses, safe failure diagnostics, and a canonical Objective
   summary. Actual failed execution followed by CLI recovery passes.
+- WO-101 assesses read-only Objective discovery. PROPOSAL-012 recommends complete
+  workspace-scoped listing of ID, status and goal, with legacy identity preserved
+  and no execution or recovery. DECISION-REQUEST-019 awaits owner selection.
 - Current verification passes 166 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-093.
@@ -336,8 +339,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Assess read-only Objective ID/status discovery for operators. Do not implement
-   discovery, UI, automatic retry, migration, or audit changes without authority.
+2. Obtain owner selection for DECISION-REQUEST-019 before implementing Objective
+   discovery. UI, automatic retry, migration and audit changes remain excluded.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

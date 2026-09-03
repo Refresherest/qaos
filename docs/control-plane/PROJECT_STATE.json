@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "31de5be",
   "core_baseline": "615cbbb",
-  "status": "recovery_cli_verified_builder_chain_blocked",
+  "status": "objective_discovery_decision_pending_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-03-HANDOFF-091-recovery-cli.md",
+  "current_baseline": "ledger/2026-09-03-HANDOFF-092-objective-discovery-assessment.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -104,7 +104,8 @@
     "WO-097",
     "WO-098",
     "WO-099",
-    "WO-100"
+    "WO-100",
+    "WO-101"
   ],
   "blocked_work_orders": [
     {
@@ -123,5 +124,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Assess read-only Objective ID/status discovery for operators; implementation requires a separate owner decision."
+  "next_action": "Obtain owner selection for DECISION-REQUEST-019; read-only complete workspace Objective listing is recommended."
 }
