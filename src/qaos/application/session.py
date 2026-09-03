@@ -4,6 +4,7 @@ from qaos.config import Configuration, create_configuration
 from qaos.executive import create_executive
 from qaos.kernel.kernel import Kernel
 from qaos.objectives.manager import ObjectiveManager
+from qaos.objectives.objective import Objective
 from qaos.storage import Stores
 
 
@@ -38,13 +39,25 @@ class OperationalSession:
 
     def execute_goal(self, goal):
         """Create a canonical Objective for goal and execute it."""
+        return self.execute_objective(self.create_objective(goal))
+
+    def create_objective(self, goal):
+        """Create and persist one identified Objective in this workspace."""
         if not isinstance(goal, str):
             raise TypeError("goal must be a string")
 
         if not goal.strip():
             raise ValueError("goal must be a non-empty string")
 
-        objective = self._objectives.create(goal.strip())
+        return self._objectives.create(goal.strip())
+
+    def execute_objective(self, objective):
+        """Execute only the canonical Objective registered in this session."""
+        if not isinstance(objective, Objective):
+            raise TypeError("objective must be a canonical QAOS Objective")
+        if (objective.objective_id is None
+                or self._objectives.get_by_id(objective.objective_id) is not objective):
+            raise ValueError("objective must belong to this session")
 
         try:
             return self._kernel.execute_objective(objective)

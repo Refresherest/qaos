@@ -138,7 +138,9 @@ def test_cli_objective_returns_failure_status(monkeypatch, capsys) -> None:
     monkeypatch.setattr("qaos.main.execute_objective_command", fail)
 
     assert main(["objective", "--workspace", "workspace", "goal"]) == 1
-    assert "Objective execution failed: bounded failure" in capsys.readouterr().err
+    error = capsys.readouterr().err
+    assert "Objective execution failed (RuntimeError)." in error
+    assert "bounded failure" not in error
 
 
 def test_cli_objective_executes_in_selected_workspace(tmp_path) -> None:

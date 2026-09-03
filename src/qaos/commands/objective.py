@@ -6,7 +6,10 @@ from qaos.storage import create_stores
 
 def execute(workspace, goal):
     """Execute goal in the explicitly selected workspace and print a summary."""
-    result = OperationalSession(create_stores(workspace)).execute_goal(goal)
+    session = OperationalSession(create_stores(workspace))
+    objective = session.create_objective(goal)
+    print(f"Objective ID: {objective.objective_id}", flush=True)
+    result = session.execute_objective(objective)
     assignment = getattr(result, "assignment", None)
 
     print(f"Objective: {result.objective.goal}")

@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-03 UTC
 
-**WO-103 base:** `f04e975` (`feat/operational-builder-chain`)
+**WO-106 base:** `9702ba9` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -308,9 +308,12 @@ by OpenHands Cloud parent-runtime startup.
 - WO-105 records OWNER-DECISION-020 selecting Option A: explicit session creation
   and canonical execution, compatible execute_goal, and CLI ID reporting before
   execution. No product code changed in this decision checkpoint.
-- Current verification passes 177 tests. The architecture inspector no longer
+- WO-106 implements OWNER-DECISION-020: explicit session creation/execution,
+  compatible execute_goal, flushed CLI ID before execution, and safe failure
+  diagnostics. The reported failure ID is verified usable for recovery.
+- Current verification passes 182 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-096.
+  VERIFICATION-099.
 
 ## Verified Builder Chain State
 
@@ -351,8 +354,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Implement only OWNER-DECISION-020's session create/execute methods and CLI
-   ID reporting, preserving original internal exceptions and existing ownership.
+2. Rehearse the complete operator failure/discovery/recovery flow in a disposable
+   workspace without introducing new features or changing architecture.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

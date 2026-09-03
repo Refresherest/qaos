@@ -67,7 +67,7 @@ def _execute_objective(args):
     try:
         result = execute_objective_command(workspace, goal)
     except Exception as exc:
-        print(f"Objective execution failed: {exc}", file=sys.stderr)
+        print(f"Objective execution failed ({type(exc).__name__}).", file=sys.stderr)
         return 1
 
     return 0 if result.completed else 1
