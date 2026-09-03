@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-03",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "f461906",
+  "branch_baseline": "33e8c4f",
   "core_baseline": "615cbbb",
-  "status": "first_executable_task_verified_builder_chain_blocked",
+  "status": "executable_skill_routing_awaiting_owner_decision",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-03-HANDOFF-099-executable-task.md",
+  "current_baseline": "ledger/2026-09-03-WO-112-executable-skill-routing-assessment.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -115,7 +115,8 @@
     "WO-108",
     "WO-109",
     "WO-110",
-    "WO-111"
+    "WO-111",
+    "WO-112"
   ],
   "blocked_work_orders": [
     {
@@ -134,5 +135,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Assess the next smallest builder increment from WO-111 evidence; require owner approval before expanding executable authority."
+  "next_action": "Obtain owner approval, revision, or rejection of WO-112 Option A explicit intent-type skill routing; no implementation yet."
 }
