@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-03 UTC
 
-**WO-097 base:** `462f2dd` (`feat/operational-builder-chain`)
+**WO-100 base:** `31de5be` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -290,9 +290,12 @@ by OpenHands Cloud parent-runtime startup.
 - WO-099 records OWNER-DECISION-018 selecting Option A: the explicit-workspace,
   exact-ID one-shot recovery CLI. Implementation remains a separate work order;
   no source or API changed in this checkpoint.
-- Current verification passes 154 tests. The architecture inspector no longer
+- WO-100 implements the approved one-shot recovery CLI with exact workspace/ID
+  selection, 0/1/2 statuses, safe failure diagnostics, and a canonical Objective
+  summary. Actual failed execution followed by CLI recovery passes.
+- Current verification passes 166 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-090.
+  VERIFICATION-093.
 
 ## Verified Builder Chain State
 
@@ -333,8 +336,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Implement only OWNER-DECISION-018's one-shot recovery CLI and focused tests.
-   ID discovery, UI, automatic retry, migration, and audit changes remain excluded.
+2. Assess read-only Objective ID/status discovery for operators. Do not implement
+   discovery, UI, automatic retry, migration, or audit changes without authority.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

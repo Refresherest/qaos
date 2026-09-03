@@ -11,6 +11,7 @@ COMMAND_DESCRIPTIONS = {
     "council": "Display Executive Council",
     "doctor": "Check development environment",
     "objective": "Execute one objective in an explicit workspace",
+    "recover": "Recover one identified failed objective in an explicit workspace",
     "run": "Execute an agent",
     "status": "Display runtime status",
     "version": "Display QAOS version",
@@ -25,11 +26,12 @@ def show_help():
     print("Usage:")
     print("    python -m qaos.main <command>")
     print("    python -m qaos.main objective --workspace <path> <goal>")
+    print("    python -m qaos.main recover --workspace <path> <objective_id>")
     print()
     print("Available commands:")
     print()
 
-    for command in sorted(set(COMMANDS) | {"objective"}):
+    for command in sorted(set(COMMANDS) | {"objective", "recover"}):
         description = COMMAND_DESCRIPTIONS.get(command, "")
         print(f"  {command:<11} {description}")
 
@@ -69,6 +71,24 @@ def _execute_objective(args):
     return 0 if result.completed else 1
 
 
+def _recover_objective(args):
+    if (len(args) != 4 or args[1] != "--workspace"
+            or not args[2].strip() or not args[3].strip()):
+        print("Usage: python -m qaos.main recover --workspace <path> <objective_id>",
+              file=sys.stderr)
+        return 2
+
+    from qaos.commands.recover import execute
+
+    try:
+        execute(args[2], args[3])
+    except Exception as exc:
+        # Exception payloads can contain provider or credential material.
+        print(f"Objective recovery failed ({type(exc).__name__}).", file=sys.stderr)
+        return 1
+    return 0
+
+
 def main(argv=None):
     args = list(sys.argv[1:] if argv is None else argv)
 
@@ -84,6 +104,9 @@ def main(argv=None):
 
     if command == "objective":
         return _execute_objective(args)
+
+    if command == "recover":
+        return _recover_objective(args)
 
     if command not in COMMANDS:
         print(f"Unknown command: {command}")
