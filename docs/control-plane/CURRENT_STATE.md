@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-03 UTC
 
-**WO-109 base:** `4d09a1a` (`feat/operational-builder-chain`)
+**WO-110 base:** `fa38567` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -318,7 +318,9 @@ by OpenHands Cloud parent-runtime startup.
   acceptance contract is the recommended next step, not yet approved.
 - WO-109 proposes Task-owned typed executable intent (Option A) for one
   deterministic source-file build and direct-Python verification. Owner
-  approval is required before implementation.
+  approval was required before implementation.
+- OWNER-DECISION-021 approves WO-109 Option A and all ten acceptance rules.
+  WO-110 records the decision; implementation remains a separate work order.
 - The WO-108 regression run passes 182 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-099.
@@ -362,8 +364,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Obtain the owner decision on WO-109 Option A and its ten acceptance rules;
-   do not implement executable intent before approval.
+2. Implement OWNER-DECISION-021 in one bounded Principal Engineer work order,
+   proving only the deterministic Python-file intent and compatibility contract.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
