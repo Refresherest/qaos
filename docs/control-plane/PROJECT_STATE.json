@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "f04e975",
   "core_baseline": "615cbbb",
-  "status": "objective_id_reporting_decision_pending_builder_chain_blocked",
+  "status": "objective_id_reporting_selected_implementation_pending_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-03-HANDOFF-095-objective-id-reporting-assessment.md",
+  "current_baseline": "ledger/2026-09-03-HANDOFF-096-objective-id-reporting-decision.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -108,7 +108,8 @@
     "WO-101",
     "WO-102",
     "WO-103",
-    "WO-104"
+    "WO-104",
+    "WO-105"
   ],
   "blocked_work_orders": [
     {
@@ -127,5 +128,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Obtain owner selection for DECISION-REQUEST-020; explicit session creation then canonical execution is recommended."
+  "next_action": "Implement only OWNER-DECISION-020's explicit session creation/execution and CLI ID reporting with compatibility and exception-preservation tests."
 }

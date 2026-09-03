@@ -305,6 +305,9 @@ by OpenHands Cloud parent-runtime startup.
 - WO-104 assesses CLI Objective-ID reporting. PROPOSAL-013 recommends explicit
   OperationalSession create/execute steps with compatible execute_goal, allowing
   ID output before execution. DECISION-REQUEST-020 awaits owner selection.
+- WO-105 records OWNER-DECISION-020 selecting Option A: explicit session creation
+  and canonical execution, compatible execute_goal, and CLI ID reporting before
+  execution. No product code changed in this decision checkpoint.
 - Current verification passes 177 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-096.
@@ -348,8 +351,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Obtain owner selection for DECISION-REQUEST-020 before changing application
-   methods or CLI output.
+2. Implement only OWNER-DECISION-020's session create/execute methods and CLI
+   ID reporting, preserving original internal exceptions and existing ownership.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
