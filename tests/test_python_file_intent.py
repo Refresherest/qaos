@@ -112,7 +112,7 @@ def test_rejects_unsafe_or_unapproved_targets(tmp_path, path):
     item = type("Item", (), {"action": task, "result": None})()
     with pytest.raises((ValueError, FileExistsError)):
         capability.execute(item)
-    assert task.status == "pending"
+    assert task.status == "failed"
 
 
 def test_rejects_existing_file_and_escaping_symlink(tmp_path):

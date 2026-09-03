@@ -152,4 +152,6 @@ def create_executive(stores, *, objectives=None, logger=None, python_file_worksp
         orchestrator_service=ExecutiveOrchestrator(pipeline=pipeline),
         logger_service=logger,
         recovery_service=execution,
+        intent_planner=planner if python_file is not None else None,
+        intent_objectives=objective_manager if python_file is not None else None,
     )

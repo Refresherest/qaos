@@ -28,9 +28,9 @@ class PythonFileCapability:
         if not isinstance(intent, PythonFileIntent):
             raise TypeError("python_file capability requires PythonFileIntent")
 
-        target = self._target(intent.relative_path)
         task.start()
         try:
+            target = self._target(intent.relative_path)
             self._atomic_create(target, intent.source.encode("utf-8"))
             with tempfile.TemporaryFile() as stdout_file, tempfile.TemporaryFile() as stderr_file:
                 completed = subprocess.run(

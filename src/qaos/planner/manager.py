@@ -8,6 +8,7 @@ from qaos.storage import create_stores, DATA
 
 from .plan import Plan
 from .task import Task
+from .intents import PythonFileIntent
 from .registry import PlanRegistry, plan_registry
 
 from .generator import plan_generator
@@ -132,6 +133,23 @@ class PlannerManager:
         return plan
 
     # ---------------------------------
+
+    def validate_intent_plan(self, objective, intent):
+        if type(intent) is not PythonFileIntent:
+            raise TypeError("only PythonFileIntent is supported")
+        PythonFileIntent.from_dict(intent.to_dict())
+        if not getattr(objective, "objective_id", None):
+            raise ValueError("intent planning requires an identified Objective")
+        if self.get_by_objective_id(objective.objective_id) is not None:
+            raise ValueError("intent submission cannot replace an existing Plan")
+
+    def plan_intent(self, objective, intent):
+        """Own the creation and persistence of one executable Task Plan."""
+        self.validate_intent_plan(objective, intent)
+        plan = Plan(objective)
+        plan.add_task(Task("Build and verify one Python file", intent=intent))
+        self.register(plan)
+        return plan
 
     def plan(self, objective):
 

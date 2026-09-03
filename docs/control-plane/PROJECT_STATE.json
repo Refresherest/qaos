@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-03",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "10be49c",
+  "branch_baseline": "b030801",
   "core_baseline": "615cbbb",
-  "status": "application_intent_submission_approved_implementation_pending",
+  "status": "application_intent_submission_verified_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-03-WO-119-record-intent-submission-decision.md",
+  "current_baseline": "ledger/2026-09-03-HANDOFF-102-application-intent-submission.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -123,7 +123,8 @@
     "WO-116",
     "WO-117",
     "WO-118",
-    "WO-119"
+    "WO-119",
+    "WO-120"
   ],
   "blocked_work_orders": [
     {
@@ -142,5 +143,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Implement OWNER-DECISION-024 in one bounded application-intent work order, preserving pipeline and lifecycle ownership."
+  "next_action": "Rehearse the public intent API in fresh processes with disposable state/output, covering success, discovery and overwrite refusal; no new features."
 }

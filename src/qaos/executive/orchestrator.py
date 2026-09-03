@@ -22,7 +22,7 @@ class ExecutiveOrchestrator:
     def __init__(self, pipeline=None):
         self._pipeline = executive_pipeline if pipeline is None else pipeline
 
-    def execute(self, objective):
+    def execute(self, objective, *, intent=None):
 
         result = ExecutionResult(
             objective
@@ -33,6 +33,7 @@ class ExecutiveOrchestrator:
             self._pipeline.execute(
                 objective,
                 result,
+                **({"intent": intent} if intent is not None else {}),
             )
 
             result.complete()

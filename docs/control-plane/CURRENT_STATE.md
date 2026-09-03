@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-03 UTC
 
-**WO-119 base:** `10be49c` (`feat/operational-builder-chain`)
+**WO-120 base:** `b030801` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -345,6 +345,10 @@ by OpenHands Cloud parent-runtime startup.
   the existing Executive pipeline and PlannerManager-owned one-task planning.
   OWNER-DECISION-024 approves Option A and its explicit entry boundary. WO-119
   records the decision; no submission API has been implemented.
+- WO-120 completes the public-session typed build through the existing pipeline.
+  The owner-approved capability lifecycle extension resolves FINDING-039;
+  target rejection and recovery refusal retain coherent failed states. 223 tests,
+  compile and 188 imports pass; active data unchanged. See VERIFICATION-104.
 - The WO-108 regression run passes 182 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-099.
@@ -388,8 +392,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Implement OWNER-DECISION-024 in a bounded application-intent work order,
-   preserving the approved pipeline and lifecycle ownership.
+2. Rehearse the public intent API in fresh processes with disposable state/output,
+   including success, discovery and overwrite refusal; no new features.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

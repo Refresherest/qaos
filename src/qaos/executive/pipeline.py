@@ -40,6 +40,7 @@ class ExecutivePipeline:
         self,
         objective,
         result,
+        *, intent=None,
     ):
         #
         # Classification
@@ -66,9 +67,8 @@ class ExecutivePipeline:
         #
 
         result.plan = (
-            self._planner.plan(
-                objective
-            )
+            self._planner.plan(objective) if intent is None
+            else self._planner.plan_intent(objective, intent)
         )
 
         #

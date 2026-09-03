@@ -11,7 +11,7 @@ from qaos.storage import Stores
 class OperationalSession:
     """Create and execute canonical Objectives in one explicit workspace."""
 
-    def __init__(self, stores, *, configuration=None, logger=None):
+    def __init__(self, stores, *, configuration=None, logger=None, python_file_workspace=None):
         if not isinstance(stores, Stores):
             raise TypeError("stores must be a Stores instance")
 
@@ -26,6 +26,8 @@ class OperationalSession:
             stores,
             objectives=self._objectives,
             logger=logger,
+            **({"python_file_workspace": python_file_workspace}
+               if python_file_workspace is not None else {}),
         )
         self._executive = executive
         self._kernel = Kernel(
@@ -61,6 +63,21 @@ class OperationalSession:
 
         try:
             return self._kernel.execute_objective(objective)
+        except Exception:
+            if objective.status == "pending":
+                self._objectives.fail(objective)
+            raise
+
+    def execute_intent(self, objective, intent):
+        """Submit one approved intent for a pending canonical session Objective."""
+        if not isinstance(objective, Objective):
+            raise TypeError("objective must be a canonical QAOS Objective")
+        if (objective.objective_id is None
+                or self._objectives.get_by_id(objective.objective_id) is not objective):
+            raise ValueError("objective must belong to this session")
+        self._executive.validate_intent(objective, intent)
+        try:
+            return self._executive.execute_intent(objective, intent)
         except Exception:
             if objective.status == "pending":
                 self._objectives.fail(objective)
