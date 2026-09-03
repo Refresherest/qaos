@@ -287,6 +287,9 @@ by OpenHands Cloud parent-runtime startup.
 - WO-098 assesses a one-shot recovery CLI. PROPOSAL-011 recommends explicit
   workspace and Objective ID with exit statuses 0/1/2. DECISION-REQUEST-018
   requires owner selection; ID discovery is a separate acknowledged gap.
+- WO-099 records OWNER-DECISION-018 selecting Option A: the explicit-workspace,
+  exact-ID one-shot recovery CLI. Implementation remains a separate work order;
+  no source or API changed in this checkpoint.
 - Current verification passes 154 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-090.
@@ -330,9 +333,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Obtain owner selection for DECISION-REQUEST-018. No CLI implementation,
-   ID discovery, UI, automatic retry, migration, or audit changes are authorized
-   by the assessment.
+2. Implement only OWNER-DECISION-018's one-shot recovery CLI and focused tests.
+   ID discovery, UI, automatic retry, migration, and audit changes remain excluded.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
