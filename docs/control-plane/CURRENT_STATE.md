@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-03 UTC
 
-**WO-108 base:** `6cda2d3` (`feat/operational-builder-chain`)
+**WO-109 base:** `4d09a1a` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -316,6 +316,9 @@ by OpenHands Cloud parent-runtime startup.
 - WO-108 assesses operational readiness: the default SystemCapability performs
   lifecycle transitions, not actual app building. A bounded executable-task
   acceptance contract is the recommended next step, not yet approved.
+- WO-109 proposes Task-owned typed executable intent (Option A) for one
+  deterministic source-file build and direct-Python verification. Owner
+  approval is required before implementation.
 - The WO-108 regression run passes 182 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-099.
@@ -359,8 +362,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Propose a bounded executable app-building task acceptance contract for owner
-   approval; no new implementation is authorized by this assessment.
+2. Obtain the owner decision on WO-109 Option A and its ten acceptance rules;
+   do not implement executable intent before approval.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
