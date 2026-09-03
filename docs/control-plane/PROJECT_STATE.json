@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "f04e975",
   "core_baseline": "615cbbb",
-  "status": "objective_discovery_verified_builder_chain_blocked",
+  "status": "objective_id_reporting_decision_pending_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-03-HANDOFF-094-objective-discovery.md",
+  "current_baseline": "ledger/2026-09-03-HANDOFF-095-objective-id-reporting-assessment.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -107,7 +107,8 @@
     "WO-100",
     "WO-101",
     "WO-102",
-    "WO-103"
+    "WO-103",
+    "WO-104"
   ],
   "blocked_work_orders": [
     {
@@ -126,5 +127,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Assess canonical Objective-ID reporting during CLI objective execution, especially failure output; changes require a separate owner decision."
+  "next_action": "Obtain owner selection for DECISION-REQUEST-020; explicit session creation then canonical execution is recommended."
 }

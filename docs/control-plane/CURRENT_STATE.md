@@ -302,6 +302,9 @@ by OpenHands Cloud parent-runtime startup.
 - WO-103 implements OWNER-DECISION-019. The read-only objectives CLI lists all
   persisted records with safely quoted identity, status and goal, including
   repeated goals and legacy null IDs, while verified to make no workspace writes.
+- WO-104 assesses CLI Objective-ID reporting. PROPOSAL-013 recommends explicit
+  OperationalSession create/execute steps with compatible execute_goal, allowing
+  ID output before execution. DECISION-REQUEST-020 awaits owner selection.
 - Current verification passes 177 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-096.
@@ -345,8 +348,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Assess canonical Objective-ID reporting during CLI execution, especially
-   failures; do not alter existing output without owner authority.
+2. Obtain owner selection for DECISION-REQUEST-020 before changing application
+   methods or CLI output.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
