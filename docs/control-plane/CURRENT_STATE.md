@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-03 UTC
 
-**WO-107 base:** `10fb771` (`feat/operational-builder-chain`)
+**WO-108 base:** `6cda2d3` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -313,7 +313,10 @@ by OpenHands Cloud parent-runtime startup.
   diagnostics. The reported failure ID is verified usable for recovery.
 - WO-107 passes the disposable operator failure/discovery/recovery/rediscovery
   rehearsal, preserving completed work and active data. See VERIFICATION-100.
-- The WO-106 regression baseline passes 182 tests. The architecture inspector no longer
+- WO-108 assesses operational readiness: the default SystemCapability performs
+  lifecycle transitions, not actual app building. A bounded executable-task
+  acceptance contract is the recommended next step, not yet approved.
+- The WO-108 regression run passes 182 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-099.
 
@@ -356,8 +359,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Assess remaining QAOS operational readiness against approved product direction;
-   no new implementation is authorized by that assessment.
+2. Propose a bounded executable app-building task acceptance contract for owner
+   approval; no new implementation is authorized by this assessment.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
