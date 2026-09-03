@@ -1,8 +1,8 @@
 # QAOS Current State
 
-**Recorded:** 2026-08-29 UTC
+**Recorded:** 2026-09-03 UTC
 
-**WO-092 base:** `81803f0` (`feat/operational-builder-chain`)
+**WO-095 base:** `a2866e7` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -272,9 +272,13 @@ by OpenHands Cloud parent-runtime startup.
   ExecutiveManager recovery service directly to ExecutionManager, return the
   canonical completed Objective, and leave Kernel and CLI unchanged. No product
   code or API changed; implementation remains a separate work order.
-- Current verification passes 144 tests. The architecture inspector no longer
+- WO-095 implements OWNER-DECISION-017. OperationalSession now exposes explicit
+  Objective-ID recovery and returns its canonical Objective. ExecutiveManager
+  delegates to the same ExecutionManager used by the composed pipeline, without
+  invoking the normal pipeline. Kernel and CLI remain unchanged.
+- Current verification passes 152 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-084.
+  VERIFICATION-088.
 
 ## Verified Builder Chain State
 
@@ -315,9 +319,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Implement only OWNER-DECISION-017 across ExecutiveManager,
-   create_executive, OperationalSession, and focused tests. Keep Kernel, CLI,
-   UI, automatic retry, migration, and audit evidence unchanged.
+2. Perform a separately bounded disposable-workspace recovery rehearsal through
+   OperationalSession. Do not infer CLI/UI, automatic retry, migration, or audit
+   authorization from the verified programmatic boundary.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

@@ -26,6 +26,7 @@ class OperationalSession:
             objectives=self._objectives,
             logger=logger,
         )
+        self._executive = executive
         self._kernel = Kernel(
             configuration=(
                 create_configuration(stores.data_dir)
@@ -51,3 +52,13 @@ class OperationalSession:
             if objective.status == "pending":
                 self._objectives.fail(objective)
             raise
+
+    def recover_objective(self, objective_id):
+        """Recover an existing identified attempt in this session's workspace."""
+        if not isinstance(objective_id, str):
+            raise TypeError("objective_id must be a string")
+        if not objective_id.strip():
+            raise ValueError("objective_id must be a non-empty string")
+
+        self._executive.recover(objective_id)
+        return self._objectives.get_by_id(objective_id)

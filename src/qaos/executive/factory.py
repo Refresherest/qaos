@@ -103,16 +103,17 @@ def create_executive(stores, *, objectives=None, logger=None):
         ExecutionEngine(planner=planner, queue=queue),
     )
 
+    execution = ExecutionManager(
+        registry=execution_registry,
+        objectives=objective_manager,
+    )
     pipeline = ExecutivePipeline(
         classifier=ClassifierManager(
             classifier_service=create_default_classifier()
         ),
         council=council,
         planner=planner,
-        execution=ExecutionManager(
-            registry=execution_registry,
-            objectives=objective_manager,
-        ),
+        execution=execution,
         reflection=ReflectionManager(stores=stores),
         learning=LearningManager(
             learner_service=Learner(
@@ -124,4 +125,5 @@ def create_executive(stores, *, objectives=None, logger=None):
     return ExecutiveManager(
         orchestrator_service=ExecutiveOrchestrator(pipeline=pipeline),
         logger_service=logger,
+        recovery_service=execution,
     )

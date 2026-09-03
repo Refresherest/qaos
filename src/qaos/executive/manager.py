@@ -18,13 +18,22 @@ class ExecutiveManager:
     Orchestrator.
     """
 
-    def __init__(self, orchestrator_service=None, logger_service=None):
+    def __init__(
+        self, orchestrator_service=None, logger_service=None, *, recovery_service=None
+    ):
         self._orchestrator = (
             orchestrator
             if orchestrator_service is None
             else orchestrator_service
         )
         self._logger = logger if logger_service is None else logger_service
+        self._recovery = recovery_service
+
+    def recover(self, objective_id):
+        """Delegate explicitly configured recovery without running the pipeline."""
+        if self._recovery is None:
+            raise RuntimeError("No recovery service configured.")
+        return self._recovery.recover(objective_id)
 
     def execute(
         self,
