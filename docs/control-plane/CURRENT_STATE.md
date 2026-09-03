@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-03 UTC
 
-**WO-112 base:** `33e8c4f` (`feat/operational-builder-chain`)
+**WO-113 base:** `e0fb697` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -328,7 +328,9 @@ by OpenHands Cloud parent-runtime startup.
   data remains unchanged. See VERIFICATION-101.
 - WO-112 finds that mixed ordinary/executable skills cannot safely use the
   current first-registered SkillResolver behavior. Option A proposes explicit
-  intent-type routes with fail-closed resolution; owner decision is pending.
+  intent-type routes with fail-closed resolution.
+- WO-113 records OWNER-DECISION-022 approving Option A and its resolver-only
+  implementation boundary. No product code changed in this checkpoint.
 - The WO-108 regression run passes 182 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-099.
@@ -372,8 +374,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Obtain the owner decision on WO-112 Option A. Do not change skill routing or
-   wire executable intent into OperationalSession before approval.
+2. Implement OWNER-DECISION-022 in a separate bounded resolver work order.
+   Production executable registration and OperationalSession exposure remain excluded.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
