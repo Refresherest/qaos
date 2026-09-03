@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-03",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "85f3c74",
+  "branch_baseline": "5f3fc5d",
   "core_baseline": "615cbbb",
-  "status": "explicit_skill_routing_verified_composition_pending",
+  "status": "opt_in_executive_composition_awaiting_owner_decision",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-03-HANDOFF-100-explicit-skill-routing.md",
+  "current_baseline": "ledger/2026-09-03-WO-115-opt-in-executive-composition.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -118,7 +118,8 @@
     "WO-111",
     "WO-112",
     "WO-113",
-    "WO-114"
+    "WO-114",
+    "WO-115"
   ],
   "blocked_work_orders": [
     {
@@ -137,5 +138,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Assess an explicit opt-in composition boundary for approved routing and Python-file capability; no new execution authority without owner approval."
+  "next_action": "Obtain owner approval, revision or rejection of WO-115 Option A explicit output-workspace opt-in on create_executive."
 }
