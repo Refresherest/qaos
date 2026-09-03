@@ -296,6 +296,9 @@ by OpenHands Cloud parent-runtime startup.
 - WO-101 assesses read-only Objective discovery. PROPOSAL-012 recommends complete
   workspace-scoped listing of ID, status and goal, with legacy identity preserved
   and no execution or recovery. DECISION-REQUEST-019 awaits owner selection.
+- WO-102 records OWNER-DECISION-019 selecting Option A: read-only complete
+  Objective listing in an explicit workspace. Implementation remains a separate
+  work order; no product code changed in this decision checkpoint.
 - Current verification passes 166 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-093.
@@ -339,8 +342,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Obtain owner selection for DECISION-REQUEST-019 before implementing Objective
-   discovery. UI, automatic retry, migration and audit changes remain excluded.
+2. Implement only OWNER-DECISION-019's read-only Objective listing with no-write
+   verification. UI, automatic retry, migration and audit changes remain excluded.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
