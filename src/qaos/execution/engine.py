@@ -81,7 +81,15 @@ class ExecutionEngine:
             # Execute queued work
             #
 
-            self._queue.process()
+            try:
+                self._queue.process()
+            except Exception:
+                try:
+                    self._planner.save()
+                except Exception:
+                    # Preserve the execution failure if cleanup also fails.
+                    pass
+                raise
 
             #
             # Persist planner state

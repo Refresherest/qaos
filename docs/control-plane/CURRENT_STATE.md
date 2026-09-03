@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-03 UTC
 
-**WO-095 base:** `a2866e7` (`feat/operational-builder-chain`)
+**WO-097 base:** `462f2dd` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -281,9 +281,12 @@ by OpenHands Cloud parent-runtime startup.
   Queue processing raises. Recovery rejects the resulting stale Plan state.
   Prior tests used coherent prepared state; they did not prove this lifecycle.
   The disposable workspace was removed and active data remained unchanged.
-- The prior code baseline passes 152 tests. The architecture inspector no longer
+- WO-097 resolves FINDING-038: ordinary queue failure now persists Plan Task
+  transitions while preserving the original exception. Real failure, reload,
+  and application recovery now succeed; completed work remains untouched.
+- Current verification passes 154 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
-  VERIFICATION-088.
+  VERIFICATION-090.
 
 ## Verified Builder Chain State
 
@@ -324,9 +327,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Address FINDING-038 in a separately authorized work order: persist Plan
-   transitions after ordinary execution failure and prove recovery after reload.
-   Do not weaken preflight or repair historical active data.
+2. Assess an operator-facing recovery adapter and request a separate owner
+   decision before changing CLI/UI. Automatic retry, migration, and audit policy
+   remain excluded.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

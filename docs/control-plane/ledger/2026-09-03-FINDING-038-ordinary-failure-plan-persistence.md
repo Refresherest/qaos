@@ -2,7 +2,7 @@
 
 ## Status
 
-OPEN — blocks recovery after an ordinary execution failure and workspace reload.
+RESOLVED — WO-097. Historical evidence below describes the pre-fix baseline.
 
 ## Evidence
 
@@ -40,3 +40,9 @@ preserving the original exception and existing lifecycle ownership. Add an
 integration regression that produces a real failure, reloads, and recovers.
 Do not weaken recovery preflight or repair historical active data. This finding
 is evidence, not authorization to implement outside a separate work order.
+
+## Resolution
+
+WO-097 saves Plan transitions when ordinary queue processing raises and preserves
+the original execution exception. A real-failure/reload/recovery regression and
+the unchanged WO-096 probe now pass. Historical active data was not repaired.
