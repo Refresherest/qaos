@@ -284,6 +284,9 @@ by OpenHands Cloud parent-runtime startup.
 - WO-097 resolves FINDING-038: ordinary queue failure now persists Plan Task
   transitions while preserving the original exception. Real failure, reload,
   and application recovery now succeed; completed work remains untouched.
+- WO-098 assesses a one-shot recovery CLI. PROPOSAL-011 recommends explicit
+  workspace and Objective ID with exit statuses 0/1/2. DECISION-REQUEST-018
+  requires owner selection; ID discovery is a separate acknowledged gap.
 - Current verification passes 154 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-090.
@@ -327,9 +330,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Assess an operator-facing recovery adapter and request a separate owner
-   decision before changing CLI/UI. Automatic retry, migration, and audit policy
-   remain excluded.
+2. Obtain owner selection for DECISION-REQUEST-018. No CLI implementation,
+   ID discovery, UI, automatic retry, migration, or audit changes are authorized
+   by the assessment.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

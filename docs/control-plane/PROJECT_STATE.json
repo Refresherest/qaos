@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "462f2dd",
   "core_baseline": "615cbbb",
-  "status": "application_recovery_rehearsal_verified_builder_chain_blocked",
+  "status": "recovery_cli_decision_pending_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-03-HANDOFF-088-failure-plan-persistence.md",
+  "current_baseline": "ledger/2026-09-03-HANDOFF-089-recovery-cli-assessment.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -101,7 +101,8 @@
     "WO-094",
     "WO-095",
     "WO-096",
-    "WO-097"
+    "WO-097",
+    "WO-098"
   ],
   "blocked_work_orders": [
     {
@@ -120,5 +121,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Assess the operator-facing recovery adapter and obtain a separate owner decision before changing CLI/UI; automatic retry, migration, and audit policy remain excluded."
+  "next_action": "Obtain owner selection for DECISION-REQUEST-018; Option A recommends an explicit-workspace, exact-ID one-shot recovery CLI."
 }
