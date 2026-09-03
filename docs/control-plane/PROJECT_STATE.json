@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-03",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "e0fb697",
+  "branch_baseline": "85f3c74",
   "core_baseline": "615cbbb",
-  "status": "explicit_skill_routing_approved_implementation_pending",
+  "status": "explicit_skill_routing_verified_composition_pending",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-03-WO-113-record-skill-routing-decision.md",
+  "current_baseline": "ledger/2026-09-03-HANDOFF-100-explicit-skill-routing.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -117,7 +117,8 @@
     "WO-110",
     "WO-111",
     "WO-112",
-    "WO-113"
+    "WO-113",
+    "WO-114"
   ],
   "blocked_work_orders": [
     {
@@ -136,5 +137,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Implement OWNER-DECISION-022 in one bounded SkillResolver work order, preserving default composition and executable authority."
+  "next_action": "Assess an explicit opt-in composition boundary for approved routing and Python-file capability; no new execution authority without owner approval."
 }
