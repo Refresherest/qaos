@@ -1,5 +1,7 @@
 """Provider-neutral construction of the operational Executive graph."""
 
+from pathlib import Path
+
 from qaos.agents import Agent
 from qaos.agents.manager import AgentManager
 from qaos.agents.registry import AgentRegistry
@@ -7,6 +9,7 @@ from qaos.artifacts.manager import ArtifactManager
 from qaos.capabilities.manager import CapabilityManager
 from qaos.capabilities.registry import CapabilityRegistry
 from qaos.capabilities.system import SystemCapability
+from qaos.capabilities.python_file import PythonFileCapability
 from qaos.classifier.manager import ClassifierManager
 from qaos.classifier.registry import create_default_classifier
 from qaos.context.manager import ContextManager
@@ -43,12 +46,23 @@ from .orchestrator import ExecutiveOrchestrator
 from .pipeline import ExecutivePipeline
 
 
-def create_executive(stores, *, objectives=None, logger=None):
+def create_executive(stores, *, objectives=None, logger=None, python_file_workspace=None):
     """Create an isolated ExecutiveManager bound to one Stores workspace.
 
     Pass an ObjectiveManager through ``objectives`` when the caller creates
     objectives and requires that same registry to own lifecycle persistence.
+
+    An explicit absolute existing ``python_file_workspace`` opts this instance
+    into the bounded Python-file capability. It does not enable Task submission
+    through the default planner or OperationalSession.
     """
+    python_file = None
+    if python_file_workspace is not None:
+        output_directory = Path(python_file_workspace)
+        if not output_directory.is_absolute():
+            raise ValueError("python_file_workspace must be an absolute directory")
+        python_file = PythonFileCapability(output_directory)
+
     memory = MemoryManager(stores=stores)
     knowledge = KnowledgeManager(stores=stores)
     artifacts = ArtifactManager(stores=stores)
@@ -62,8 +76,20 @@ def create_executive(stores, *, objectives=None, logger=None):
     SkillManager(registry=skills).register(
         Skill("planning", "system", capabilities=capabilities)
     )
+    if python_file is None:
+        resolver = SkillResolver(registry=skills)
+    else:
+        capabilities.register(python_file)
+        SkillManager(registry=skills).register(
+            Skill("python-file", "python_file", capabilities=capabilities)
+        )
+        resolver = SkillResolver(
+            registry=skills,
+            routes={"python_file": "python-file"},
+            default_skill="planning",
+        )
     agents = AgentManager(registry=AgentRegistry())
-    agents.register(Agent("default", resolver=SkillResolver(registry=skills)))
+    agents.register(Agent("default", resolver=resolver))
     queue = QueueManager(
         stores=stores,
         workers=WorkerManager(

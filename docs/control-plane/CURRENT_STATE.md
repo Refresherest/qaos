@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-03 UTC
 
-**WO-116 base:** `970dca7` (`feat/operational-builder-chain`)
+**WO-117 base:** `1c344c7` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -338,6 +338,9 @@ by OpenHands Cloud parent-runtime startup.
   enabling only instance-local Python-file capability and routing. Owner
   approval is recorded in OWNER-DECISION-023; executable Task submission remains
   a separate gap. WO-116 records this decision without product changes.
+- WO-117 implements the explicit factory opt-in with per-instance routing and
+  output binding, preserving defaults and global registries. 213 tests, compile
+  and 188 imports pass; active data unchanged. See VERIFICATION-103.
 - The WO-108 regression run passes 182 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-099.
@@ -381,8 +384,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Implement OWNER-DECISION-023 in a bounded factory work order; application-facing
-   executable submission and default enablement remain excluded.
+2. Assess explicit application submission of a validated Task intent while
+   preserving planning and lifecycle ownership. No submission API is yet approved.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
