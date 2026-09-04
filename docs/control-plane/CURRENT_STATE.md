@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-121 base:** `95b0295` (`feat/operational-builder-chain`)
+**WO-122 base:** `ebed784` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -352,6 +352,9 @@ by OpenHands Cloud parent-runtime startup.
 - WO-121 verifies public-API build, discovery, collision and recovery refusal
   across five fresh processes. Successful work and active data are preserved;
   disposable directories removed. See VERIFICATION-105.
+- WO-122 proposes one explicitly enabled, trusted text-statistics module
+  template with fixed acceptance cases. Print-only behavior stays unchanged;
+  owner approval is pending and no template implementation exists yet.
 - The WO-108 regression run passes 182 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-099.
@@ -395,8 +398,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Assess one useful deterministic workload beyond print-only and propose exact
-   acceptance/safety boundaries for owner approval; no implementation yet.
+2. Obtain the owner decision on WO-122 Option A trusted text-statistics template;
+   do not expand executable types or source validation before approval.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

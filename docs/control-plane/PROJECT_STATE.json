@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-04",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "95b0295",
+  "branch_baseline": "ebed784",
   "core_baseline": "615cbbb",
-  "status": "public_api_rehearsal_verified_builder_chain_blocked",
+  "status": "trusted_text_template_awaiting_owner_decision",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-04-HANDOFF-103-public-api-rehearsal.md",
+  "current_baseline": "ledger/2026-09-04-WO-122-text-statistics-template-proposal.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -125,7 +125,8 @@
     "WO-118",
     "WO-119",
     "WO-120",
-    "WO-121"
+    "WO-121",
+    "WO-122"
   ],
   "blocked_work_orders": [
     {
@@ -144,5 +145,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Assess one useful deterministic workload beyond print-only and propose bounded acceptance/safety rules for owner approval; no implementation yet."
+  "next_action": "Obtain owner approval, revision or rejection of WO-122 Option A explicitly enabled trusted text_stats_v1 template."
 }
