@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-04",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "b29fa5e",
+  "branch_baseline": "5e5f0f8",
   "core_baseline": "615cbbb",
-  "status": "trusted_project_approved_publication_gate_pending",
+  "status": "trusted_project_local_publication_gate_passed",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-04-WO-131-record-project-decision.md",
+  "current_baseline": "ledger/2026-09-04-WO-132-publication-gate.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -135,7 +135,8 @@
     "WO-128",
     "WO-129",
     "WO-130",
-    "WO-131"
+    "WO-131",
+    "WO-132"
   ],
   "blocked_work_orders": [
     {
@@ -154,5 +155,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Execute bounded WO-132 publication-primitive evidence gate under OWNER-DECISION-027 before separate project implementation."
+  "next_action": "Implement OWNER-DECISION-027 in separate WO-133, restricted to evidenced local Windows/NTFS publication and approved project contracts."
 }

@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-131 base:** `b29fa5e` (`feat/operational-builder-chain`)
+**WO-132 base:** `5e5f0f8` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -409,8 +409,9 @@ slice.
    unchanged (VERIFICATION-108). WO-129 passes the eight-process CLI rehearsal
    and 253 regressions (VERIFICATION-109). WO-130 proposes a trusted four-file
    project with staged verification and no-replace publication. OWNER-DECISION-027
-   approves Option A; WO-131 records it. Next: WO-132 publication-primitive gate,
-   before a separate multi-file implementation work order.
+   approves Option A; WO-131 records it. WO-132 passes the local Windows/NTFS
+   publication gate (VERIFICATION-110). Next: separate WO-133 implementation
+   within the approved boundaries and evidenced platform only.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
