@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-160 base:** `cc42cc9` (`feat/operational-builder-chain`)
+**WO-161 base:** `c1e41ea` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -458,7 +458,11 @@ slice.
    incomplete. WO-160 confirms that two separate A1 VMs must receive one OCPU each
    and recommends a provisional memory-weighted split: OmniRoute 1 OCPU/4 GB, QAOS
    1 OCPU/8 GB. The split is not proven or approved; seven-day metrics and a reversible
-   cap test must pass before any resize.
+   cap test must pass before any resize. WO-161 captures seven-day OCI history:
+   memory max about 1.8 GB, CPU p95 normally about 1.5–2% with one interval near
+   11.5%, brief CPU maxima near 50% of the current 2-OCPU host, negligible network
+   and disk load, low system load, and zero allocation stalls. Historical-metric
+   gate passes for the 1-OCPU/4-GB candidate; a reversible cap test is still required.
    No provisioning, model connection or untrusted execution authorized.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.

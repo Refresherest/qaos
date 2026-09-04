@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-04",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "cc42cc9",
+  "branch_baseline": "c1e41ea",
   "core_baseline": "615cbbb",
-  "status": "omniroute_1ocpu_4gb_candidate_awaits_peak_metrics_and_cap_test",
+  "status": "omniroute_1ocpu_4gb_metrics_pass_cap_test_awaits_authorization",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-04-WO-160-omniroute-minimum-capacity-assessment.md",
+  "current_baseline": "ledger/2026-09-04-WO-161-omniroute-seven-day-metrics.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -163,7 +163,8 @@
     "WO-157",
     "WO-158",
     "WO-159",
-    "WO-160"
+    "WO-160",
+    "WO-161"
   ],
   "blocked_work_orders": [
     {
@@ -186,5 +187,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Collect seven-day OmniRoute CPU, network, memory, restart, latency and storage high-water evidence read-only; then propose a reversible 1-OCPU/4-GB cap test before any OCI resize or QAOS worker creation."
+  "next_action": "Request explicit authorization for a bounded maintenance-window OmniRoute container cap test at 1 CPU and 4 GB, with provider-call/spend limits and automatic rollback; do not resize OCI or create QAOS infrastructure."
 }
