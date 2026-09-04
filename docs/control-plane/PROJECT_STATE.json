@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "project": "qaos",
-  "recorded": "2026-09-03",
+  "recorded": "2026-09-04",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "b030801",
+  "branch_baseline": "95b0295",
   "core_baseline": "615cbbb",
-  "status": "application_intent_submission_verified_builder_chain_blocked",
+  "status": "public_api_rehearsal_verified_builder_chain_blocked",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-03-HANDOFF-102-application-intent-submission.md",
+  "current_baseline": "ledger/2026-09-04-HANDOFF-103-public-api-rehearsal.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -124,7 +124,8 @@
     "WO-117",
     "WO-118",
     "WO-119",
-    "WO-120"
+    "WO-120",
+    "WO-121"
   ],
   "blocked_work_orders": [
     {
@@ -143,5 +144,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Rehearse the public intent API in fresh processes with disposable state/output, covering success, discovery and overwrite refusal; no new features."
+  "next_action": "Assess one useful deterministic workload beyond print-only and propose bounded acceptance/safety rules for owner approval; no implementation yet."
 }
