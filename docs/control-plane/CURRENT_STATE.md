@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-127 base:** `10b1b2f` (`feat/operational-builder-chain`)
+**WO-128 base:** `5cbe017` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -405,7 +405,8 @@ slice.
 2. WO-125 passes the six-process trusted-template rehearsal (VERIFICATION-107).
    WO-126 proposes a separately enabled text_stats_cli_v1 single-file app.
    OWNER-DECISION-026 approves Option A and its boundaries; WO-127 records it.
-   Next: implement the approved CLI template in a separate bounded work order.
+   WO-128 implements it: 253 tests, compile and 192 imports pass; active data
+   unchanged (VERIFICATION-108). Next: bounded fresh-process CLI-template rehearsal.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

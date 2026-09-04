@@ -59,6 +59,7 @@ class PythonFileCapability:
             item.result = evidence
             if completed.returncode != 0 or stdout != expected_stdout:
                 raise RuntimeError("python file verification failed")
+            self._verify_behavior(target, intent, evidence)
         except Exception:
             if task.status == "running":
                 task.fail()
@@ -73,6 +74,9 @@ class PythonFileCapability:
 
     def _verify_source(self, target, source):
         """Template subclasses may require exact reviewed bytes before execution."""
+
+    def _verify_behavior(self, target, intent, evidence):
+        """Template-specific acceptance runs inside the existing task lifecycle."""
 
     def _target(self, relative_path):
         candidate = PurePath(relative_path)

@@ -70,7 +70,7 @@ class PythonFileIntent:
         return cls(**data)
 
 
-SUPPORTED_TEMPLATE_IDS = frozenset({"text_stats_v1"})
+SUPPORTED_TEMPLATE_IDS = frozenset({"text_stats_v1", "text_stats_cli_v1"})
 
 
 def template_allowlist(values):
