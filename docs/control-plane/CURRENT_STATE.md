@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-157 base:** `9db7e2b` (`feat/operational-builder-chain`)
+**WO-158 base:** `5ebff02` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -448,8 +448,10 @@ slice.
    verified. WO-157 records signed-in Console compatibility, current image builds,
    shape labels and cost previews without creating resources. Oracle sources conflict
    on the durable post-trial A1 allowance, and current docs do not support Micro CPU
-   bursting. Await an owner route decision and remaining manifest controls. No
-   creation authorized; launch preparation remains incomplete.
+   bursting. WO-158 captures the unsubmitted network, SSH and storage defaults;
+   they are observations, not approved manifest choices. Await an owner route
+   decision and remaining manifest controls. No creation authorized; launch
+   preparation remains incomplete.
    No provisioning, model connection or untrusted execution authorized.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
