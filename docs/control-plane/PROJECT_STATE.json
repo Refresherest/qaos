@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "c1e41ea",
   "core_baseline": "615cbbb",
-  "status": "omniroute_1ocpu_4gb_metrics_pass_cap_test_awaits_authorization",
+  "status": "omniroute_1ocpu_4gb_cap_test_passed_resize_awaits_authorization",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-04-WO-161-omniroute-seven-day-metrics.md",
+  "current_baseline": "ledger/2026-09-04-WO-162-omniroute-container-cap-test.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -164,7 +164,8 @@
     "WO-158",
     "WO-159",
     "WO-160",
-    "WO-161"
+    "WO-161",
+    "WO-162"
   ],
   "blocked_work_orders": [
     {
@@ -187,5 +188,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Request explicit authorization for a bounded maintenance-window OmniRoute container cap test at 1 CPU and 4 GB, with provider-call/spend limits and automatic rollback; do not resize OCI or create QAOS infrastructure."
+  "next_action": "Present the passed 1-OCPU/4-GB OmniRoute cap-test evidence for owner decision; do not resize OCI or create the proposed separate QAOS 1-OCPU/8-GB instance without explicit authorization."
 }
