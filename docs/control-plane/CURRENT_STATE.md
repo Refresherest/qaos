@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-142 base:** `d2efdcc` (`feat/operational-builder-chain`)
+**WO-143 base:** `a91aad9` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -424,7 +424,8 @@ slice.
    approval. WO-141 implements the explicit build-project adapter: 354 tests,
    compile and 196 imports pass; active data unchanged (VERIFICATION-115).
    WO-142 passes nine operator walkthrough phases and 82 focused CLI tests
-   (VERIFICATION-116). Next: proposal-only requirement-to-intent gap assessment.
+   (VERIFICATION-116). WO-143 proposes controlled-language preview without
+   execution or persistence; await owner decision on Option A.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
