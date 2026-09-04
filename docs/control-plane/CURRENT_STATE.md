@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-139 base:** `a95dc1a` (`feat/operational-builder-chain`)
+**WO-140 base:** `7d25f87` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -420,7 +420,8 @@ slice.
    VERIFICATION-113. WO-138 passes the nine-process configurable-project rehearsal
    and 307 regressions, with active data unchanged (VERIFICATION-114).
    WO-139 proposes an explicit opt-in v2 build CLI consuming the existing typed
-   API. Await owner decision on Option A; no CLI build permission is approved yet.
+   API. OWNER-DECISION-029 approves Option A and its boundaries; WO-140 records
+   approval. Next: separately scoped explicit builder CLI implementation.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
