@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-150 base:** `0d1890a` (`feat/operational-builder-chain`)
+**WO-151 base:** `f3626e6` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -437,7 +437,9 @@ slice.
    OWNER-DECISION-032 selects cloud-first assessment instead of laptop preparation.
    WO-150 verifies Oracle SSH inventory: ARM64/2 CPUs/about 12 GiB RAM, Docker and
    healthy OmniRoute; no untrusted-worker isolation proven (VERIFICATION-120).
-   Next: cloud-worker isolation design, preserving OmniRoute; no setup authorized.
+   OWNER-DECISION-033 separates main QAOS from supporting QAOS-OmniRoute.
+   WO-151 designs distinct worker isolation; recommends separate VM target and
+   read-only tenancy capacity/cost check. Await owner choice; no setup authorized.
    No provisioning, model connection or untrusted execution authorized.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
