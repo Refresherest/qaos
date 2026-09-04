@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-137 base:** `8858230` (`feat/operational-builder-chain`)
+**WO-138 base:** `5111dd6` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -417,7 +417,9 @@ slice.
    selection in project v2, preserving v1. OWNER-DECISION-028 approves Option A;
    WO-136 records it. WO-137 implements all seven v2 configurations with preserved
    v1: 307 tests, compile and 195 imports pass; active data unchanged. See
-   VERIFICATION-113. Next: bounded fresh-process configurable-project rehearsal.
+   VERIFICATION-113. WO-138 passes the nine-process configurable-project rehearsal
+   and 307 regressions, with active data unchanged (VERIFICATION-114).
+   Next: proposal-only assessment of the next bounded builder capability gap.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own

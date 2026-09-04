@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-04",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "8858230",
+  "branch_baseline": "5111dd6",
   "core_baseline": "615cbbb",
-  "status": "configurable_project_implemented_verified",
+  "status": "configurable_project_rehearsal_verified",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-04-WO-137-configurable-project.md",
+  "current_baseline": "ledger/2026-09-04-WO-138-configurable-project-rehearsal.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -141,7 +141,8 @@
     "WO-134",
     "WO-135",
     "WO-136",
-    "WO-137"
+    "WO-137",
+    "WO-138"
   ],
   "blocked_work_orders": [
     {
@@ -160,5 +161,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Rehearse configurable-project normalization/build/use/discovery/permission/collision across fresh processes with disposable state and output."
+  "next_action": "Proposal-only assessment of the next smallest builder capability gap; present bounded options for owner approval before implementation."
 }
