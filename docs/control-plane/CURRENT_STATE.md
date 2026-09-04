@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-124 base:** `882acd9` (`feat/operational-builder-chain`)
+**WO-125 base:** `591ea3b` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -402,8 +402,9 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Rehearse trusted-template build, fresh-process import/discovery and disabled
-   recovery in a separately authorized bounded work order.
+2. WO-125 passes the six-process trusted-template rehearsal (VERIFICATION-107).
+   Next: propose the next bounded builder capability and its acceptance gate;
+   obtain owner approval before implementing any expanded capability.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
