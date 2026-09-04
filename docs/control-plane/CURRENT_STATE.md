@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-138 base:** `5111dd6` (`feat/operational-builder-chain`)
+**WO-139 base:** `a95dc1a` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -419,7 +419,8 @@ slice.
    v1: 307 tests, compile and 195 imports pass; active data unchanged. See
    VERIFICATION-113. WO-138 passes the nine-process configurable-project rehearsal
    and 307 regressions, with active data unchanged (VERIFICATION-114).
-   Next: proposal-only assessment of the next bounded builder capability gap.
+   WO-139 proposes an explicit opt-in v2 build CLI consuming the existing typed
+   API. Await owner decision on Option A; no CLI build permission is approved yet.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
