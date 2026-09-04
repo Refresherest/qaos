@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-04",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "591ea3b",
+  "branch_baseline": "69493a6",
   "core_baseline": "615cbbb",
-  "status": "trusted_text_template_fresh_process_rehearsal_passed",
+  "status": "trusted_cli_template_proposed_awaiting_owner_decision",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-04-WO-125-template-rehearsal.md",
+  "current_baseline": "ledger/2026-09-04-WO-126-next-builder-capability-proposal.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -129,7 +129,8 @@
     "WO-122",
     "WO-123",
     "WO-124",
-    "WO-125"
+    "WO-125",
+    "WO-126"
   ],
   "blocked_work_orders": [
     {
@@ -148,5 +149,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Propose the next bounded builder capability and acceptance gate; obtain owner approval before implementing expanded capability."
+  "next_action": "Obtain owner decision on WO-126 Option A: separately enabled trusted text-statistics CLI template and its verification boundaries."
 }
