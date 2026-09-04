@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-04",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "7d25f87",
+  "branch_baseline": "5d13fc3",
   "core_baseline": "615cbbb",
-  "status": "builder_cli_approved_pending_implementation",
+  "status": "builder_cli_implemented_verified",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-04-WO-140-builder-cli-decision.md",
+  "current_baseline": "ledger/2026-09-04-WO-141-builder-cli.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -144,7 +144,8 @@
     "WO-137",
     "WO-138",
     "WO-139",
-    "WO-140"
+    "WO-140",
+    "WO-141"
   ],
   "blocked_work_orders": [
     {
@@ -163,5 +164,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Implement the bounded explicit build-project CLI under OWNER-DECISION-029 and WO-139 acceptance requirements."
+  "next_action": "Bounded operator walkthrough of the shipped CLI using disposable explicit state/output roots, including discovery and failure diagnostics; no feature expansion."
 }

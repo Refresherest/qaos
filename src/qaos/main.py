@@ -8,6 +8,7 @@ COMMAND_DESCRIPTIONS = {
     "about": "Display information about QAOS",
     "agents": "List registered agents",
     "bootstrap": "Validate project structure",
+    "build-project": "Build an explicitly enabled trusted v2 project",
     "council": "Display Executive Council",
     "doctor": "Check development environment",
     "objective": "Execute one objective in an explicit workspace",
@@ -29,11 +30,13 @@ def show_help():
     print("    python -m qaos.main objective --workspace <path> <goal>")
     print("    python -m qaos.main objectives --workspace <path>")
     print("    python -m qaos.main recover --workspace <path> <objective_id>")
+    from qaos.commands.build_project import USAGE
+    print("    " + USAGE.removeprefix("Usage: "))
     print()
     print("Available commands:")
     print()
 
-    for command in sorted(set(COMMANDS) | {"objective", "objectives", "recover"}):
+    for command in sorted(set(COMMANDS) | {"objective", "objectives", "recover", "build-project"}):
         description = COMMAND_DESCRIPTIONS.get(command, "")
         print(f"  {command:<11} {description}")
 
@@ -120,6 +123,10 @@ def main(argv=None):
 
     if command == "objective":
         return _execute_objective(args)
+
+    if command == "build-project":
+        from qaos.commands.build_project import execute
+        return execute(args[1:])
 
     if command == "objectives":
         return _list_objectives(args)

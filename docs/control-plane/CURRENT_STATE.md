@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-140 base:** `7d25f87` (`feat/operational-builder-chain`)
+**WO-141 base:** `5d13fc3` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -421,7 +421,9 @@ slice.
    and 307 regressions, with active data unchanged (VERIFICATION-114).
    WO-139 proposes an explicit opt-in v2 build CLI consuming the existing typed
    API. OWNER-DECISION-029 approves Option A and its boundaries; WO-140 records
-   approval. Next: separately scoped explicit builder CLI implementation.
+   approval. WO-141 implements the explicit build-project adapter: 354 tests,
+   compile and 196 imports pass; active data unchanged (VERIFICATION-115).
+   Next: bounded operator walkthrough using disposable explicit roots.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
