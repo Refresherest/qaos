@@ -26,7 +26,10 @@ Both shape previews showed an estimated boot-volume line and total of EUR 1.85 p
 month. The same panel explicitly said the estimate does not reflect tier unit
 pricing. Therefore the preview is neither evidence of a charge nor a zero-cost
 guarantee. The inspected draft was never submitted. Leaving the draft crashed the
-embedded browser; no final Create action occurred.
+embedded browser; no final Create action occurred. After reconnecting to the still
+authenticated Console, the Instances list showed exactly one instance: the existing
+`qaos-omniroute`, running as A1 Flex with 2 OCPUs and 12 GB. No second instance was
+present.
 
 Prior owner-supplied account evidence remains:
 
