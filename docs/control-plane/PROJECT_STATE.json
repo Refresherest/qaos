@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-04",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "5ebff02",
+  "branch_baseline": "bb2b261",
   "core_baseline": "615cbbb",
-  "status": "cloud_worker_launch_blocked_by_a1_entitlement_conflict_and_manifest_controls",
+  "status": "durable_free_baseline_resolved_trial_worker_requires_explicit_approval",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-04-WO-158-oracle-network-storage-defaults.md",
+  "current_baseline": "ledger/2026-09-04-WO-159-free-tier-entitlement-evidence.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -161,7 +161,8 @@
     "WO-154",
     "WO-155",
     "WO-157",
-    "WO-158"
+    "WO-158",
+    "WO-159"
   ],
   "blocked_work_orders": [
     {
@@ -184,5 +185,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Owner chooses Micro manifest preparation, pause for post-trial A1 clarification, or a separately authorized trial-only A1 experiment; no launch before remaining manifest and cost controls are resolved."
+  "next_action": "If owner explicitly authorizes the trial-only A1 experiment, record an absolute teardown deadline and billing guard, then resolve the exact image, network, SSH and rootfs manifest before any Create action."
 }

@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-158 base:** `5ebff02` (`feat/operational-builder-chain`)
+**WO-159 base:** `bb2b261` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -450,8 +450,12 @@ slice.
    on the durable post-trial A1 allowance, and current docs do not support Micro CPU
    bursting. WO-158 captures the unsubmitted network, SSH and storage defaults;
    they are observations, not approved manifest choices. Await an owner route
-   decision and remaining manifest controls. No creation authorized; launch
-   preparation remains incomplete.
+   decision and remaining manifest controls. WO-159 resolves the planning ambiguity
+   conservatively: the post-trial free-only A1 limit is 2 OCPUs/12 GB and is fully
+   consumed by OmniRoute; two Micro instances remain durable free capacity but are
+   not adequate general isolation workers. A separate A1 worker is trial-only or
+   paid under current evidence. No creation authorized; launch preparation remains
+   incomplete.
    No provisioning, model connection or untrusted execution authorized.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
