@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-04",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "bb2b261",
+  "branch_baseline": "cc42cc9",
   "core_baseline": "615cbbb",
-  "status": "durable_free_baseline_resolved_trial_worker_requires_explicit_approval",
+  "status": "omniroute_1ocpu_4gb_candidate_awaits_peak_metrics_and_cap_test",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-04-WO-159-free-tier-entitlement-evidence.md",
+  "current_baseline": "ledger/2026-09-04-WO-160-omniroute-minimum-capacity-assessment.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -162,7 +162,8 @@
     "WO-155",
     "WO-157",
     "WO-158",
-    "WO-159"
+    "WO-159",
+    "WO-160"
   ],
   "blocked_work_orders": [
     {
@@ -185,5 +186,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "If owner explicitly authorizes the trial-only A1 experiment, record an absolute teardown deadline and billing guard, then resolve the exact image, network, SSH and rootfs manifest before any Create action."
+  "next_action": "Collect seven-day OmniRoute CPU, network, memory, restart, latency and storage high-water evidence read-only; then propose a reversible 1-OCPU/4-GB cap test before any OCI resize or QAOS worker creation."
 }

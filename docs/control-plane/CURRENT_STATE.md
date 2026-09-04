@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-159 base:** `bb2b261` (`feat/operational-builder-chain`)
+**WO-160 base:** `cc42cc9` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -455,7 +455,10 @@ slice.
    consumed by OmniRoute; two Micro instances remain durable free capacity but are
    not adequate general isolation workers. A separate A1 worker is trial-only or
    paid under current evidence. No creation authorized; launch preparation remains
-   incomplete.
+   incomplete. WO-160 confirms that two separate A1 VMs must receive one OCPU each
+   and recommends a provisional memory-weighted split: OmniRoute 1 OCPU/4 GB, QAOS
+   1 OCPU/8 GB. The split is not proven or approved; seven-day metrics and a reversible
+   cap test must pass before any resize.
    No provisioning, model connection or untrusted execution authorized.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
