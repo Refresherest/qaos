@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-155 base:** `6d06123` (`feat/operational-builder-chain`)
+**WO-156 base:** `2b08140` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -444,7 +444,9 @@ slice.
    blocker. WO-154 finds Micro a conditional tiny-fixture candidate, not the
    original worker. WO-155 specifies staged Micro setup/testing/cleanup; exact
    image/runtime pins and cost/network manifest remain pre-launch hold points.
-   Next: read-only launch-manifest preparation; no creation authorized.
+   WO-156 identifies public image and runtime/checksum candidates; archive not
+   verified. Await Console compatibility/cost evidence and remaining manifest
+   fields. No creation authorized; launch preparation remains incomplete.
    No provisioning, model connection or untrusted execution authorized.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
