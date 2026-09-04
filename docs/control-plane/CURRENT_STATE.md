@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-134 base:** `70c1db3` (`feat/operational-builder-chain`)
+**WO-135 base:** `9c2185d` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -413,8 +413,8 @@ slice.
    publication gate (VERIFICATION-110). WO-133 implements the approved project:
    285 tests, compile and 194 imports pass; active data unchanged. See
    VERIFICATION-111. WO-134 passes the nine-process project rehearsal and 285
-   regressions (VERIFICATION-112). Next: assess/propose the next builder milestone
-   against the verified baseline, obtaining owner approval before expansion.
+   regressions (VERIFICATION-112). WO-135 proposes explicitly configured metric
+   selection in project v2, preserving v1. Owner decision pending before code.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
