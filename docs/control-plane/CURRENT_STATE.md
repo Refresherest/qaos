@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-153 base:** `4f8ca95` (`feat/operational-builder-chain`)
+**WO-154 base:** `f264ab0` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -440,8 +440,9 @@ slice.
    OWNER-DECISION-033 separates main QAOS from supporting QAOS-OmniRoute.
    WO-151 designs distinct worker isolation; recommends separate VM target and
    read-only tenancy capacity/cost check. OWNER-DECISION-034 selects Option A;
-   WO-152 records it. WO-153 quota/cost assessment is blocked pending redacted
-   Console tenancy limits/usage and entitlement evidence; no setup authorized.
+   WO-152 records it. Owner Console evidence resolves WO-153's access-evidence
+   blocker. WO-154 finds Micro a conditional tiny-fixture candidate, not the
+   original worker. Next decision: design-only setup specification; no launch.
    No provisioning, model connection or untrusted execution authorized.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.

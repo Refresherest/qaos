@@ -1,5 +1,9 @@
 # WO-153 — Read-only Oracle Quota Assessment
 
+Resolution: owner supplied Console evidence and home-region/inventory confirmation;
+see WO-154 for reconciled observations and conditional Micro proposal. Assessment
+complete; historical blocker below is resolved, not a provisioning approval.
+
 2026-09-04; baseline 4f8ca95; feat/operational-builder-chain.
 Authority: OWNER-DECISION-034 and owner proceed on HANDOFF-132.
 Objective: establish whether a separate worker fits actual tenancy compute and
