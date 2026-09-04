@@ -3,6 +3,7 @@ QAOS Executive Manager
 """
 
 from qaos.logging import logger
+from qaos.planner.intents import PythonTemplateIntent, template_allowlist
 
 from .orchestrator import (
     orchestrator,
@@ -21,6 +22,7 @@ class ExecutiveManager:
     def __init__(
         self, orchestrator_service=None, logger_service=None, *, recovery_service=None,
         intent_planner=None, intent_objectives=None,
+        enabled_python_templates=(), recovery_planner=None,
     ):
         self._orchestrator = (
             orchestrator
@@ -31,6 +33,8 @@ class ExecutiveManager:
         self._recovery = recovery_service
         self._intent_planner = intent_planner
         self._intent_objectives = intent_objectives
+        self._enabled_templates = template_allowlist(enabled_python_templates)
+        self._recovery_planner = recovery_planner
 
     def validate_intent(self, objective, intent):
         """Reject unsupported submission before pipeline writes."""
@@ -45,7 +49,12 @@ class ExecutiveManager:
             raise ValueError("Objective does not belong to this Executive")
         if objective.status != "pending":
             raise ValueError("intent submission requires a pending Objective")
+        self._validate_template_authority(intent)
         self._intent_planner.validate_intent_plan(objective, intent)
+
+    def _validate_template_authority(self, intent):
+        if isinstance(intent, PythonTemplateIntent) and intent.template_id not in self._enabled_templates:
+            raise ValueError("template is not enabled")
 
     def execute_intent(self, objective, intent):
         """Execute a call-specific intent through the existing pipeline."""
@@ -59,6 +68,11 @@ class ExecutiveManager:
         """Delegate explicitly configured recovery without running the pipeline."""
         if self._recovery is None:
             raise RuntimeError("No recovery service configured.")
+        if self._recovery_planner is not None:
+            plan = self._recovery_planner.get_by_objective_id(objective_id)
+            if plan is not None:
+                for task in plan.tasks:
+                    self._validate_template_authority(task.intent)
         return self._recovery.recover(objective_id)
 
     def execute(

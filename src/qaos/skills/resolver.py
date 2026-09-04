@@ -6,7 +6,7 @@ from collections.abc import Mapping
 from types import MappingProxyType
 
 from qaos.planner.task import Task
-from qaos.planner.intents import PythonFileIntent
+from qaos.planner.intents import PythonFileIntent, PythonTemplateIntent, intent_from_dict
 from .registry import skill_registry
 
 
@@ -66,12 +66,9 @@ class SkillResolver:
             if name is None:
                 raise RuntimeError("No explicit default skill configured.")
         else:
-            if (
-                type(intent) is not PythonFileIntent
-                or intent.type != "python_file"
-                or intent.version != 1
-            ):
+            if type(intent) not in (PythonFileIntent, PythonTemplateIntent):
                 raise ValueError("Unsupported executable intent for skill routing.")
+            intent_from_dict(intent.to_dict())
             name = self._routes.get(intent.type)
             if name is None:
                 raise RuntimeError("No explicit skill route for intent.")

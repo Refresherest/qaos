@@ -70,9 +70,50 @@ class PythonFileIntent:
         return cls(**data)
 
 
+SUPPORTED_TEMPLATE_IDS = frozenset({"text_stats_v1"})
+
+
+def template_allowlist(values):
+    if not isinstance(values, (tuple, list, set, frozenset)):
+        raise TypeError("enabled_python_templates must be a collection of template IDs")
+    if any(not isinstance(value, str) or value not in SUPPORTED_TEMPLATE_IDS for value in values):
+        raise ValueError("unsupported template in allowlist")
+    return frozenset(values)
+
+
+@dataclass(frozen=True)
+class PythonTemplateIntent:
+    """Select reviewed source by identity; never accept caller-supplied code."""
+
+    relative_path: str
+    template_id: str = "text_stats_v1"
+    type: str = "python_template"
+    version: int = 1
+
+    def __post_init__(self):
+        if self.type != "python_template" or type(self.version) is not int or self.version != 1:
+            raise ValueError("unsupported template intent type or version")
+        if not isinstance(self.template_id, str) or self.template_id not in SUPPORTED_TEMPLATE_IDS:
+            raise ValueError("unsupported template ID")
+        if not isinstance(self.relative_path, str) or not self.relative_path.strip():
+            raise ValueError("relative_path must be a non-blank string")
+
+    def to_dict(self):
+        return {"type": self.type, "version": self.version,
+                "template_id": self.template_id, "relative_path": self.relative_path}
+
+    @classmethod
+    def from_dict(cls, data):
+        if not isinstance(data, dict) or set(data) != {"type", "version", "template_id", "relative_path"}:
+            raise ValueError("template intent fields do not match the contract")
+        return cls(**data)
+
+
 def intent_from_dict(data):
     if not isinstance(data, dict):
         raise TypeError("executable intent must be an object")
+    if data.get("type") == "python_template":
+        return PythonTemplateIntent.from_dict(data)
     if data.get("type") != "python_file" or data.get("version") != 1:
         raise ValueError("unsupported executable intent type or version")
     return PythonFileIntent.from_dict(data)

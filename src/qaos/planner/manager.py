@@ -8,7 +8,7 @@ from qaos.storage import create_stores, DATA
 
 from .plan import Plan
 from .task import Task
-from .intents import PythonFileIntent
+from .intents import PythonFileIntent, PythonTemplateIntent, intent_from_dict
 from .registry import PlanRegistry, plan_registry
 
 from .generator import plan_generator
@@ -135,9 +135,9 @@ class PlannerManager:
     # ---------------------------------
 
     def validate_intent_plan(self, objective, intent):
-        if type(intent) is not PythonFileIntent:
-            raise TypeError("only PythonFileIntent is supported")
-        PythonFileIntent.from_dict(intent.to_dict())
+        if type(intent) not in (PythonFileIntent, PythonTemplateIntent):
+            raise TypeError("only supported executable intents are accepted")
+        intent_from_dict(intent.to_dict())
         if not getattr(objective, "objective_id", None):
             raise ValueError("intent planning requires an identified Objective")
         if self.get_by_objective_id(objective.objective_id) is not None:

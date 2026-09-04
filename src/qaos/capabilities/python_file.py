@@ -25,13 +25,13 @@ class PythonFileCapability:
     def execute(self, item):
         task = item.action
         intent = getattr(task, "intent", None)
-        if not isinstance(intent, PythonFileIntent):
-            raise TypeError("python_file capability requires PythonFileIntent")
+        source, expected_stdout, metadata = self._execution_spec(intent)
 
         task.start()
         try:
             target = self._target(intent.relative_path)
-            self._atomic_create(target, intent.source.encode("utf-8"))
+            self._atomic_create(target, source.encode("utf-8"))
+            self._verify_source(target, source)
             with tempfile.TemporaryFile() as stdout_file, tempfile.TemporaryFile() as stderr_file:
                 completed = subprocess.run(
                     [sys.executable, str(target)], cwd=self._workspace,
@@ -48,15 +48,16 @@ class PythonFileCapability:
                 "intent_type": intent.type,
                 "intent_version": intent.version,
                 "relative_path": intent.relative_path,
-                "source_sha256": hashlib.sha256(intent.source.encode("utf-8")).hexdigest(),
+                "source_sha256": hashlib.sha256(source.encode("utf-8")).hexdigest(),
                 "verifier": "current_python_direct",
                 "exit_code": completed.returncode,
                 "stdout": stdout,
                 "stderr": stderr,
                 "output_truncated": len(stdout_bytes) > 4096 or len(stderr_bytes) > 4096,
+                **metadata,
             }
             item.result = evidence
-            if completed.returncode != 0 or stdout != intent.expected_stdout:
+            if completed.returncode != 0 or stdout != expected_stdout:
                 raise RuntimeError("python file verification failed")
         except Exception:
             if task.status == "running":
@@ -64,6 +65,14 @@ class PythonFileCapability:
             raise
         task.complete()
         return evidence
+
+    def _execution_spec(self, intent):
+        if not isinstance(intent, PythonFileIntent):
+            raise TypeError("python_file capability requires PythonFileIntent")
+        return intent.source, intent.expected_stdout, {}
+
+    def _verify_source(self, target, source):
+        """Template subclasses may require exact reviewed bytes before execution."""
 
     def _target(self, relative_path):
         candidate = PurePath(relative_path)

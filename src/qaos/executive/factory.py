@@ -10,6 +10,8 @@ from qaos.capabilities.manager import CapabilityManager
 from qaos.capabilities.registry import CapabilityRegistry
 from qaos.capabilities.system import SystemCapability
 from qaos.capabilities.python_file import PythonFileCapability
+from qaos.capabilities.python_template import PythonTemplateCapability
+from qaos.planner.intents import template_allowlist
 from qaos.classifier.manager import ClassifierManager
 from qaos.classifier.registry import create_default_classifier
 from qaos.context.manager import ContextManager
@@ -46,16 +48,21 @@ from .orchestrator import ExecutiveOrchestrator
 from .pipeline import ExecutivePipeline
 
 
-def create_executive(stores, *, objectives=None, logger=None, python_file_workspace=None):
+def create_executive(stores, *, objectives=None, logger=None, python_file_workspace=None,
+                     enabled_python_templates=()):
     """Create an isolated ExecutiveManager bound to one Stores workspace.
 
     Pass an ObjectiveManager through ``objectives`` when the caller creates
     objectives and requires that same registry to own lifecycle persistence.
 
     An explicit absolute existing ``python_file_workspace`` opts this instance
-    into the bounded Python-file capability. It does not enable Task submission
-    through the default planner or OperationalSession.
+    into bounded Python-file execution and typed intent submission. Templates
+    additionally require explicit IDs in ``enabled_python_templates``; its empty
+    default grants no template authority, including on recovery.
     """
+    enabled_python_templates = template_allowlist(enabled_python_templates)
+    if enabled_python_templates and python_file_workspace is None:
+        raise ValueError("template opt-in requires an explicit output workspace")
     python_file = None
     if python_file_workspace is not None:
         output_directory = Path(python_file_workspace)
@@ -83,9 +90,18 @@ def create_executive(stores, *, objectives=None, logger=None, python_file_worksp
         SkillManager(registry=skills).register(
             Skill("python-file", "python_file", capabilities=capabilities)
         )
+        routes = {"python_file": "python-file"}
+        if enabled_python_templates:
+            capabilities.register(PythonTemplateCapability(
+                output_directory, enabled_python_templates=enabled_python_templates,
+            ))
+            SkillManager(registry=skills).register(
+                Skill("python-template", "python_template", capabilities=capabilities)
+            )
+            routes["python_template"] = "python-template"
         resolver = SkillResolver(
             registry=skills,
-            routes={"python_file": "python-file"},
+            routes=routes,
             default_skill="planning",
         )
     agents = AgentManager(registry=AgentRegistry())
@@ -154,4 +170,6 @@ def create_executive(stores, *, objectives=None, logger=None, python_file_worksp
         recovery_service=execution,
         intent_planner=planner if python_file is not None else None,
         intent_objectives=objective_manager if python_file is not None else None,
+        enabled_python_templates=enabled_python_templates,
+        recovery_planner=planner,
     )

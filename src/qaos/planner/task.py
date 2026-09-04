@@ -3,7 +3,7 @@ QAOS Task
 """
 
 from datetime import datetime
-from .intents import PythonFileIntent, intent_from_dict
+from .intents import PythonFileIntent, PythonTemplateIntent, intent_from_dict
 
 
 class Task:
@@ -12,7 +12,7 @@ class Task:
 
         self.description = description
 
-        if intent is not None and not isinstance(intent, PythonFileIntent):
+        if intent is not None and not isinstance(intent, (PythonFileIntent, PythonTemplateIntent)):
             raise TypeError("intent must be a supported executable intent or None")
         self.intent = intent
 
