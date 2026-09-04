@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-133 base:** `9f3d93a` (`feat/operational-builder-chain`)
+**WO-134 base:** `70c1db3` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -412,7 +412,9 @@ slice.
    approves Option A; WO-131 records it. WO-132 passes the local Windows/NTFS
    publication gate (VERIFICATION-110). WO-133 implements the approved project:
    285 tests, compile and 194 imports pass; active data unchanged. See
-   VERIFICATION-111. Next: bounded fresh-process project rehearsal.
+   VERIFICATION-111. WO-134 passes the nine-process project rehearsal and 285
+   regressions (VERIFICATION-112). Next: assess/propose the next builder milestone
+   against the verified baseline, obtaining owner approval before expansion.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
