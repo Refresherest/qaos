@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-146 base:** `a7933f8` (`feat/operational-builder-chain`)
+**WO-147 base:** `293bc71` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -429,7 +429,9 @@ slice.
    it. WO-145 implements preview-only grammar v1: 450 tests, compile and 198
    imports pass; active data unchanged (VERIFICATION-117). WO-146 passes ten
    preview walkthrough phases and 143 focused regressions (VERIFICATION-118).
-   Next: proposal-only milestone assessment toward broader app building.
+   WO-147 recommends isolated generated-code validation as the next milestone,
+   starting with a read-only feasibility gate. Await owner decision on Option A;
+   no provisioning, model connection or untrusted execution authorized.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
