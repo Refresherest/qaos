@@ -11,7 +11,8 @@ from qaos.capabilities.registry import CapabilityRegistry
 from qaos.capabilities.system import SystemCapability
 from qaos.capabilities.python_file import PythonFileCapability
 from qaos.capabilities.python_template import PythonTemplateCapability
-from qaos.planner.intents import template_allowlist
+from qaos.planner.intents import template_allowlist, project_allowlist
+from qaos.capabilities.python_project import PythonProjectCapability
 from qaos.classifier.manager import ClassifierManager
 from qaos.classifier.registry import create_default_classifier
 from qaos.context.manager import ContextManager
@@ -49,7 +50,7 @@ from .pipeline import ExecutivePipeline
 
 
 def create_executive(stores, *, objectives=None, logger=None, python_file_workspace=None,
-                     enabled_python_templates=()):
+                     enabled_python_templates=(), python_project_workspace=None, enabled_python_projects=()):
     """Create an isolated ExecutiveManager bound to one Stores workspace.
 
     Pass an ObjectiveManager through ``objectives`` when the caller creates
@@ -59,8 +60,17 @@ def create_executive(stores, *, objectives=None, logger=None, python_file_worksp
     into bounded Python-file execution and typed intent submission. Templates
     additionally require explicit IDs in ``enabled_python_templates``; its empty
     default grants no template authority, including on recovery.
+    Projects require their own ``python_project_workspace`` and explicit IDs in
+    ``enabled_python_projects``; neither file nor template permission grants it.
     """
     enabled_python_templates = template_allowlist(enabled_python_templates)
+    enabled_python_projects = project_allowlist(enabled_python_projects)
+    if enabled_python_projects and python_project_workspace is None:
+        raise ValueError("project opt-in requires an explicit output workspace")
+    python_project = None
+    if python_project_workspace is not None:
+        python_project = PythonProjectCapability(python_project_workspace,
+                                                 enabled_python_projects=enabled_python_projects)
     if enabled_python_templates and python_file_workspace is None:
         raise ValueError("template opt-in requires an explicit output workspace")
     python_file = None
@@ -83,14 +93,22 @@ def create_executive(stores, *, objectives=None, logger=None, python_file_worksp
     SkillManager(registry=skills).register(
         Skill("planning", "system", capabilities=capabilities)
     )
-    if python_file is None:
+    if python_file is None and not enabled_python_projects:
         resolver = SkillResolver(registry=skills)
     else:
-        capabilities.register(python_file)
-        SkillManager(registry=skills).register(
-            Skill("python-file", "python_file", capabilities=capabilities)
-        )
-        routes = {"python_file": "python-file"}
+        routes = {}
+        if python_file is not None:
+            capabilities.register(python_file)
+            SkillManager(registry=skills).register(
+                Skill("python-file", "python_file", capabilities=capabilities)
+            )
+            routes["python_file"] = "python-file"
+        if enabled_python_projects:
+            capabilities.register(python_project)
+            SkillManager(registry=skills).register(
+                Skill("python-project", "python_project", capabilities=capabilities)
+            )
+            routes["python_project"] = "python-project"
         if enabled_python_templates:
             capabilities.register(PythonTemplateCapability(
                 output_directory, enabled_python_templates=enabled_python_templates,
@@ -168,8 +186,9 @@ def create_executive(stores, *, objectives=None, logger=None, python_file_worksp
         orchestrator_service=ExecutiveOrchestrator(pipeline=pipeline),
         logger_service=logger,
         recovery_service=execution,
-        intent_planner=planner if python_file is not None else None,
-        intent_objectives=objective_manager if python_file is not None else None,
+        intent_planner=planner if python_file is not None or enabled_python_projects else None,
+        intent_objectives=objective_manager if python_file is not None or enabled_python_projects else None,
+        enabled_python_projects=enabled_python_projects,
         enabled_python_templates=enabled_python_templates,
         recovery_planner=planner,
     )

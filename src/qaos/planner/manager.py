@@ -8,7 +8,7 @@ from qaos.storage import create_stores, DATA
 
 from .plan import Plan
 from .task import Task
-from .intents import PythonFileIntent, PythonTemplateIntent, intent_from_dict
+from .intents import PythonFileIntent, PythonTemplateIntent, PythonProjectIntent, intent_from_dict
 from .registry import PlanRegistry, plan_registry
 
 from .generator import plan_generator
@@ -135,7 +135,7 @@ class PlannerManager:
     # ---------------------------------
 
     def validate_intent_plan(self, objective, intent):
-        if type(intent) not in (PythonFileIntent, PythonTemplateIntent):
+        if type(intent) not in (PythonFileIntent, PythonTemplateIntent, PythonProjectIntent):
             raise TypeError("only supported executable intents are accepted")
         intent_from_dict(intent.to_dict())
         if not getattr(objective, "objective_id", None):
@@ -147,7 +147,8 @@ class PlannerManager:
         """Own the creation and persistence of one executable Task Plan."""
         self.validate_intent_plan(objective, intent)
         plan = Plan(objective)
-        plan.add_task(Task("Build and verify one Python file", intent=intent))
+        description = "Build and verify one Python project" if isinstance(intent, PythonProjectIntent) else "Build and verify one Python file"
+        plan.add_task(Task(description, intent=intent))
         self.register(plan)
         return plan
 

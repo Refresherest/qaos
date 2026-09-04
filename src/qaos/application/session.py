@@ -12,7 +12,7 @@ class OperationalSession:
     """Create and execute canonical Objectives in one explicit workspace."""
 
     def __init__(self, stores, *, configuration=None, logger=None, python_file_workspace=None,
-                 enabled_python_templates=()):
+                 enabled_python_templates=(), python_project_workspace=None, enabled_python_projects=()):
         if not isinstance(stores, Stores):
             raise TypeError("stores must be a Stores instance")
 
@@ -31,6 +31,10 @@ class OperationalSession:
                if python_file_workspace is not None else {}),
             **({"enabled_python_templates": enabled_python_templates}
                if enabled_python_templates != () else {}),
+            **({"python_project_workspace": python_project_workspace}
+               if python_project_workspace is not None else {}),
+            **({"enabled_python_projects": enabled_python_projects}
+               if enabled_python_projects != () else {}),
         )
         self._executive = executive
         self._kernel = Kernel(

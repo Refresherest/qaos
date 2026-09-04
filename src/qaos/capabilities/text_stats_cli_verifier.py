@@ -25,12 +25,12 @@ CASES = (
 )
 
 
-def verify(target, timeout, evidence):
+def verify(target, timeout, evidence, *, project_mode=False):
     evidence["cli_cases_passed"] = 0
     for index, (arguments, counts) in enumerate(CASES):
         with tempfile.TemporaryFile() as out, tempfile.TemporaryFile() as err:
             result = subprocess.run(
-                [sys.executable, str(target), *arguments], cwd=target.parent,
+                [sys.executable, *(["-E", "-s", "-B"] if project_mode else []), str(target), *arguments], cwd=target.parent,
                 stdin=subprocess.DEVNULL, stdout=out, stderr=err,
                 timeout=timeout, shell=False,
             )

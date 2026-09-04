@@ -1,6 +1,7 @@
 """Provider-neutral executable intent contracts."""
 
 import ast
+import re
 from dataclasses import dataclass
 
 MAX_SOURCE_BYTES = 65_536
@@ -114,6 +115,46 @@ def intent_from_dict(data):
         raise TypeError("executable intent must be an object")
     if data.get("type") == "python_template":
         return PythonTemplateIntent.from_dict(data)
+    if data.get("type") == "python_project":
+        return PythonProjectIntent.from_dict(data)
     if data.get("type") != "python_file" or data.get("version") != 1:
         raise ValueError("unsupported executable intent type or version")
     return PythonFileIntent.from_dict(data)
+
+
+def project_allowlist(values):
+    if not isinstance(values, (tuple, list, set, frozenset)):
+        raise TypeError("enabled_python_projects must be a collection of project IDs")
+    if any(value != "text_stats_project_v1" for value in values):
+        raise ValueError("unsupported project template")
+    return frozenset(values)
+
+
+@dataclass(frozen=True)
+class PythonProjectIntent:
+    relative_directory: str
+    template_id: str = "text_stats_project_v1"
+    type: str = "python_project"
+    version: int = 1
+
+    def __post_init__(self):
+        if self.type != "python_project" or type(self.version) is not int or self.version != 1:
+            raise ValueError("unsupported project intent version/type")
+        if self.template_id != "text_stats_project_v1":
+            raise ValueError("unsupported project template")
+        name = self.relative_directory
+        reserved = {"CON", "PRN", "AUX", "NUL", *(f"COM{i}" for i in range(1, 10)),
+                    *(f"LPT{i}" for i in range(1, 10))}
+        if (not isinstance(name, str) or not re.fullmatch(r"[A-Za-z][A-Za-z0-9_-]{0,63}", name)
+                or name.upper() in reserved):
+            raise ValueError("invalid project directory name")
+
+    def to_dict(self):
+        return {"type": self.type, "version": self.version, "template_id": self.template_id,
+                "relative_directory": self.relative_directory}
+
+    @classmethod
+    def from_dict(cls, data):
+        if not isinstance(data, dict) or set(data) != {"type", "version", "template_id", "relative_directory"}:
+            raise ValueError("project intent fields do not match contract")
+        return cls(**data)

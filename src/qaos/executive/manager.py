@@ -3,7 +3,7 @@ QAOS Executive Manager
 """
 
 from qaos.logging import logger
-from qaos.planner.intents import PythonTemplateIntent, template_allowlist
+from qaos.planner.intents import PythonTemplateIntent, template_allowlist, PythonProjectIntent, project_allowlist
 
 from .orchestrator import (
     orchestrator,
@@ -22,7 +22,7 @@ class ExecutiveManager:
     def __init__(
         self, orchestrator_service=None, logger_service=None, *, recovery_service=None,
         intent_planner=None, intent_objectives=None,
-        enabled_python_templates=(), recovery_planner=None,
+        enabled_python_templates=(), recovery_planner=None, enabled_python_projects=(),
     ):
         self._orchestrator = (
             orchestrator
@@ -34,6 +34,7 @@ class ExecutiveManager:
         self._intent_planner = intent_planner
         self._intent_objectives = intent_objectives
         self._enabled_templates = template_allowlist(enabled_python_templates)
+        self._enabled_projects = project_allowlist(enabled_python_projects)
         self._recovery_planner = recovery_planner
 
     def validate_intent(self, objective, intent):
@@ -53,6 +54,8 @@ class ExecutiveManager:
         self._intent_planner.validate_intent_plan(objective, intent)
 
     def _validate_template_authority(self, intent):
+        if isinstance(intent, PythonProjectIntent) and intent.template_id not in self._enabled_projects:
+            raise ValueError("project template is not enabled")
         if isinstance(intent, PythonTemplateIntent) and intent.template_id not in self._enabled_templates:
             raise ValueError("template is not enabled")
 
