@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-154 base:** `f264ab0` (`feat/operational-builder-chain`)
+**WO-155 base:** `6d06123` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -442,7 +442,9 @@ slice.
    read-only tenancy capacity/cost check. OWNER-DECISION-034 selects Option A;
    WO-152 records it. Owner Console evidence resolves WO-153's access-evidence
    blocker. WO-154 finds Micro a conditional tiny-fixture candidate, not the
-   original worker. Next decision: design-only setup specification; no launch.
+   original worker. WO-155 specifies staged Micro setup/testing/cleanup; exact
+   image/runtime pins and cost/network manifest remain pre-launch hold points.
+   Next: read-only launch-manifest preparation; no creation authorized.
    No provisioning, model connection or untrusted execution authorized.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
