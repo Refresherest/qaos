@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-04",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "c1c4223",
+  "branch_baseline": "ed208e6",
   "core_baseline": "615cbbb",
-  "status": "validation_feasibility_gate_approved",
+  "status": "validation_feasibility_complete_host_decision_required",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-04-WO-148-validation-feasibility-decision.md",
+  "current_baseline": "ledger/2026-09-04-WO-149-validation-feasibility.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -152,7 +152,8 @@
     "WO-145",
     "WO-146",
     "WO-147",
-    "WO-148"
+    "WO-148",
+    "WO-149"
   ],
   "blocked_work_orders": [
     {
@@ -171,5 +172,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Perform scoped read-only validation-environment feasibility assessment under OWNER-DECISION-031; report platform/options and request approval before setup or execution."
+  "next_action": "Owner choice: supported local-host preparation plan or user-designated separate host read-only assessment; no upgrade, provisioning or execution authorized."
 }

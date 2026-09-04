@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-148 base:** `c1c4223` (`feat/operational-builder-chain`)
+**WO-149 base:** `ed208e6` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -431,7 +431,10 @@ slice.
    preview walkthrough phases and 143 focused regressions (VERIFICATION-118).
    WO-147 recommends isolated generated-code validation as the next milestone,
    starting with a read-only feasibility gate. OWNER-DECISION-031 approves that
-   first gate; WO-148 records it. Next: scoped read-only feasibility assessment.
+   first gate; WO-148 records it. WO-149 completes read-only inventory: no ready
+   isolated runner; host Pro 23H2 out of support, virtualization features disabled.
+   VERIFICATION-119 recommends a supported-host preparation plan before setup.
+   Await local-plan versus separate-host direction.
    No provisioning, model connection or untrusted execution authorized.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
