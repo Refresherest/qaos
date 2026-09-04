@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-04",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "a91aad9",
+  "branch_baseline": "4623182",
   "core_baseline": "615cbbb",
-  "status": "controlled_brief_preview_awaiting_owner_decision",
+  "status": "controlled_brief_preview_approved_pending_implementation",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-04-WO-143-controlled-brief-preview-proposal.md",
+  "current_baseline": "ledger/2026-09-04-WO-144-preview-decision.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -147,7 +147,8 @@
     "WO-140",
     "WO-141",
     "WO-142",
-    "WO-143"
+    "WO-143",
+    "WO-144"
   ],
   "blocked_work_orders": [
     {
@@ -166,5 +167,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Obtain owner decision on WO-143 Option A controlled-language preview grammar and strict no-execution boundary."
+  "next_action": "Implement the approved controlled-language preview under OWNER-DECISION-030 and all WO-143 acceptance requirements."
 }
