@@ -3,7 +3,7 @@ QAOS Planner
 """
 
 from .task import Task
-from .intents import PythonFileIntent, PythonTemplateIntent, PythonProjectIntent
+from .intents import PythonFileIntent, PythonTemplateIntent, PythonProjectIntent, PythonProjectIntentV2
 from .plan import Plan
 
 from .manager import (
@@ -24,6 +24,7 @@ __all__ = [
     "PythonFileIntent",
     "PythonTemplateIntent",
     "PythonProjectIntent",
+    "PythonProjectIntentV2",
     "Plan",
 
     "PlannerManager",

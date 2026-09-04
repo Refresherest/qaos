@@ -1,5 +1,6 @@
 """Opt-in local Windows/NTFS trusted-project publication, no overwrite/adoption."""
 import ctypes
+import copy
 from ctypes import wintypes
 import hashlib
 import os
@@ -9,7 +10,8 @@ import subprocess
 import sys
 import tempfile
 
-from qaos.planner.intents import PythonProjectIntent, project_allowlist
+from qaos.planner.intents import PythonProjectIntent, PythonProjectIntentV2, project_allowlist, intent_from_dict
+from .text_stats_project_v2 import render
 from .text_stats_project import MEMBERS
 from .text_stats_cli_verifier import verify as verify_cli
 from .text_stats_cli_template import SUCCESS_MARKER
@@ -55,8 +57,12 @@ class PythonProjectCapability:
     def _check_root(self):
         require_local_ntfs(self._workspace)
 
+    @property
+    def _members(self):
+        return getattr(self, "_configured_members", MEMBERS)
+
     def _populate(self, stage):
-        for name, source in MEMBERS.items():
+        for name, source in self._members.items():
             with (stage / name).open("xb") as stream:
                 stream.write(source.encode("utf-8"))
                 stream.flush()
@@ -64,13 +70,13 @@ class PythonProjectCapability:
 
     def _check_members(self, directory):
         reject_reparse(directory)
-        if {p.name for p in directory.iterdir()} != set(MEMBERS):
+        if {p.name for p in directory.iterdir()} != set(self._members):
             raise RuntimeError("project member set differs from trusted template")
         hashes = {}
-        for name in sorted(MEMBERS):
+        for name in sorted(self._members):
             member = directory / name
             reject_reparse(member)
-            if not member.is_file() or member.read_bytes() != MEMBERS[name].encode("utf-8"):
+            if not member.is_file() or member.read_bytes() != self._members[name].encode("utf-8"):
                 raise RuntimeError("project member differs from trusted template")
             hashes[name] = hashlib.sha256(member.read_bytes()).hexdigest()
         return hashes
@@ -90,7 +96,8 @@ class PythonProjectCapability:
     def _verify(self, stage, evidence):
         self._run_fixed(stage / "test_stats.py", b"QAOS project tests PASS\n")
         self._run_fixed(stage / "app.py", SUCCESS_MARKER.encode("ascii"))
-        verify_cli(stage / "app.py", 5, evidence, project_mode=True)
+        verify_cli(stage / "app.py", 5, evidence, project_mode=True,
+                   metrics=getattr(self, "_configured_metrics", None))
 
     def _publish(self, stage, target):
         self._check_root()
@@ -109,24 +116,39 @@ class PythonProjectCapability:
         children = list(stage.iterdir())
         for child in children:
             reject_reparse(child)
-            if child.name not in MEMBERS or not child.is_file():
+            if child.name not in self._members or not child.is_file():
                 raise RuntimeError("unexpected staging content; cleanup refused")
         for child in children:
             child.unlink()
         stage.rmdir()
 
     def execute(self, item):
+        intent = item.action.intent
+        if type(intent) is PythonProjectIntentV2:
+            intent_from_dict(intent.to_dict())
+            if intent.template_id not in self._enabled:
+                raise ValueError("project template is not enabled")
+            # Per-call copy: never mutate shared capability/configuration state.
+            configured = copy.copy(self)
+            configured._configured_metrics = intent.metrics
+            configured._configured_members = render(intent.metrics)
+            return configured._execute(item)
+        return self._execute(item)
+
+    def _execute(self, item):
         task, stage, identity = item.action, None, None
         intent = task.intent
-        if type(intent) is not PythonProjectIntent:
+        if type(intent) not in (PythonProjectIntent, PythonProjectIntentV2):
             raise TypeError("project capability requires PythonProjectIntent")
-        PythonProjectIntent.from_dict(intent.to_dict())
+        intent_from_dict(intent.to_dict())
         if intent.template_id not in self._enabled:
             raise ValueError("project template is not enabled")
-        evidence = {"intent_type": intent.type, "intent_version": 1,
-                    "template_id": intent.template_id, "template_version": 1,
+        evidence = {"intent_type": intent.type, "intent_version": intent.version,
+                    "template_id": intent.template_id, "template_version": intent.version,
                     "relative_directory": intent.relative_directory,
                     "verifier": "trusted_project_cases_v1", "published": False}
+        if type(intent) is PythonProjectIntentV2:
+            evidence.update(metrics=list(intent.metrics), verifier="trusted_project_cases_v2")
         item.result = evidence
         task.start()
         try:

@@ -116,6 +116,8 @@ def intent_from_dict(data):
     if data.get("type") == "python_template":
         return PythonTemplateIntent.from_dict(data)
     if data.get("type") == "python_project":
+        if type(data.get("version")) is int and data["version"] == 2:
+            return PythonProjectIntentV2.from_dict(data)
         return PythonProjectIntent.from_dict(data)
     if data.get("type") != "python_file" or data.get("version") != 1:
         raise ValueError("unsupported executable intent type or version")
@@ -125,7 +127,7 @@ def intent_from_dict(data):
 def project_allowlist(values):
     if not isinstance(values, (tuple, list, set, frozenset)):
         raise TypeError("enabled_python_projects must be a collection of project IDs")
-    if any(value != "text_stats_project_v1" for value in values):
+    if any(not isinstance(value, str) or value not in ("text_stats_project_v1", "text_stats_project_v2") for value in values):
         raise ValueError("unsupported project template")
     return frozenset(values)
 
@@ -157,4 +159,46 @@ class PythonProjectIntent:
     def from_dict(cls, data):
         if not isinstance(data, dict) or set(data) != {"type", "version", "template_id", "relative_directory"}:
             raise ValueError("project intent fields do not match contract")
+        return cls(**data)
+
+
+METRIC_ORDER = ("characters", "words", "lines")
+
+
+def normalize_metrics(values):
+    if not isinstance(values, (list, tuple)):
+        raise TypeError("metrics must be a list or tuple")
+    if not values or any(not isinstance(v, str) or v not in METRIC_ORDER for v in values):
+        raise ValueError("metrics must select supported values")
+    if len(set(values)) != len(values):
+        raise ValueError("duplicate metrics are not allowed")
+    return tuple(v for v in METRIC_ORDER if v in values)
+
+
+@dataclass(frozen=True)
+class PythonProjectIntentV2:
+    relative_directory: str
+    metrics: tuple[str, ...]
+    template_id: str = "text_stats_project_v2"
+    type: str = "python_project"
+    version: int = 2
+
+    def __post_init__(self):
+        if self.type != "python_project" or type(self.version) is not int or self.version != 2:
+            raise ValueError("unsupported project intent version/type")
+        if self.template_id != "text_stats_project_v2":
+            raise ValueError("unsupported project template")
+        PythonProjectIntent(self.relative_directory)  # unchanged directory contract
+        object.__setattr__(self, "metrics", normalize_metrics(self.metrics))
+
+    def to_dict(self):
+        return {"type": self.type, "version": self.version, "template_id": self.template_id,
+                "relative_directory": self.relative_directory, "metrics": list(self.metrics)}
+
+    @classmethod
+    def from_dict(cls, data):
+        if not isinstance(data, dict) or set(data) != {"type", "version", "template_id", "relative_directory", "metrics"}:
+            raise ValueError("project v2 intent fields do not match contract")
+        if not isinstance(data["metrics"], list):
+            raise TypeError("serialized metrics must be an array")
         return cls(**data)

@@ -4,6 +4,7 @@ import json
 import subprocess
 import sys
 import tempfile
+from qaos.planner.intents import normalize_metrics
 
 # Expected counts are literal acceptance values independent of implementation.
 CASES = (
@@ -25,7 +26,8 @@ CASES = (
 )
 
 
-def verify(target, timeout, evidence, *, project_mode=False):
+def verify(target, timeout, evidence, *, project_mode=False, metrics=None):
+    selection = ("characters", "words", "lines") if metrics is None else normalize_metrics(metrics)
     evidence["cli_cases_passed"] = 0
     for index, (arguments, counts) in enumerate(CASES):
         with tempfile.TemporaryFile() as out, tempfile.TemporaryFile() as err:
@@ -39,7 +41,8 @@ def verify(target, timeout, evidence, *, project_mode=False):
             stdout, stderr = out.read(4097), err.read(4097)
         expected = b""
         if counts is not None:
-            expected = (json.dumps(dict(zip(("characters", "words", "lines"), counts)),
+            all_counts = dict(zip(("characters", "words", "lines"), counts))
+            expected = (json.dumps({key: all_counts[key] for key in selection},
                                    sort_keys=True) + "\n").encode("ascii")
         expected_error = b"Invalid text arguments\n" if counts is None else b""
         if (result.returncode != (2 if counts is None else 0)
