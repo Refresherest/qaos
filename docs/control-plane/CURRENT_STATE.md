@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-145 base:** `1738e6c` (`feat/operational-builder-chain`)
+**WO-146 base:** `a7933f8` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -427,8 +427,9 @@ slice.
    (VERIFICATION-116). WO-143 proposes controlled-language preview without
    execution or persistence. OWNER-DECISION-030 approves Option A; WO-144 records
    it. WO-145 implements preview-only grammar v1: 450 tests, compile and 198
-   imports pass; active data unchanged (VERIFICATION-117). Next: bounded preview
-   operator walkthrough, with no grammar or permission expansion.
+   imports pass; active data unchanged (VERIFICATION-117). WO-146 passes ten
+   preview walkthrough phases and 143 focused regressions (VERIFICATION-118).
+   Next: proposal-only milestone assessment toward broader app building.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
