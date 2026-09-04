@@ -13,6 +13,7 @@ COMMAND_DESCRIPTIONS = {
     "doctor": "Check development environment",
     "objective": "Execute one objective in an explicit workspace",
     "objectives": "List objectives in an explicit workspace",
+    "preview-project": "Preview a controlled brief without execution",
     "recover": "Recover one identified failed objective in an explicit workspace",
     "run": "Execute an agent",
     "status": "Display runtime status",
@@ -32,11 +33,13 @@ def show_help():
     print("    python -m qaos.main recover --workspace <path> <objective_id>")
     from qaos.commands.build_project import USAGE
     print("    " + USAGE.removeprefix("Usage: "))
+    from qaos.commands.preview_project import USAGE as PREVIEW_USAGE
+    print("    " + PREVIEW_USAGE.removeprefix("Usage: "))
     print()
     print("Available commands:")
     print()
 
-    for command in sorted(set(COMMANDS) | {"objective", "objectives", "recover", "build-project"}):
+    for command in sorted(set(COMMANDS) | {"objective", "objectives", "recover", "build-project", "preview-project"}):
         description = COMMAND_DESCRIPTIONS.get(command, "")
         print(f"  {command:<11} {description}")
 
@@ -126,6 +129,10 @@ def main(argv=None):
 
     if command == "build-project":
         from qaos.commands.build_project import execute
+        return execute(args[1:])
+
+    if command == "preview-project":
+        from qaos.commands.preview_project import execute
         return execute(args[1:])
 
     if command == "objectives":
