@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-04",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "8f977e4",
+  "branch_baseline": "b89576a",
   "core_baseline": "615cbbb",
-  "status": "trusted_cli_template_fresh_process_rehearsal_passed",
+  "status": "trusted_project_proposed_awaiting_owner_decision",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-04-WO-129-cli-rehearsal.md",
+  "current_baseline": "ledger/2026-09-04-WO-130-trusted-project-proposal.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -133,7 +133,8 @@
     "WO-126",
     "WO-127",
     "WO-128",
-    "WO-129"
+    "WO-129",
+    "WO-130"
   ],
   "blocked_work_orders": [
     {
@@ -152,5 +153,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Assess and propose trusted multi-file publication, ownership, recovery and acceptance contracts; obtain owner approval before implementation."
+  "next_action": "Obtain owner decision on WO-130 Option A: staged trusted project, proven no-replace publication and refusal-based recovery boundaries."
 }
