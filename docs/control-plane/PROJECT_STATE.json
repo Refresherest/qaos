@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-04",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "ed208e6",
+  "branch_baseline": "0d1890a",
   "core_baseline": "615cbbb",
-  "status": "validation_feasibility_complete_host_decision_required",
+  "status": "oracle_inventory_complete_cloud_worker_design_next",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-04-WO-149-validation-feasibility.md",
+  "current_baseline": "ledger/2026-09-04-WO-150-oracle-readonly-inventory.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -153,7 +153,8 @@
     "WO-146",
     "WO-147",
     "WO-148",
-    "WO-149"
+    "WO-149",
+    "WO-150"
   ],
   "blocked_work_orders": [
     {
@@ -172,5 +173,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Owner choice: supported local-host preparation plan or user-designated separate host read-only assessment; no upgrade, provisioning or execution authorized."
+  "next_action": "Cloud-worker isolation design comparing separate VM and enhanced interim isolation while preserving Oracle OmniRoute; no setup, spend or execution authorized."
 }

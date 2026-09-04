@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-149 base:** `ed208e6` (`feat/operational-builder-chain`)
+**WO-150 base:** `0d1890a` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -434,7 +434,10 @@ slice.
    first gate; WO-148 records it. WO-149 completes read-only inventory: no ready
    isolated runner; host Pro 23H2 out of support, virtualization features disabled.
    VERIFICATION-119 recommends a supported-host preparation plan before setup.
-   Await local-plan versus separate-host direction.
+   OWNER-DECISION-032 selects cloud-first assessment instead of laptop preparation.
+   WO-150 verifies Oracle SSH inventory: ARM64/2 CPUs/about 12 GiB RAM, Docker and
+   healthy OmniRoute; no untrusted-worker isolation proven (VERIFICATION-120).
+   Next: cloud-worker isolation design, preserving OmniRoute; no setup authorized.
    No provisioning, model connection or untrusted execution authorized.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
