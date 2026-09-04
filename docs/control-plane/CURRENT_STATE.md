@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-122 base:** `ebed784` (`feat/operational-builder-chain`)
+**WO-123 base:** `bf3b3a5` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -354,7 +354,8 @@ by OpenHands Cloud parent-runtime startup.
   disposable directories removed. See VERIFICATION-105.
 - WO-122 proposes one explicitly enabled, trusted text-statistics module
   template with fixed acceptance cases. Print-only behavior stays unchanged;
-  owner approval is pending and no template implementation exists yet.
+  OWNER-DECISION-025 approves Option A. WO-123 records the decision; no template
+  implementation exists yet.
 - The WO-108 regression run passes 182 tests. The architecture inspector no longer
   reports `ENTITY-OBJECTIVE-SELF-PERSISTENCE`; unrelated findings remain. See
   VERIFICATION-099.
@@ -398,8 +399,8 @@ slice.
 
 1. Obtain OpenHands platform evidence for the parent-runtime startup failure;
    do not change QAOS profiles or product code in response to that failure.
-2. Obtain the owner decision on WO-122 Option A trusted text-statistics template;
-   do not expand executable types or source validation before approval.
+2. Implement OWNER-DECISION-025 in a bounded trusted-template work order,
+   preserving print-only compatibility and explicit per-template authorization.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
