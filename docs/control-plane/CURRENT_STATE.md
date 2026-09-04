@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-135 base:** `9c2185d` (`feat/operational-builder-chain`)
+**WO-136 base:** `f4d8bd2` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -414,7 +414,8 @@ slice.
    285 tests, compile and 194 imports pass; active data unchanged. See
    VERIFICATION-111. WO-134 passes the nine-process project rehearsal and 285
    regressions (VERIFICATION-112). WO-135 proposes explicitly configured metric
-   selection in project v2, preserving v1. Owner decision pending before code.
+   selection in project v2, preserving v1. OWNER-DECISION-028 approves Option A;
+   WO-136 records it. Next: bounded WO-137 implementation and verification.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
