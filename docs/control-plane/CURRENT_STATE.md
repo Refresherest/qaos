@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-09-04 UTC
 
-**WO-130 base:** `b89576a` (`feat/operational-builder-chain`)
+**WO-131 base:** `b29fa5e` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** Core recovery and reproduced MemoryManager storage isolation are
@@ -408,8 +408,9 @@ slice.
    WO-128 implements it: 253 tests, compile and 192 imports pass; active data
    unchanged (VERIFICATION-108). WO-129 passes the eight-process CLI rehearsal
    and 253 regressions (VERIFICATION-109). WO-130 proposes a trusted four-file
-   project with staged verification and no-replace publication. Owner decision
-   pending; publication primitive and recovery boundaries require explicit gates.
+   project with staged verification and no-replace publication. OWNER-DECISION-027
+   approves Option A; WO-131 records it. Next: WO-132 publication-primitive gate,
+   before a separate multi-file implementation work order.
 3. Do not infer production-provider readiness or expand into publishing, UI,
    retries, or other excluded features from this test-only slice.
 4. Address any newly prioritized architecture finding only through its own
