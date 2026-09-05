@@ -168,7 +168,8 @@
     "WO-162",
     "WO-163",
     "WO-164",
-    "WO-165"
+    "WO-165",
+    "WO-166"
   ],
   "blocked_work_orders": [
     {
@@ -191,5 +192,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Obtain the owner's approved administrative source CIDR, then authorize a reversible qaos-worker guest-firewall work order with SSH continuity testing and automatic rollback; do not install Docker or gVisor yet."
+  "next_action": "Define and authorize a pinned ARM64 Docker plus gVisor worker-runtime experiment with checksum evidence, a harmless no-network fixture, explicit resource/process/output caps, cleanup and removal conditions; do not claim runtime validation before the experiment passes."
 }
