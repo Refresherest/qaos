@@ -32,6 +32,21 @@ checkpoint is the root-owned broker lifecycle: replay markers, immutable staging
 bounded refusal/response, fixed `harmless` launcher invocation and exact cleanup,
 followed by local review before installation.
 
+That broker lifecycle checkpoint is now implemented locally. Replay claims use
+exclusive creation plus file and directory fsync; request staging is private,
+no-follow, exclusive and self-cleaning; correlated policy/runtime/cleanup failures
+produce bounded hashed frames; cleanup failure dominates; and only the pinned
+`harmless` fixture can be invoked. The combined local protocol/broker suite reports
+53 passed and one intentional Windows skip for real Linux `flock` contention.
+Independent review returned `ACCEPT WITH NOTES` with no remaining blocker or major
+finding. Its remaining notes are the real Linux lock, no-follow, directory-fsync,
+ownership/mode, forced-key, sudoers and installed-hash checks required during the
+rollback-protected live checkpoint.
+
+The next checkpoint may generate the dedicated key and perform rollback-protected
+live installation and synthetic-only verification. Generated candidates and QAOS
+source remain prohibited.
+
 ## Objective and architecture
 
 Implement and independently verify Option A's authenticated, one-request/
