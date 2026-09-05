@@ -7,7 +7,7 @@
   "core_baseline": "615cbbb",
   "status": "qaos_worker_running_network_audit_complete_admin_cidr_required",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-05-WO-165-worker-hardening-runtime-audit.md",
+  "current_baseline": "ledger/2026-09-05-WO-171-artifact-immutable-identity.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -173,7 +173,8 @@
     "WO-167",
     "WO-168",
     "WO-169",
-    "WO-170"
+    "WO-170",
+    "WO-171"
   ],
   "blocked_work_orders": [
     {
@@ -196,5 +197,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Prepare and execute a separately scoped local Artifact A1 work order for backward-compatible immutable identity, content SHA-256 and bounded provenance, followed by independent review. Do not create transport keys, mutate the worker, implement the broker, transfer candidates or QAOS source, or execute generated code."
+  "next_action": "Obtain separate authorization for the restricted SSH transport setup work order selected in OWNER-DECISION-035. Do not create keys, mutate the worker, implement the broker, transfer candidates or QAOS source, or execute generated code until that authorization is recorded."
 }
