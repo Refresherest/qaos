@@ -169,7 +169,8 @@
     "WO-163",
     "WO-164",
     "WO-165",
-    "WO-166"
+    "WO-166",
+    "WO-167"
   ],
   "blocked_work_orders": [
     {
@@ -192,5 +193,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Define and authorize a pinned ARM64 Docker plus gVisor worker-runtime experiment with checksum evidence, a harmless no-network fixture, explicit resource/process/output caps, cleanup and removal conditions; do not claim runtime validation before the experiment passes."
+  "next_action": "Design and authorize a fixed trusted qaos-worker launcher and bounded synthetic negative-test bundle for input, filesystem, network and metadata, memory, PIDs, scratch, output, deadline, descendant cleanup and result-integrity enforcement; do not stage QAOS source or run generated code yet."
 }
