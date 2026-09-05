@@ -3,11 +3,11 @@
   "project": "qaos",
   "recorded": "2026-09-05",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "731e3e6",
+  "branch_baseline": "9bbb756",
   "core_baseline": "615cbbb",
-  "status": "omniroute_resized_1ocpu_4gb_qaos_worker_manifest_awaits_decision",
+  "status": "qaos_worker_running_1ocpu_8gb_runtime_installation_awaits_work_order",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-04-WO-163-omniroute-a1-resize.md",
+  "current_baseline": "ledger/2026-09-05-WO-164-qaos-worker-launch.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -166,7 +166,8 @@
     "WO-160",
     "WO-161",
     "WO-162",
-    "WO-163"
+    "WO-163",
+    "WO-164"
   ],
   "blocked_work_orders": [
     {
@@ -189,5 +190,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Complete the separate QAOS 1-OCPU/8-GB A1 worker launch manifest: decide dedicated VCN/subnet and administrative source CIDR, generate a dedicated SSH identity only with action-time confirmation, verify the boot-volume cost guard, then request explicit final Create authorization."
+  "next_action": "Authorize a separate QAOS worker hardening/runtime work order: audit and restrict SSH ingress on qaos-public-subnet, define the ARM64 runtime manifest and rollback condition, then install only the approved minimum."
 }

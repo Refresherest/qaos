@@ -28,6 +28,9 @@ temp/
 .env
 .env.*
 
+# Local infrastructure credentials (never commit)
+/_Oracle_Keys/
+
 # Jupyter
 .ipynb_checkpoints/
 
