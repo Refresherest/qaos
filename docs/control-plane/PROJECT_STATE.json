@@ -194,5 +194,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Independently review WO-168's launcher and negative-test evidence, then propose a bounded immutable input-manifest and authenticated result-transport contract; do not expose an arbitrary-command service, stage QAOS source or run generated code yet."
+  "next_action": "Propose a bounded immutable input-manifest and authenticated result-transport contract for the accepted-with-notes WO-168 launcher; do not expose an arbitrary-command service, stage QAOS source or run generated code yet."
 }
