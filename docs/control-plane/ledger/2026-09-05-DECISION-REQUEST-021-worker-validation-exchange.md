@@ -2,7 +2,12 @@
 
 ## Status
 
-`OPEN — OWNER DECISION REQUIRED`
+`RESOLVED — OWNER-DECISION-035`
+
+On 2026-09-05 the repository owner replied "approve" and selected Artifact option
+A1, transport option A and the recommended three-stage sequence. The authority
+boundary below remains in force; implementation proceeds only through separately
+scoped work orders.
 
 ## Decision 1 — Artifact identity prerequisite
 

@@ -1,7 +1,8 @@
 # PROPOSAL-014 — Immutable Worker Validation Exchange
 
-Status: PROPOSED / owner decision required. Detailed contract and evidence are in
-WO-169.
+Status: ACCEPTED by OWNER-DECISION-035. Detailed contract and evidence are in
+WO-169. Acceptance establishes the staged direction; it is not direct authority for
+credential creation, worker mutation, transfer or generated-code execution.
 
 ## Recommendation
 

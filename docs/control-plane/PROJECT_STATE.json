@@ -172,7 +172,8 @@
     "WO-166",
     "WO-167",
     "WO-168",
-    "WO-169"
+    "WO-169",
+    "WO-170"
   ],
   "blocked_work_orders": [
     {
@@ -195,5 +196,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Obtain the owner's decisions in DECISION-REQUEST-021 on Artifact option A1, restricted SSH transport option A and staged sequencing; no implementation, credential creation, worker mutation, transfer or generated-code execution is authorized yet."
+  "next_action": "Prepare and execute a separately scoped local Artifact A1 work order for backward-compatible immutable identity, content SHA-256 and bounded provenance, followed by independent review. Do not create transport keys, mutate the worker, implement the broker, transfer candidates or QAOS source, or execute generated code."
 }
