@@ -197,5 +197,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Obtain separate authorization for the restricted SSH transport setup work order selected in OWNER-DECISION-035. Do not create keys, mutate the worker, implement the broker, transfer candidates or QAOS source, or execute generated code until that authorization is recorded."
+  "next_action": "Continue authorized WO-172 with local-only implementation and security testing of the exact framed broker/controller contract before any transport key creation or worker mutation. Synthetic bytes and the fixed harmless launcher fixture only; no generated candidate or QAOS-source transfer."
 }
