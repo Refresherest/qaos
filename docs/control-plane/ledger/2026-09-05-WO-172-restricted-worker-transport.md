@@ -21,9 +21,16 @@ its ACL had become too broad. The original was not modified. A disposable helper
 copy received a narrow ACL, completed the audit and was verified deleted after a
 targeted permission correction. No private-key contents were read or printed.
 
-The next checkpoint is local broker/controller implementation and protocol tests.
-Live identity, key, authorized-key and sudoers changes must wait until that exact
-code passes local security review.
+The local protocol checkpoint now implements canonical UTF-8 JSON and 8-byte
+big-endian framing, exact schemas, UUID/nonce/time/runtime validation, canonical
+member order, path/count/size/hash limits, exact reads and trailing-input refusal.
+Its 42 focused tests pass. Independent review returned `ACCEPT WITH NOTES`; its sole
+non-blocking malformed-Unicode exception note was corrected and regression-tested.
+
+Live identity, key, authorized-key and sudoers changes have not begun. The next
+checkpoint is the root-owned broker lifecycle: replay markers, immutable staging,
+bounded refusal/response, fixed `harmless` launcher invocation and exact cleanup,
+followed by local review before installation.
 
 ## Objective and architecture
 
