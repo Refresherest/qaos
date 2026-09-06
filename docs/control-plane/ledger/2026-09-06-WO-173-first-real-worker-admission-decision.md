@@ -65,4 +65,3 @@ transferred. Verify JSON parsing and repository whitespace only.
 Stop for the selections in DECISION-REQUEST-022. Even approval will authorize only
 a separately scoped local admission-contract implementation first; live candidate
 transfer remains a later explicit gate after independent review.
-

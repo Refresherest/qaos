@@ -46,4 +46,3 @@ the pilot admission package, fixed launcher fixture and QueueItem result project
 It does not authorize live candidate transfer, QAOS-source transfer, model calls,
 worker mutation or generated-code execution. Those remain behind a separate live
 gate after local verification.
-
