@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "project": "qaos",
-  "recorded": "2026-09-05",
+  "recorded": "2026-09-06",
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "209152a",
   "core_baseline": "615cbbb",
-  "status": "qaos_worker_running_network_audit_complete_admin_cidr_required",
+  "status": "restricted_worker_transport_verified_synthetic_only",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-05-WO-171-artifact-immutable-identity.md",
+  "current_baseline": "ledger/2026-09-05-WO-172-restricted-worker-transport.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -174,7 +174,8 @@
     "WO-168",
     "WO-169",
     "WO-170",
-    "WO-171"
+    "WO-171",
+    "WO-172"
   ],
   "blocked_work_orders": [
     {
@@ -197,5 +198,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Continue authorized WO-172 with local-only implementation and security testing of the exact framed broker/controller contract before any transport key creation or worker mutation. Synthetic bytes and the fixed harmless launcher fixture only; no generated candidate or QAOS-source transfer."
+  "next_action": "STOP for a new owner decision before transferring any generated candidate, QAOS source, or real acceptance bundle through the verified synthetic-only restricted worker transport."
 }
