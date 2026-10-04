@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "209152a",
   "core_baseline": "615cbbb",
-  "status": "python_pilot_local_contract_verified_live_bridge_decision_open",
+  "status": "python_pilot_local_bridge_verified_attempt_authority_pending",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-10-04-WO-175-live-python-pilot-readiness-design.md",
+  "current_baseline": "ledger/2026-10-04-WO-176-local-pilot-deployment-bridge.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -178,7 +178,8 @@
     "WO-172",
     "WO-173",
     "WO-174",
-    "WO-175"
+    "WO-175",
+    "WO-176"
   ],
   "blocked_work_orders": [
     {
@@ -201,5 +202,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "STOP for owner selections in DECISION-REQUEST-023. Approval authorizes only a new local deployment-bridge work order; durable attempt-authority design/implementation, fresh account/worker/network evidence and separate explicit live approval are still required before installation, candidate transfer or execution. No automatic retry, publication, promotion or model-governance transition."
+  "next_action": "STOP for a separate CSA/owner attempt-authority contract and implementation. Fresh account/worker/network/cleanup evidence, independent staged-installer digest verification, reboot-safe rollback planning and separate explicit live approval are required before installation, candidate transfer or execution. No automatic retry, publication, promotion or model-governance transition."
 }

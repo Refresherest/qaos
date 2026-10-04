@@ -15,6 +15,7 @@ sys.path.insert(0, str(TOOLS))
 
 import qaos_worker_broker as broker
 import qaos_worker_exchange as exchange
+import qaos_worker_pilot as pilot_controller
 from tests.test_worker_exchange_protocol import NOW, request
 
 VERIFY_PILOT_METADATA = broker.verify_pilot_launcher_metadata
@@ -312,6 +313,62 @@ def test_pilot_disabled_by_default_refuses_before_staging(pilot_config, monkeypa
         broker.process(wire(value, payloads), io.BytesIO(), config, NOW)
     assert not config.staging_root.exists()
     assert not config.replay_root.exists()
+
+
+def test_installed_pilot_switch_absent_preserves_synthetic_default():
+    class MissingPath:
+        def lstat(self):
+            raise FileNotFoundError
+
+    config = broker.installed_config(MissingPath())
+    assert config.allowed_runtimes() == config.runtime()
+    assert config.pilot_launcher is None
+
+
+def test_installed_pilot_switch_requires_exact_root_owned_bytes():
+    parent = MetadataPath(stat.S_IFDIR | 0o755)
+
+    class EnablePath(MetadataPath):
+        def __init__(self, mode, payload, *, uid=0, nlink=1, parents=(parent,)):
+            super().__init__(mode, uid=uid, nlink=nlink, parents=parents)
+            self.payload = payload
+
+        def read_bytes(self):
+            return self.payload
+
+    enabled = broker.installed_config(
+        EnablePath(stat.S_IFREG | 0o400, broker.PILOT_ENABLE_BYTES)
+    )
+    assert enabled.pilot_launcher == broker.PILOT_LAUNCHER_PATH
+    assert enabled.expected_pilot_runtime == {
+        "launcher_sha256": broker.PILOT_LAUNCHER_SHA256,
+        "image_digest": broker.IMAGE_DIGEST,
+        "policy_id": broker.PILOT_POLICY_ID,
+    }
+    assert enabled.pilot_spec_sha256 == broker.PILOT_SPEC_SHA256
+    assert enabled.allowed_runtimes() == (
+        enabled.runtime(), enabled.expected_pilot_runtime,
+    )
+    assert broker.PILOT_LAUNCHER_SHA256 == pilot_controller.PILOT_LAUNCHER_SHA256
+    assert broker.PILOT_SPEC_SHA256 == pilot_controller.PILOT_SPEC_SHA256
+    assert broker.sha256_bytes(
+        (TOOLS / "qaos_worker_pilot_launcher.py").read_bytes()
+    ) == broker.PILOT_LAUNCHER_SHA256
+
+    bad_paths = (
+        EnablePath(stat.S_IFREG | 0o400, b"wrong\n"),
+        EnablePath(stat.S_IFREG | 0o444, broker.PILOT_ENABLE_BYTES),
+        EnablePath(stat.S_IFREG | 0o400, broker.PILOT_ENABLE_BYTES, uid=1000),
+        EnablePath(stat.S_IFREG | 0o400, broker.PILOT_ENABLE_BYTES, nlink=2),
+        EnablePath(stat.S_IFLNK | 0o400, broker.PILOT_ENABLE_BYTES),
+        EnablePath(
+            stat.S_IFREG | 0o400, broker.PILOT_ENABLE_BYTES,
+            parents=(MetadataPath(stat.S_IFDIR | 0o777),),
+        ),
+    )
+    for path in bad_paths:
+        with pytest.raises(RuntimeError, match="pilot enable"):
+            broker.installed_config(path)
 
 
 def test_partial_pilot_configuration_is_refused(pilot_config):

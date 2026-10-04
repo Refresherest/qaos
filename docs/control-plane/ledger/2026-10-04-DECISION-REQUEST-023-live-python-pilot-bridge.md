@@ -1,7 +1,8 @@
 # DECISION-REQUEST-023 — Local Bridge Toward One Live Python Pilot
 
-Status: OPEN — owner selection required. Basis: WO-175 after WO-174 local-only
-verification. This request does not authorize worker mutation or code execution.
+Status: OWNER SELECTED 1A, 2A AND 3A on 2026-10-04; WO-176 completed the
+local-only deployment bridge. Basis: WO-175 after WO-174 local-only
+verification. This selection does not authorize worker mutation or code execution.
 
 ## Decision 1 — Pilot enablement and rollback
 

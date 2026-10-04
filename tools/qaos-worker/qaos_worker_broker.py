@@ -38,6 +38,10 @@ RESPONSE_LIMIT = 2250 * 1024
 LAUNCHER_OUTPUT_LIMIT = 2 * 1024 * 1024
 PILOT_POLICY_ID = "qaos.python-single.v1"
 PILOT_LAUNCHER_PATH = Path("/usr/local/sbin/qaos-worker-pilot-launcher")
+PILOT_ENABLE_PATH = Path("/etc/qaos-worker/enable-python-single-v1")
+PILOT_ENABLE_BYTES = b"qaos.python-single.v1\n"
+PILOT_LAUNCHER_SHA256 = "1b8e20cbc63999244862544f5c9933fb14cf9701d22b455bb753d4ebf4a81403"
+PILOT_SPEC_SHA256 = "6aca4382c76e69fab92ec607eae303ae90bd408a11286a950228510a7d54d1a0"
 PILOT_FILE_LIMIT = 64 * 1024
 PILOT_PATHS = ("acceptance/acceptance.py", "candidate/candidate.py")
 SHA256_RE = re.compile(r"[0-9a-f]{64}\Z")
@@ -72,6 +76,44 @@ class BrokerConfig:
                 or not SHA256_RE.fullmatch(self.pilot_spec_sha256)):
             raise RuntimeError("pilot runtime is not fully pinned")
         return (self.runtime(), self.expected_pilot_runtime)
+
+
+def verify_pilot_enable_metadata(path):
+    """A root-only fixed control file is the sole installed pilot switch."""
+    for directory in reversed(path.parents):
+        info = directory.lstat()
+        if (not stat.S_ISDIR(info.st_mode) or info.st_uid != 0
+                or stat.S_IMODE(info.st_mode) & 0o022):
+            raise RuntimeError("pilot enable directory is not root-owned and fixed")
+    info = path.lstat()
+    if (not stat.S_ISREG(info.st_mode) or info.st_uid != 0
+            or info.st_nlink != 1 or stat.S_IMODE(info.st_mode) != 0o400):
+        raise RuntimeError("pilot enable file is not root-owned and private")
+
+
+def installed_config(control_path=PILOT_ENABLE_PATH):
+    """Retain the synthetic default unless the exact trusted switch exists."""
+    try:
+        control_path.lstat()
+    except FileNotFoundError:
+        return BrokerConfig()
+    except OSError as error:
+        raise RuntimeError("pilot enable file metadata unavailable") from error
+    try:
+        verify_pilot_enable_metadata(control_path)
+        if control_path.read_bytes() != PILOT_ENABLE_BYTES:
+            raise RuntimeError("pilot enable file contents are invalid")
+    except OSError as error:
+        raise RuntimeError("pilot enable file unavailable") from error
+    return BrokerConfig(
+        pilot_launcher=PILOT_LAUNCHER_PATH,
+        expected_pilot_runtime={
+            "launcher_sha256": PILOT_LAUNCHER_SHA256,
+            "image_digest": IMAGE_DIGEST,
+            "policy_id": PILOT_POLICY_ID,
+        },
+        pilot_spec_sha256=PILOT_SPEC_SHA256,
+    )
 
 
 class CleanupError(RuntimeError):
@@ -428,7 +470,7 @@ def main():
     if os.geteuid() != 0:
         return 2
     try:
-        process(sys.stdin.buffer, sys.stdout.buffer)
+        process(sys.stdin.buffer, sys.stdout.buffer, installed_config())
     except Exception:
         return 1
     return 0

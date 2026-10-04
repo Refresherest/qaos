@@ -2,25 +2,27 @@
 
 **Recorded:** 2026-10-04 (Africa/Johannesburg)
 
-**Latest checkpoint:** WO-175 defined the next architecture-only live-pilot
-readiness gate and opened DECISION-REQUEST-023. It identified missing reviewed
-incremental pilot installation/rollback and unresolved durable one-attempt
-ownership across SSH loss and controller restarts. No worker or cloud state was
-changed. WO-174's local-only Python admission contract remains independently
-accepted with notes (VERIFICATION-125), with
-681 tests passed and one Windows-only skip. The synthetic route is the last
-verified installed path; pilot installation, candidate transfer and
-generated-code execution have not been authorized or performed. A passing
-acceptance script does not designate or validate a model.
+**Latest checkpoint:** Owner selected DECISION-REQUEST-023 options 1A, 2A and
+3A. WO-176 implemented and independently verified a default-off local pilot
+broker entrypoint and targeted, rollback-armed deployment bridge
+(VERIFICATION-127: ACCEPT WITH NOTES). The full regression passed with 697
+tests and one platform skip. No worker or cloud state was changed. The
+synthetic route is the last verified installed path; the pilot bridge remains
+local and has not been staged or run. Durable one-attempt authority across SSH
+loss/controller restart remains unresolved. Pilot installation, candidate
+transfer and generated-code execution have not been authorized or performed.
+A passing acceptance script does not designate or validate a model.
 
 **Earlier WO-161 base:** `c1e41ea` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
-**Status:** The local pilot contract is verified; DECISION-REQUEST-023 requires
-an owner choice for local deployment-bridge implementation, followed by a
-separate attempt-authority contract, fresh account and worker evidence, and
-separate live authorization. The earlier OpenHands Cloud named-profile
-validation blocker below remains a separate Builder Chain concern.
+**Status:** The local pilot admission contract and local deployment bridge are
+verified. STOP before an attempt-authority CSA/owner decision and separate
+implementation, fresh account/worker/network/cleanup evidence, and explicit
+live approval. The later live gate must independently pin the staged installer
+digest and not mistake the 15-minute rollback timer for reboot persistence.
+The earlier OpenHands Cloud named-profile validation blocker below remains a
+separate Builder Chain concern.
 
 ## Verified Core State
 
