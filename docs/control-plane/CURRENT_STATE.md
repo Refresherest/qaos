@@ -1,13 +1,20 @@
 # QAOS Current State
 
-**Recorded:** 2026-09-04 UTC
+**Recorded:** 2026-10-04 (Africa/Johannesburg)
 
-**WO-161 base:** `c1e41ea` (`feat/operational-builder-chain`)
+**Latest checkpoint:** WO-174's local-only Python worker admission contract is
+implemented and independently accepted with notes (VERIFICATION-125). The full
+suite passed 681 tests with one Windows-only skip. The synthetic worker remains
+the only installed path; the new pilot launcher, candidate transfer and generated
+code execution have not been authorized or performed. A passing acceptance
+script does not designate or validate a model.
+
+**Earlier WO-161 base:** `c1e41ea` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
-**Status:** Core recovery and reproduced MemoryManager storage isolation are
-verified; Builder Chain named-profile validation is blocked before delegation
-by OpenHands Cloud parent-runtime startup.
+**Status:** The local pilot contract is verified; live worker admission remains
+gated by a separate owner decision. The earlier OpenHands Cloud named-profile
+validation blocker below remains a separate Builder Chain concern.
 
 ## Verified Core State
 

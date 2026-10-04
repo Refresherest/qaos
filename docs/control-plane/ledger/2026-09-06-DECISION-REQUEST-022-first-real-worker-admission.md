@@ -2,7 +2,11 @@
 
 ## Status
 
-`OPEN — OWNER DECISION REQUIRED`
+`RESOLVED — OWNER-DECISION-036`
+
+On 2026-09-06 the repository owner replied "approve all three A options" and
+selected candidate scope A, evidence ownership A and execution/promotion boundary
+A. The authority boundary below remains in force.
 
 WO-172 verified the restricted worker transport using synthetic bytes only. The
 next capability changes the risk class because candidate bytes would become

@@ -80,7 +80,10 @@ def build_probe(now=None):
     return request, wire
 
 
-def validate_response(raw, request):
+def validate_response(raw, request, *, expected_runtime=None,
+                      expected_fixture="harmless",
+                      expected_test_id="transport.synthetic.harmless",
+                      expected_spec_sha256=None):
     import io
     stream = io.BytesIO(raw)
     response = decode_canonical_json(read_frame(stream, RESPONSE_LIMIT))
@@ -91,7 +94,12 @@ def validate_response(raw, request):
     for field in ("protocol", "version", "request_id", "nonce", "objective_id", "task_id", "candidate_artifact", "acceptance_artifact"):
         if response[field] != request[field]:
             raise ValueError(f"response correlation mismatch: {field}")
-    if response["launcher_sha256"] != LAUNCHER_SHA256 or response["image_digest"] != IMAGE_DIGEST or response["policy_id"] != POLICY_ID:
+    runtime = expected_runtime or {
+        "launcher_sha256": LAUNCHER_SHA256,
+        "image_digest": IMAGE_DIGEST,
+        "policy_id": POLICY_ID,
+    }
+    if any(response[field] != runtime[field] for field in ("launcher_sha256", "image_digest", "policy_id")):
         raise ValueError("response runtime mismatch")
     if response["runtime_version"] != RUNTIME_VERSION or response["worker_instance_id"] != WORKER_INSTANCE_ID:
         raise ValueError("response worker/runtime identity mismatch")
@@ -126,9 +134,13 @@ def validate_response(raw, request):
             raise ValueError("invalid completed execution evidence")
         if cleanup != {"staging_removed": True, "launcher_cleanup_reported": True}:
             raise ValueError("completed response requires confirmed cleanup")
-        if resource.get("fixture") != "harmless" or not is_sha256(resource.get("spec_sha256")):
+        if (resource.get("fixture") != expected_fixture
+                or not is_sha256(resource.get("spec_sha256"))
+                or (expected_spec_sha256 is not None
+                    and resource["spec_sha256"] != expected_spec_sha256)):
             raise ValueError("invalid completed resource evidence")
-        if len(acceptance) != 1 or acceptance[0].get("test_id") != "transport.synthetic.harmless" or acceptance[0].get("status") != "passed" or not isinstance(acceptance[0].get("duration_ms"), int) or not 0 <= acceptance[0]["duration_ms"] <= 45000:
+        duration_limit = 90000 if expected_fixture == "python-single" else 45000
+        if len(acceptance) != 1 or acceptance[0].get("test_id") != expected_test_id or acceptance[0].get("status") != "passed" or not isinstance(acceptance[0].get("duration_ms"), int) or not 0 <= acceptance[0]["duration_ms"] <= duration_limit:
             raise ValueError("invalid completed acceptance evidence")
     return response
 

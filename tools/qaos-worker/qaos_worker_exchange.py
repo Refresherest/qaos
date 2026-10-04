@@ -122,7 +122,7 @@ def _timestamp(value, label):
     return parsed
 
 
-def validate_request(request: dict, expected_runtime: dict, now=None) -> tuple[dict, ...]:
+def validate_request(request: dict, expected_runtime: dict | tuple[dict, ...], now=None) -> tuple[dict, ...]:
     _exact(request, REQUEST_FIELDS, "request")
     if request["protocol"] != PROTOCOL or request["version"] != VERSION:
         raise ProtocolError("unsupported protocol")
@@ -154,7 +154,10 @@ def validate_request(request: dict, expected_runtime: dict, now=None) -> tuple[d
         if not isinstance(ref["content_sha256"], str) or not SHA256_RE.fullmatch(ref["content_sha256"]):
             raise ProtocolError(f"invalid {label}.content_sha256")
     _exact(request["runtime"], RUNTIME_FIELDS, "runtime")
-    if request["runtime"] != expected_runtime:
+    allowed_runtimes = (
+        expected_runtime if isinstance(expected_runtime, tuple) else (expected_runtime,)
+    )
+    if request["runtime"] not in allowed_runtimes:
         raise ProtocolError("runtime identity mismatch")
     members = request["members"]
     if not isinstance(members, list) or not 1 <= len(members) <= MEMBER_COUNT_LIMIT:
@@ -189,7 +192,7 @@ def validate_request(request: dict, expected_runtime: dict, now=None) -> tuple[d
     return tuple(members)
 
 
-def decode_request(stream, expected_runtime: dict, now=None):
+def decode_request(stream, expected_runtime: dict | tuple[dict, ...], now=None):
     request = decode_canonical_json(read_frame(stream, REQUEST_LIMIT))
     members = validate_request(request, expected_runtime, now)
     payloads = []

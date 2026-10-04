@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "project": "qaos",
-  "recorded": "2026-09-06",
+  "recorded": "2026-10-04",
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "209152a",
   "core_baseline": "615cbbb",
-  "status": "restricted_worker_transport_verified_synthetic_only",
+  "status": "python_pilot_local_contract_verified_live_execution_not_authorized",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-06-WO-173-first-real-worker-admission-decision.md",
+  "current_baseline": "ledger/2026-09-06-WO-174-local-python-pilot-admission.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -176,7 +176,8 @@
     "WO-170",
     "WO-171",
     "WO-172",
-    "WO-173"
+    "WO-173",
+    "WO-174"
   ],
   "blocked_work_orders": [
     {
@@ -199,5 +200,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Owner decision required in DECISION-REQUEST-022. Recommended: single-file dependency-free generated Python pilot, canonical Artifact and QueueItem ownership, one manual non-promoting attempt. Approval authorizes local-only contract implementation, not live transfer."
+  "next_action": "STOP after WO-174 local verification. A separately scoped owner-approved live pilot is required before installing the pinned launcher, transferring candidate bytes or executing generated code. No automatic retry, publication, promotion or model-governance transition."
 }

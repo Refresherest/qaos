@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Root-owned synthetic broker for the restricted QAOS worker exchange.
+"""Root-owned broker for the restricted QAOS worker exchange.
 
-This stage validates and stages bounded synthetic members, then invokes only the
-reviewed fixed ``harmless`` launcher fixture. Staged members are never executed.
+The synthetic harmless route remains the default. A separately pinned pilot
+launcher can be enabled explicitly for one fixed Python acceptance fixture.
 """
 
 from __future__ import annotations
@@ -10,7 +10,9 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -34,6 +36,11 @@ POLICY_ID = "qaos.synthetic.transport.harmless.v1"
 RUNTIME_VERSION = "gvisor-20260831.0"
 RESPONSE_LIMIT = 2250 * 1024
 LAUNCHER_OUTPUT_LIMIT = 2 * 1024 * 1024
+PILOT_POLICY_ID = "qaos.python-single.v1"
+PILOT_LAUNCHER_PATH = Path("/usr/local/sbin/qaos-worker-pilot-launcher")
+PILOT_FILE_LIMIT = 64 * 1024
+PILOT_PATHS = ("acceptance/acceptance.py", "candidate/candidate.py")
+SHA256_RE = re.compile(r"[0-9a-f]{64}\Z")
 
 
 @dataclass(frozen=True)
@@ -44,6 +51,9 @@ class BrokerConfig:
     lock_path: Path = Path("/run/qaos-worker-broker/active.lock")
     worker_instance_id: str = "qaos-worker"
     expected_runtime: dict | None = None
+    pilot_launcher: Path | None = None
+    expected_pilot_runtime: dict | None = None
+    pilot_spec_sha256: str | None = None
 
     def runtime(self):
         return self.expected_runtime or {
@@ -51,6 +61,17 @@ class BrokerConfig:
             "image_digest": IMAGE_DIGEST,
             "policy_id": POLICY_ID,
         }
+
+    def allowed_runtimes(self):
+        if self.expected_pilot_runtime is None:
+            return self.runtime()
+        if (self.pilot_launcher is None
+                or self.pilot_launcher != PILOT_LAUNCHER_PATH
+                or self.expected_pilot_runtime.get("policy_id") != PILOT_POLICY_ID
+                or not isinstance(self.pilot_spec_sha256, str)
+                or not SHA256_RE.fullmatch(self.pilot_spec_sha256)):
+            raise RuntimeError("pilot runtime is not fully pinned")
+        return (self.runtime(), self.expected_pilot_runtime)
 
 
 class CleanupError(RuntimeError):
@@ -127,8 +148,9 @@ def stage_members(request, payloads, config):
         ensure_private_directory(config.staging_root)
         root = Path(tempfile.mkdtemp(prefix="request-", dir=config.staging_root))
         root.chmod(0o700)
+        pilot = request["runtime"]["policy_id"] == PILOT_POLICY_ID
         for member, payload in zip(request["members"], payloads, strict=True):
-            write_member(root, member, payload)
+            write_member(root, member, payload, pilot=pilot)
         return root
     except Exception as original:
         if root is not None:
@@ -139,8 +161,8 @@ def stage_members(request, payloads, config):
         raise RuntimeFailure("staging failed") from original
 
 
-def write_member(root, member, payload):
-    target = root / member["role"] / member["path"]
+def write_member(root, member, payload, *, pilot=False):
+    target = root / member["path"] if pilot else root / member["role"] / member["path"]
     target.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
     target.parent.chmod(0o700)
     descriptor = os.open(
@@ -161,13 +183,113 @@ def cleanup_staging(root):
     shutil.rmtree(root, onexc=make_removable)
 
 
-def verify_launcher(config):
+def verify_pilot_launcher_metadata(path):
+    """Refuse mutable or linked installed paths before hashing/executing."""
     try:
-        value = config.launcher.read_bytes()
+        for directory in reversed(path.parents):
+            info = directory.lstat()
+            if (not stat.S_ISDIR(info.st_mode) or info.st_uid != 0
+                    or stat.S_IMODE(info.st_mode) & 0o022):
+                raise RuntimeFailure("pilot launcher directory is not root-owned and fixed")
+        info = path.lstat()
+        if (not stat.S_ISREG(info.st_mode) or info.st_uid != 0
+                or info.st_nlink != 1
+                or stat.S_IMODE(info.st_mode) & 0o022
+                or not stat.S_IMODE(info.st_mode) & 0o111):
+            raise RuntimeFailure("pilot launcher path is not root-owned and fixed")
+    except OSError as error:
+        raise RuntimeFailure("pilot launcher metadata unavailable") from error
+
+
+def verify_launcher(config, pilot=False):
+    launcher = config.pilot_launcher if pilot else config.launcher
+    digest = (config.expected_pilot_runtime["launcher_sha256"]
+              if pilot else config.runtime()["launcher_sha256"])
+    if pilot:
+        if launcher != PILOT_LAUNCHER_PATH:
+            raise RuntimeFailure("pilot launcher path is not pinned")
+        verify_pilot_launcher_metadata(launcher)
+    try:
+        value = launcher.read_bytes()
     except OSError as error:
         raise RuntimeFailure("trusted launcher unavailable") from error
-    if sha256_bytes(value) != config.runtime()["launcher_sha256"]:
+    if sha256_bytes(value) != digest:
         raise RuntimeFailure("trusted launcher digest mismatch")
+
+
+def validate_pilot_request(request, payloads):
+    members = request["members"]
+    if (len(members) != 2
+            or [(m["role"], m["path"]) for m in members] != [
+                ("acceptance", PILOT_PATHS[0]), ("candidate", PILOT_PATHS[1])
+            ]):
+        raise ProtocolError("pilot requires two exact fixed members")
+    if request["candidate_artifact"]["artifact_id"] == request["acceptance_artifact"]["artifact_id"]:
+        raise ProtocolError("pilot Artifact identities must differ")
+    for member, payload in zip(members, payloads, strict=True):
+        if not 0 < len(payload) <= PILOT_FILE_LIMIT:
+            raise ProtocolError("pilot member exceeds fixed bounds")
+        if request[f'{member["role"]}_artifact']["content_sha256"] != member["sha256"]:
+            raise ProtocolError("pilot Artifact digest does not match member")
+        try:
+            payload.decode("utf-8", "strict")
+        except UnicodeDecodeError as error:
+            raise ProtocolError("pilot member must be UTF-8") from error
+
+
+def run_pilot(config, staging):
+    started = time.monotonic()
+    try:
+        result = subprocess.run(
+            [str(config.pilot_launcher), "python-single", str(staging)],
+            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, timeout=90, check=False,
+        )
+    except OSError as error:
+        raise RuntimeFailure("trusted pilot launcher failed") from error
+    except subprocess.TimeoutExpired as error:
+        raise CleanupError("pilot launcher timed out; cleanup is unverified") from error
+    if len(result.stdout) > LAUNCHER_OUTPUT_LIMIT or len(result.stderr) > LAUNCHER_OUTPUT_LIMIT:
+        raise CleanupError("pilot launcher output exceeded limit; cleanup is unverified")
+    try:
+        evidence = json.loads(result.stdout.decode("utf-8", "strict"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise CleanupError("pilot launcher returned no trusted cleanup evidence") from error
+    if (not isinstance(evidence, dict)
+            or evidence.get("fixture") != "python-single"
+            or evidence.get("image") != config.expected_pilot_runtime["image_digest"]
+            or evidence.get("spec_sha256") != config.pilot_spec_sha256
+            or type(evidence.get("expected_pass")) is not bool
+            or result.returncode != (0 if evidence["expected_pass"] else 1)):
+        raise CleanupError("pilot launcher evidence mismatch; cleanup is unverified")
+    for name in ("stdout", "stderr"):
+        count, digest, preview = (
+            evidence.get(f"{name}_bytes"), evidence.get(f"{name}_sha256"),
+            evidence.get(f"{name}_preview"),
+        )
+        if (type(count) is not int or not 0 <= count <= 1024 * 1024
+                or not isinstance(digest, str) or not SHA256_RE.fullmatch(digest)
+                or not isinstance(preview, str)
+                or len(preview.encode("utf-8")) > 480):
+            raise CleanupError("pilot launcher stream evidence invalid; cleanup is unverified")
+    if (type(evidence.get("exit_code")) is not int
+            or type(evidence.get("docker_cli_exit")) is not int
+            or type(evidence.get("oom_killed")) is not bool
+            or evidence.get("reason") not in {
+                "completion", "deadline", "stdout_limit", "stderr_limit", "oom",
+                "runtime_error",
+            }):
+        raise CleanupError("pilot launcher execution evidence invalid; cleanup is unverified")
+    observed_pass = (
+        evidence["reason"] == "completion"
+        and evidence["docker_cli_exit"] == 0
+        and evidence["exit_code"] == 0
+        and evidence["oom_killed"] is False
+    )
+    if (evidence["expected_pass"] is not observed_pass
+            or (evidence["reason"] == "oom") is not evidence["oom_killed"]):
+        raise CleanupError("pilot launcher pass evidence inconsistent; cleanup is unverified")
+    return evidence, int((time.monotonic() - started) * 1000)
 
 
 def run_harmless(config):
@@ -190,12 +312,13 @@ def run_harmless(config):
     return evidence, int((time.monotonic() - started) * 1000)
 
 
-def stream_evidence(byte_count, digest, preview):
-    return {"bytes": byte_count, "sha256": digest, "truncated": False, "text_preview": preview}
+def stream_evidence(byte_count, digest, preview, *, truncated=False):
+    return {"bytes": byte_count, "sha256": digest, "truncated": truncated, "text_preview": preview}
 
 
 def build_response(request, evidence, duration_ms, config, started_at, cleanup,
                    outcome="completed", termination_reason=None):
+    pilot = request["runtime"].get("policy_id") == PILOT_POLICY_ID
     empty_digest = sha256_bytes(b"")
     evidence = evidence or {
         "exit_code": None, "oom_killed": False, "reason": termination_reason,
@@ -210,17 +333,25 @@ def build_response(request, evidence, duration_ms, config, started_at, cleanup,
         "candidate_artifact": request["candidate_artifact"],
         "acceptance_artifact": request["acceptance_artifact"],
         "worker_instance_id": config.worker_instance_id,
-        "launcher_sha256": config.runtime()["launcher_sha256"],
+        "launcher_sha256": request["runtime"]["launcher_sha256"],
         "runtime_version": RUNTIME_VERSION,
-        "image_digest": config.runtime()["image_digest"],
-        "policy_id": config.runtime()["policy_id"],
+        "image_digest": request["runtime"]["image_digest"],
+        "policy_id": request["runtime"]["policy_id"],
         "started_at": started_at, "completed_at": utc_second(),
         "outcome": outcome, "exit_code": evidence["exit_code"],
         "oom_killed": evidence["oom_killed"], "termination_reason": termination_reason or evidence["reason"],
-        "stdout": stream_evidence(evidence["stdout_bytes"], evidence["stdout_sha256"], evidence["stdout_preview"]),
-        "stderr": stream_evidence(evidence["stderr_bytes"], evidence["stderr_sha256"], evidence["stderr_preview"]),
-        "resource_evidence": {"fixture": "harmless" if evidence["spec_sha256"] else None, "spec_sha256": evidence["spec_sha256"]},
-        "acceptance_results": ([{"test_id": "transport.synthetic.harmless", "status": "passed", "duration_ms": duration_ms}] if outcome == "completed" else []),
+        "stdout": stream_evidence(evidence["stdout_bytes"], evidence["stdout_sha256"], evidence["stdout_preview"], truncated=pilot and evidence["reason"] in {"deadline", "stdout_limit", "stderr_limit", "oom"}),
+        "stderr": stream_evidence(evidence["stderr_bytes"], evidence["stderr_sha256"], evidence["stderr_preview"], truncated=pilot and evidence["reason"] in {"deadline", "stdout_limit", "stderr_limit", "oom"}),
+        "resource_evidence": {
+            "fixture": ("python-single" if pilot else "harmless")
+            if evidence["spec_sha256"] else None,
+            "spec_sha256": evidence["spec_sha256"],
+        },
+        "acceptance_results": ([{
+            "test_id": "pilot.python-single.acceptance" if pilot else "transport.synthetic.harmless",
+            "status": "passed" if outcome == "completed" else "failed",
+            "duration_ms": duration_ms,
+        }] if evidence["spec_sha256"] and outcome in {"completed", "candidate_failed"} else []),
         "cleanup": cleanup,
     }
     response["response_sha256"] = sha256_bytes(canonical_json(response))
@@ -231,7 +362,10 @@ def process(stream_in, stream_out, config=None, now=None):
     config = config or BrokerConfig()
     staging = None
     with acquire_lock(config):
-        request, payloads = decode_request(stream_in, config.runtime(), now)
+        request, payloads = decode_request(stream_in, config.allowed_runtimes(), now)
+        pilot = request["runtime"].get("policy_id") == PILOT_POLICY_ID
+        if pilot:
+            validate_pilot_request(request, payloads)
         started_at = utc_second(now)
         outcome = "completed"
         reason = None
@@ -242,8 +376,22 @@ def process(stream_in, stream_out, config=None, now=None):
             claim_replay(request, config)
             try:
                 staging = stage_members(request, payloads, config)
-                verify_launcher(config)
-                evidence, duration_ms = run_harmless(config)
+                verify_launcher(config, pilot)
+                if pilot:
+                    evidence, duration_ms = run_pilot(config, staging)
+                    if not evidence["expected_pass"]:
+                        outcome = (
+                            "candidate_failed"
+                            if evidence["reason"] == "completion"
+                            and evidence["exit_code"] != 0
+                            else "limit_terminated"
+                            if evidence["reason"] in {
+                                "deadline", "stdout_limit", "stderr_limit", "oom"
+                            }
+                            else "runtime_failed"
+                        )
+                else:
+                    evidence, duration_ms = run_harmless(config)
                 cleanup["launcher_cleanup_reported"] = True
             except Exception as error:
                 if isinstance(error, CleanupError):
