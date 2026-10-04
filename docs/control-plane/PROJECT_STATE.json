@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "209152a",
   "core_baseline": "615cbbb",
-  "status": "python_pilot_local_contract_verified_live_execution_not_authorized",
+  "status": "python_pilot_local_contract_verified_live_bridge_decision_open",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-09-06-WO-174-local-python-pilot-admission.md",
+  "current_baseline": "ledger/2026-10-04-WO-175-live-python-pilot-readiness-design.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -177,7 +177,8 @@
     "WO-171",
     "WO-172",
     "WO-173",
-    "WO-174"
+    "WO-174",
+    "WO-175"
   ],
   "blocked_work_orders": [
     {
@@ -200,5 +201,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "STOP after WO-174 local verification. A separately scoped owner-approved live pilot is required before installing the pinned launcher, transferring candidate bytes or executing generated code. No automatic retry, publication, promotion or model-governance transition."
+  "next_action": "STOP for owner selections in DECISION-REQUEST-023. Approval authorizes only a new local deployment-bridge work order; durable attempt-authority design/implementation, fresh account/worker/network evidence and separate explicit live approval are still required before installation, candidate transfer or execution. No automatic retry, publication, promotion or model-governance transition."
 }

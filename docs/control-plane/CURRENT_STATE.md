@@ -2,18 +2,24 @@
 
 **Recorded:** 2026-10-04 (Africa/Johannesburg)
 
-**Latest checkpoint:** WO-174's local-only Python worker admission contract is
-implemented and independently accepted with notes (VERIFICATION-125). The full
-suite passed 681 tests with one Windows-only skip. The synthetic worker remains
-the only installed path; the new pilot launcher, candidate transfer and generated
-code execution have not been authorized or performed. A passing acceptance
-script does not designate or validate a model.
+**Latest checkpoint:** WO-175 defined the next architecture-only live-pilot
+readiness gate and opened DECISION-REQUEST-023. It identified missing reviewed
+incremental pilot installation/rollback and unresolved durable one-attempt
+ownership across SSH loss and controller restarts. No worker or cloud state was
+changed. WO-174's local-only Python admission contract remains independently
+accepted with notes (VERIFICATION-125), with
+681 tests passed and one Windows-only skip. The synthetic route is the last
+verified installed path; pilot installation, candidate transfer and
+generated-code execution have not been authorized or performed. A passing
+acceptance script does not designate or validate a model.
 
 **Earlier WO-161 base:** `c1e41ea` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
-**Status:** The local pilot contract is verified; live worker admission remains
-gated by a separate owner decision. The earlier OpenHands Cloud named-profile
+**Status:** The local pilot contract is verified; DECISION-REQUEST-023 requires
+an owner choice for local deployment-bridge implementation, followed by a
+separate attempt-authority contract, fresh account and worker evidence, and
+separate live authorization. The earlier OpenHands Cloud named-profile
 validation blocker below remains a separate Builder Chain concern.
 
 ## Verified Core State
