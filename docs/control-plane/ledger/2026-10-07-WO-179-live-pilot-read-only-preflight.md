@@ -82,19 +82,68 @@ Primary Oracle references checked 2026-10-07:
   alerts are evaluated periodically, every 24 hours. Cost reports are
   generated daily. Neither is a hard, immediate spending stop; no account-
   specific cost or zero-charge conclusion follows from these public pages.
-- A fresh Oracle Console attempt reached a password sign-in screen. Current
-  account tier, billing, usage, A1 allocation, volumes and network are not yet
-  observed. The owner must finish sign-in before those checks can proceed.
+- After the owner signed in on 2026-10-07, the Console showed a Free Tier
+  account whose Free Trial had ended, with South Africa Central (Johannesburg)
+  selected. The root-compartment instance list showed only `qaos-worker` and
+  `qaos-omniroute`, both Running as `VM.Standard.A1.Flex` in AD-1. Worker was
+  1 OCPU/8 GB with public IPv4 `92.4.147.163`; OmniRoute was 1 OCPU/4 GB.
+  This matches the prior intended 2-OCPU/12-GB split, but the tenancy's home
+  region was not independently confirmed.
+- The Compute regional `af-johannesburg-1` service-limit view, filtered for
+  `a1` and root compartment, showed `standard-a1-core-regional-count`: limit
+  2, usage 2, available 0; `standard-a1-memory-regional-count`: limit 12 GB,
+  usage 12 GB, available 0. The instance-list banner still advertised 3,000
+  OCPU-hours and 18,000 GB-hours monthly, whereas Oracle's current public
+  Always Free guide states 1,500/9,000 and the Free Tier trial-end guide says
+  no more than 2 OCPUs/12 GB across A1 instances. Treat the observed 2/12
+  service limit and documented post-trial boundary as the conservative gate;
+  do not infer an extra 2/12 from the inconsistent banner.
+- The root-compartment boot-volume list showed exactly two volumes, each
+  47 GB, carrying an Always Free label. Both were attached to the named
+  instances; combined observed boot storage is 94 GB. The root-compartment
+  standalone block-volume list showed no items. This is not an exhaustive
+  cross-compartment or cross-region inventory.
+- The Universal Credits subscription list showed its Infrastructure entry as
+  **SUSPENDED**, with renewal date 2026-09-19 and listed commitment value
+  €0.00. Its detail view retained the historical €250.00 total commitment
+  value; the 2026-08-21 through 2026-10-07 usage view showed €0.00
+  consumption and 5 SKUs in one region. Cost Analysis for 2026-10-01 through
+  2026-10-07 showed cost-to-date 0 for Compute, Block Storage, VCN and
+  Telemetry. The page warns that billing estimates may omit actual usage and
+  usage data is typically delayed about 24 hours. This is evidence of the
+  displayed estimate, **not** a zero-future-charge guarantee.
+- The Budgets list showed no budget rows. The shared default security list
+  for `qaos-vcn` still allows stateful TCP/22 ingress from `0.0.0.0/0` and all
+  protocol egress to `0.0.0.0/0`, plus the two expected ICMP ingress rules.
+  The worker's primary VNIC was attached to `qaos-public-subnet`; its
+  private IPv4 was `10.0.0.20`. Guest firewall enforcement remains unverified.
+- The Oracle session subsequently returned to a password sign-in screen.
+  No login field was automated and no account setting or resource was changed.
 - The saved worker host-key pin exists, but the direct Windows OpenSSH probe
   refused the existing private key's broad ACL before authentication. The
-  original key was not changed. A temporary restricted helper copy requires
-  a separate owner answer; no guest inventory was obtained.
+  owner approved a temporary owner-only helper copy, but the command carrying
+  that copy-and-cleanup operation was rejected before process creation by the
+  execution environment. No helper copy was created, the original key was not
+  changed, and no guest inventory was obtained. Do not work around this gate
+  by weakening host-key checking or exposing key contents.
 - At the start of this checkpoint, `PROJECT_STATE.json` still described
   DECISION-REQUEST-024 as open and omitted completed WO-178. It has now been
   reconciled with CURRENT_STATE and VERIFICATION-129. This bookkeeping update
   does not confer live authority or prove account/worker readiness.
 
-Current result: **NO-GO / insufficient fresh evidence**. This is a hold on
-live action, not a conclusion that the worker is absent or the account is
-billable. Continue only the read-only preflight after the sign-in and key
-handling gates are resolved.
+## Separate live-approval manifest still required
+
+Before any live gate, identify the exact canonical candidate and independently
+authored acceptance Artifact IDs, digests and origin; review the acceptance
+script's actual invocation/assertions; pin the proposed staged installer and
+worker runtime/image bytes; name the QueueItem and one-attempt request identity;
+set a numeric cost ceiling and rollback owner; and specify account/worker/SSH,
+cleanup and `UNKNOWN` stop criteria. WO-175 and DECISION-REQUEST-023 require a
+separate owner approval for that exact manifest. None is supplied here.
+
+Current result: **NO-GO / insufficient fresh evidence**. The observed 2/12
+allocation fits the conservative published post-trial A1 boundary, but current
+worker runtime, installed bytes, guest firewall, cleanup and SSH continuity
+remain unverified; home-region confirmation and delayed billing evidence are
+also outstanding. This is a hold on live action, not a conclusion that the
+worker is absent or the account is billable. No live pilot request was sent.

@@ -204,5 +204,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Continue WO-179 read-only preflight after the owner completes Oracle Console sign-in and answers the temporary restricted SSH-key-copy question. Current account/worker/network/billing evidence remains unverified. Active-data migration, real dispatch, worker installation and spending remain unauthorized. No automatic retry, publication, promotion or model-governance transition."
+  "next_action": "Continue WO-179 read-only preflight only after resolving the worker SSH-key ACL/tool-policy gate and refreshing the Oracle session. Console evidence now establishes the post-trial 2-OCPU/12-GB allocation, two 47-GB boot volumes, regional limits, shared network rules and delayed zero cost-to-date estimate; worker runtime, installed bytes, guest firewall, cleanup and SSH continuity remain unverified. Active-data migration, real dispatch, worker installation and spending remain unauthorized. No automatic retry, publication, promotion or model-governance transition."
 }

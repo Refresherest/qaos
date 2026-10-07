@@ -8,10 +8,15 @@ independently **ACCEPTED** (VERIFICATION-129) in an explicit fresh-workspace
 SQLite queue, with 748 passed/1 skipped full regression and 126 passed focused
 checks. The review's three material findings were repaired and re-reviewed.
 The owner's next “Proceed” opened WO-179 for a read-only live-pilot
-go/no-go preflight. Its current Oracle account and worker observations are
-incomplete: the Console requires owner password sign-in, and direct SSH cannot
-use the original worker key because of its Windows ACL. Neither gate has been
-bypassed; a temporary restricted key copy awaits the owner's answer.
+go/no-go preflight. A signed-in 2026-10-07 Console snapshot showed the Free
+Trial ended, both A1 instances Running with 2 OCPUs/12 GB total, two 47-GB
+boot volumes, regional A1 limits fully used at 2/12, and a zero cost-to-date
+estimate subject to billing delay. The shared OCI security list still permits
+TCP/22 from `0.0.0.0/0`. The session later returned to sign-in. Direct SSH
+cannot use the original worker key because of its Windows ACL; the owner
+approved a temporary restricted copy, but the execution environment rejected
+that operation before process creation. No helper copy or guest inventory was
+obtained. See WO-179 for exact evidence and remaining gates.
 There is no active-data migration or live dispatch. The active JSON queue
 remains the default; no pilot request has
 been sent by WO-178.
