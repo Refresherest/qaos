@@ -142,6 +142,19 @@ Primary Oracle references checked 2026-10-07:
   directory" and `Get-Service ssh-agent` showed Stopped/Disabled. Thus no
   already-loaded identity is available for a keyless read-only worker probe.
   No service was started and no authentication attempt followed.
+- The owner then supplied `_Oracle_Keys/Qaos-Worker` on 2026-10-07. A
+  filename, public-fingerprint and ACL-only inspection found the intended
+  administrative private key in `Private Key/qaos-worker-ed25519`, with the
+  matching public key fingerprint `SHA256:9VAdaALmDb+uc976j9tX8BXkcaagNSVNmvPH+mn5zWo`.
+  Its ACL still grants `CodexSandboxOnline` Modify in addition to the owner,
+  Administrators and SYSTEM, so the earlier Windows OpenSSH rejection has not
+  been remediated. The separate `Transport Key/qaos-worker-transport-ed25519`
+  has fingerprint `SHA256:J5TUQjE8yn5fDGwowNLfUeD4pBnyROYI2/OILu7qhIY`;
+  WO-172 records that this identity is forced to the restricted broker, not an
+  administrative inventory shell. The saved host pin fingerprint is
+  `SHA256:GqlPbIsqbZHPSDNHaXUeiq2Vs7uuzPfS11KKtKFgkJY`. No private-key
+  contents were read, copied or disclosed, no ACL was changed, and no SSH
+  authentication attempt was made with either identity in this continuation.
 - At the start of this checkpoint, `PROJECT_STATE.json` still described
   DECISION-REQUEST-024 as open and omitted completed WO-178. It has now been
   reconciled with CURRENT_STATE and VERIFICATION-129. This bookkeeping update
