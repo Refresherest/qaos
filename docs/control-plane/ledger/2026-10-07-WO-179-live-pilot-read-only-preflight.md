@@ -119,6 +119,11 @@ Primary Oracle references checked 2026-10-07:
   private IPv4 was `10.0.0.20`. Guest firewall enforcement remains unverified.
 - The Oracle session subsequently returned to a password sign-in screen.
   No login field was automated and no account setting or resource was changed.
+- On a later read-only continuation on 2026-10-07, the Oracle session was
+  active again. Governance & Administration > Tenancy Details showed the
+  `emergestrategic` tenancy as Active and its **Home region: JNB**. This
+  independently confirms the observed Johannesburg resources are in the
+  home region; it does not prove an exhaustive cross-compartment inventory.
 - The saved worker host-key pin exists, but the direct Windows OpenSSH probe
   refused the existing private key's broad ACL before authentication. The
   owner approved a temporary owner-only helper copy, but the command carrying
@@ -126,6 +131,11 @@ Primary Oracle references checked 2026-10-07:
   execution environment. No helper copy was created, the original key was not
   changed, and no guest inventory was obtained. Do not work around this gate
   by weakening host-key checking or exposing key contents.
+- The existing local SSH agent was checked without touching the private key:
+  `ssh-add -l` returned "Error connecting to agent: No such file or
+  directory" and `Get-Service ssh-agent` showed Stopped/Disabled. Thus no
+  already-loaded identity is available for a keyless read-only worker probe.
+  No service was started and no authentication attempt followed.
 - At the start of this checkpoint, `PROJECT_STATE.json` still described
   DECISION-REQUEST-024 as open and omitted completed WO-178. It has now been
   reconciled with CURRENT_STATE and VERIFICATION-129. This bookkeeping update
@@ -144,6 +154,7 @@ separate owner approval for that exact manifest. None is supplied here.
 Current result: **NO-GO / insufficient fresh evidence**. The observed 2/12
 allocation fits the conservative published post-trial A1 boundary, but current
 worker runtime, installed bytes, guest firewall, cleanup and SSH continuity
-remain unverified; home-region confirmation and delayed billing evidence are
-also outstanding. This is a hold on live action, not a conclusion that the
-worker is absent or the account is billable. No live pilot request was sent.
+remain unverified; delayed billing evidence is also outstanding. The tenancy
+details now confirm JNB as the home region. This is a hold on live action, not
+a conclusion that the worker is absent or the account is billable. No live
+pilot request was sent.
