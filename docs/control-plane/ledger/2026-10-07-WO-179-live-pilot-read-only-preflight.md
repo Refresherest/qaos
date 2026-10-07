@@ -123,7 +123,13 @@ Primary Oracle references checked 2026-10-07:
   active again. Governance & Administration > Tenancy Details showed the
   `emergestrategic` tenancy as Active and its **Home region: JNB**. This
   independently confirms the observed Johannesburg resources are in the
-  home region; it does not prove an exhaustive cross-compartment inventory.
+  home region. Region Management listed South Africa Central
+  (`af-johannesburg-1`) as the only Subscribed region, on a single page of
+  regions; the others were Not subscribed. The root compartment's Child
+  Compartments list showed no items with its default Active/Deleting status
+  filter. Thus the earlier root-compartment instance and volume lists cover
+  the currently active compartment hierarchy in the subscribed region, but
+  not resource types the respective lists do not support or delayed updates.
 - The saved worker host-key pin exists, but the direct Windows OpenSSH probe
   refused the existing private key's broad ACL before authentication. The
   owner approved a temporary owner-only helper copy, but the command carrying
@@ -155,6 +161,7 @@ Current result: **NO-GO / insufficient fresh evidence**. The observed 2/12
 allocation fits the conservative published post-trial A1 boundary, but current
 worker runtime, installed bytes, guest firewall, cleanup and SSH continuity
 remain unverified; delayed billing evidence is also outstanding. The tenancy
-details now confirm JNB as the home region. This is a hold on live action, not
-a conclusion that the worker is absent or the account is billable. No live
-pilot request was sent.
+details now confirm JNB as the home region, the only subscribed region, with
+no active/deleting child compartments shown. This is a hold on live action,
+not a conclusion that the worker is absent or the account is billable. No
+live pilot request was sent.
