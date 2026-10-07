@@ -3,8 +3,8 @@
 2026-10-07; baseline `cce42c1` on `feat/operational-builder-chain`.
 Authority: the owner's “Proceed” after WO-178's local-only ACCEPT, interpreted
 as the next bounded, read-only evidence checkpoint in WO-175 and
-DECISION-REQUEST-023 option 3A. Status: IN PROGRESS — account and worker
-evidence incomplete; no live authorization.
+DECISION-REQUEST-023 option 3A. Status: COMPLETE — independently reviewed
+read-only NO-GO (VERIFICATION-130); no live authorization.
 
 ## Objective and architectural context
 
@@ -82,6 +82,10 @@ Primary Oracle references checked 2026-10-07:
   alerts are evaluated periodically, every 24 hours. Cost reports are
   generated daily. Neither is a hard, immediate spending stop; no account-
   specific cost or zero-charge conclusion follows from these public pages.
+- Oracle's current Always Free guide also warns that idle A1 instances may
+  be reclaimed when its CPU, network and memory conditions all hold over a
+  seven-day period. The idle-worker observation here is not a prediction of
+  reclamation or a reason to generate artificial load.
 - After the owner signed in on 2026-10-07, the Console showed a Free Tier
   account whose Free Trial had ended, with South Africa Central (Johannesburg)
   selected. The root-compartment instance list showed only `qaos-worker` and
@@ -197,6 +201,56 @@ Primary Oracle references checked 2026-10-07:
   These checks found no owned pilot residue; they are not a broad cleanup of
   unrelated host state. No container was started, image pulled or worker
   file changed.
+- A further read-only Console check at approximately 20:24 UTC on
+  2026-10-07 showed `qaos-omniroute` Running with 1 A1 OCPU and 4 GB; its
+  primary VNIC had private IPv4 `10.0.0.153` and was attached to
+  `qaos-public-subnet` in `qaos-vcn`. The worker's Networking page showed
+  private IPv4 `10.0.0.20` and its primary VNIC attached to the **same**
+  subnet OCID. The subnet's Security tab listed exactly one associated
+  security list, `Default Security List for qaos-vcn`. Its Security rules tab
+  still showed stateful TCP/22 ingress from `0.0.0.0/0`, two ICMP ingress
+  rules and all-protocol egress to `0.0.0.0/0`. This confirms that the broad
+  OCI rule is shared by the two instances. The narrower worker guest rule
+  does not establish an equivalent OmniRoute guest rule; no OmniRoute guest
+  firewall inspection was performed. No networking setting was changed.
+- A fresh strict-host-key administrative SSH check at approximately 20:24
+  UTC returned exit code 0. `/etc/os-release` reported Ubuntu 24.04.4 LTS;
+  `uname -r` reported `6.17.0-1020-oracle`. A separate exit-code-0 inventory
+  reported `ubuntu`, hostname `qaos-worker`, `aarch64`, 1 CPU, 7,915 MiB
+  memory total (7,357 MiB available at observation), 0 swap and 41 GB
+  available on the 45-GB root filesystem. Docker/containerd were active;
+  the version output was Docker 29.8.0, containerd 2.3.4 and runsc
+  `release-20260831.0`. These are read-only point-in-time observations,
+  not a workload, restricted-key exchange or pilot installation.
+- A read-only local payload inventory found `data/artifacts.json` equal to
+  `[]` (zero current canonical Artifacts), one non-pilot row in the active
+  JSON queue and no isolated pilot SQLite queue file. The candidate and
+  acceptance IDs used in local test fixtures are synthetic; their
+  `assert True` acceptance script does not invoke the candidate. The
+  reviewed local pilot launcher would run an acceptance script with the candidate path
+  as an argument, but that alone does not prove the script invokes or checks
+  it. No real candidate/independently authored acceptance pair or one-attempt
+  QueueItem identity can be pinned from this workspace. This does not rule
+  out artifacts in an external workspace that has not been supplied.
+
+Additional read-only evidence provenance (2026-10-07): the Console paths
+inspected were each instance's Networking tab and `qaos-public-subnet`'s
+Security tab, followed by the associated security list's Security rules tab.
+The administrative SSH calls used the exact pinned prefix below; the two
+remote payloads and redacted, non-secret result excerpts were:
+
+```text
+cat /etc/os-release; uname -r
+exit 0: PRETTY_NAME="Ubuntu 24.04.4 LTS"; VERSION_ID="24.04"; 6.17.0-1020-oracle
+id -un; hostname; uname -m; nproc; free -m; df -h /; systemctl is-active docker containerd; docker --version; containerd --version; runsc --version
+exit 0: ubuntu; qaos-worker; aarch64; 1 CPU; Mem 7915 total / 7357 available MiB; Swap 0; /dev/sda1 45G / 41G available; active / active; Docker 29.8.0; containerd 2.3.4; runsc release-20260831.0
+```
+
+Earlier Console and worker observations above are summarized with the
+commands that produced them, but a full preserved per-command stdout and
+exit-status transcript is not available. Independent review should treat
+that provenance limit as a note or require a fresh bounded recheck; it must
+not turn an historical summary into present-tense certainty.
 
 Observed installed SHA-256 values (all match their historical fixed pins):
 
@@ -256,8 +310,12 @@ The observed 2/12 allocation fits the conservative published post-trial A1
 boundary; JNB is the only subscribed home region and no active/deleting child
 compartments were shown. The authenticated worker inventory now confirms the
 historical runtime/image/synthetic-transport pins, guest SSH restriction and
-empty owned staging/container state. It does **not** exercise restricted-key
-transport or validate generated code. Delayed billing evidence, numeric cost
-ceiling, exact candidate and independently authored acceptance artifacts,
-rollback owner, live installation manifest, independent WO-179 review and
-separate scoped live approval remain outstanding. No pilot request was sent.
+empty owned staging/container state. The worker and OmniRoute share a public
+subnet whose OCI list allows SSH from anywhere; OmniRoute's guest-side rule is
+unverified. The local artifact store has no real pilot payload pair or pilot
+attempt identity. The inventory does **not** exercise restricted-key transport
+or validate generated code. Delayed billing evidence, numeric cost ceiling,
+exact candidate and independently authored acceptance artifacts, rollback
+owner, live installation manifest and separate scoped live approval remain
+outstanding. The independent Reviewer accepted this bounded NO-GO preflight
+with provenance notes in VERIFICATION-130. No pilot request was sent.

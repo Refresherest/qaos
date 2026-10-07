@@ -5,9 +5,9 @@
   "branch": "feat/operational-builder-chain",
   "branch_baseline": "cce42c1",
   "core_baseline": "615cbbb",
-  "status": "python_pilot_readonly_preflight_in_progress",
+  "status": "python_pilot_readonly_preflight_no_go",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-10-07-VERIFICATION-129-wo-178.md",
+  "current_baseline": "ledger/2026-10-07-VERIFICATION-130-wo-179.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -181,7 +181,8 @@
     "WO-175",
     "WO-176",
     "WO-177",
-    "WO-178"
+    "WO-178",
+    "WO-179"
   ],
   "blocked_work_orders": [
     {
@@ -204,5 +205,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "Complete WO-179's remaining cost, candidate/acceptance and rollback manifest; obtain independent review and a separate scoped owner decision before any live pilot. The signed-in Console confirmed the post-trial 2-OCPU/12-GB allocation, two 47-GB boot volumes, JNB as the only subscribed home region, no active/deleting child compartments, shared network rules and a delayed zero cost-to-date estimate. Fresh strict-host-key read-only SSH confirmed worker runtime/file/image pins, guest SSH restriction and empty owned staging/container state; the pilot bridge is not installed or enabled. Restricted-key end-to-end continuity and generated-code validation are not proven. Active-data migration, real dispatch, worker installation and spending remain unauthorized. No automatic retry, publication, promotion or model-governance transition."
+  "next_action": "STOP at WO-179's independently reviewed read-only NO-GO. Seek owner direction for a separate local-only work order to identify or create the exact canonical candidate and independently authored acceptance Artifacts, then propose a one-request manifest. A numeric cost ceiling, rollback owner, fresh charge evidence, staged installer digest and separate scoped live approval remain mandatory before any worker install, transfer or dispatch. Restricted-key continuity and generated-code validation are unproven. No active queue migration, resource or network change, spending, automatic retry, publication, promotion or model-governance transition is authorized."
 }

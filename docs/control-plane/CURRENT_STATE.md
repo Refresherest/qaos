@@ -7,25 +7,25 @@
 independently **ACCEPTED** (VERIFICATION-129) in an explicit fresh-workspace
 SQLite queue, with 748 passed/1 skipped full regression and 126 passed focused
 checks. The review's three material findings were repaired and re-reviewed.
-The owner's next “Proceed” opened WO-179 for a read-only live-pilot
-go/no-go preflight. A signed-in 2026-10-07 Console snapshot showed the Free
-Trial ended, both A1 instances Running with 2 OCPUs/12 GB total, two 47-GB
-boot volumes, regional A1 limits fully used at 2/12, and a zero cost-to-date
-estimate subject to billing delay. The shared OCI security list still permits
-TCP/22 from `0.0.0.0/0`. The session later returned to sign-in. Direct SSH
-could not use the original worker key because of its Windows ACL, but the owner
-placed an owner-only administrative copy under `.ssh`. Fresh pinned-host SSH
-then succeeded. Read-only worker inventory matched the historical Docker,
-containerd, runsc, daemon, synthetic launcher, broker, exchange and cached
-image pins; the worker has one CPU/8 GB, no containers or owned staging
-residue, and retains the source-specific guest SSH rule. JNB is confirmed as
-the only subscribed home region, with no active/deleting child compartments
-shown. The pilot launcher and enablement file are absent. No helper copy was
-created by Codex, and no worker file or cloud resource was changed. See WO-179
-for exact evidence and remaining gates.
-There is no active-data migration or live dispatch. The active JSON queue
-remains the default; no pilot request has
-been sent by WO-178.
+WO-179's read-only live-pilot preflight is complete with an independent
+**ACCEPT WITH NOTES — NO-GO ONLY** verdict (VERIFICATION-130). A signed-in
+2026-10-07 Console snapshot showed the Free Trial ended, both A1 instances
+Running with 2 OCPUs/12 GB total, two 47-GB Always Free boot volumes,
+regional A1 limits fully used at 2/12, and a zero cost-to-date estimate
+subject to billing delay. JNB is the only subscribed home region; no
+active/deleting child compartments were shown. Worker and OmniRoute VNICs
+share `qaos-public-subnet`; its only associated OCI security list still
+permits TCP/22 from `0.0.0.0/0`. The worker guest rule is source-specific;
+OmniRoute's guest rule was not inspected. Fresh pinned-host administrative
+SSH succeeded after the owner placed an owner-only key copy under `.ssh`.
+Read-only inventory matched historical Docker, containerd, runsc, daemon,
+synthetic launcher, broker, exchange and cached image pins. Worker is Ubuntu
+24.04.4 LTS with one CPU/8 GB, no containers or owned pilot staging residue.
+The pilot launcher and enablement file are absent. The local canonical
+Artifact store has no candidate/acceptance pair, and the active JSON queue
+has no pilot attempt identity. No worker file, cloud resource or active
+data was changed, and no live request was sent. See WO-179 for evidence and
+VERIFICATION-130 for review limits.
 WO-176's default-off bridge remains local and independently accepted with
 notes (VERIFICATION-127; 697 tests passed, one platform skip). The synthetic
 route is the last verified installed path. No worker or cloud state was changed;
@@ -36,17 +36,15 @@ or validate a model.
 **Earlier WO-161 base:** `c1e41ea` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
-**Status:** WO-178 is complete locally. WO-179 is in progress and currently
-**NO-GO / incomplete authorization and cost/acceptance gates**. **STOP** before active cutover or
-live dispatch.
-Active-data migration, live dispatch and worker mutation remain unauthorized.
-Delayed billing evidence, an exact candidate/acceptance manifest, a numeric
-cost ceiling, independent WO-179 review and explicit live approval remain
-later gates. The
-live gate must independently pin the staged installer digest and not mistake
-the 15-minute rollback timer for reboot persistence. The earlier OpenHands
-Cloud named-profile validation blocker remains a separate Builder Chain
-concern.
+**Status:** WO-178 is complete locally. WO-179 is complete as a read-only
+**NO-GO / incomplete authorization and cost/acceptance gates**. **STOP** before
+active cutover or live dispatch. Active-data migration, live dispatch and
+worker mutation remain unauthorized. Delayed billing evidence, an exact
+candidate/independently authored acceptance manifest, a numeric cost ceiling,
+rollback owner, staged installer digest and separate scoped live approval
+remain later gates. The 15-minute rollback timer is not reboot-persistent.
+The earlier OpenHands Cloud named-profile validation blocker remains a
+separate Builder Chain concern.
 
 ## Verified Core State
 
