@@ -13,10 +13,16 @@ Trial ended, both A1 instances Running with 2 OCPUs/12 GB total, two 47-GB
 boot volumes, regional A1 limits fully used at 2/12, and a zero cost-to-date
 estimate subject to billing delay. The shared OCI security list still permits
 TCP/22 from `0.0.0.0/0`. The session later returned to sign-in. Direct SSH
-cannot use the original worker key because of its Windows ACL; the owner
-approved a temporary restricted copy, but the execution environment rejected
-that operation before process creation. No helper copy or guest inventory was
-obtained. See WO-179 for exact evidence and remaining gates.
+could not use the original worker key because of its Windows ACL, but the owner
+placed an owner-only administrative copy under `.ssh`. Fresh pinned-host SSH
+then succeeded. Read-only worker inventory matched the historical Docker,
+containerd, runsc, daemon, synthetic launcher, broker, exchange and cached
+image pins; the worker has one CPU/8 GB, no containers or owned staging
+residue, and retains the source-specific guest SSH rule. JNB is confirmed as
+the only subscribed home region, with no active/deleting child compartments
+shown. The pilot launcher and enablement file are absent. No helper copy was
+created by Codex, and no worker file or cloud resource was changed. See WO-179
+for exact evidence and remaining gates.
 There is no active-data migration or live dispatch. The active JSON queue
 remains the default; no pilot request has
 been sent by WO-178.
@@ -31,11 +37,12 @@ or validate a model.
 
 **Core baseline:** `615cbbb` (`main`)
 **Status:** WO-178 is complete locally. WO-179 is in progress and currently
-**NO-GO / insufficient fresh evidence**. **STOP** before active cutover or
+**NO-GO / incomplete authorization and cost/acceptance gates**. **STOP** before active cutover or
 live dispatch.
 Active-data migration, live dispatch and worker mutation remain unauthorized.
-Fresh account/worker/network/cleanup evidence, a cost ceiling and explicit
-live approval remain later gates. The
+Delayed billing evidence, an exact candidate/acceptance manifest, a numeric
+cost ceiling, independent WO-179 review and explicit live approval remain
+later gates. The
 live gate must independently pin the staged installer digest and not mistake
 the 15-minute rollback timer for reboot persistence. The earlier OpenHands
 Cloud named-profile validation blocker remains a separate Builder Chain

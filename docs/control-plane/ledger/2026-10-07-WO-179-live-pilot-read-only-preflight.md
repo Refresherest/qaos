@@ -155,6 +155,87 @@ Primary Oracle references checked 2026-10-07:
   `SHA256:GqlPbIsqbZHPSDNHaXUeiq2Vs7uuzPfS11KKtKFgkJY`. No private-key
   contents were read, copied or disclosed, no ACL was changed, and no SSH
   authentication attempt was made with either identity in this continuation.
+- The owner placed an administrative-key copy at
+  `C:/Users/qaasi/.ssh/Private Key/qaos-worker-ed25519`. Its inherited ACL
+  grants only the owner, Administrators and SYSTEM; `ssh-keygen -lf` reported
+  the expected `SHA256:9VAdaALmDb+uc976j9tX8BXkcaagNSVNmvPH+mn5zWo`.
+  A fresh `ubuntu@92.4.147.163` login succeeded with `IdentitiesOnly=yes`,
+  `StrictHostKeyChecking=yes`, `BatchMode=yes`, the saved dedicated
+  `known_hosts`, and an eight-second connection timeout. The host identified
+  as `qaos-worker`, `aarch64`. No private-key contents were displayed.
+- Read-only worker inventory on 2026-10-07 found one CPU, 7,915 MiB total
+  memory (7,354 MiB available at observation), no swap, and 41 GB free on
+  the 45-GB root filesystem. Docker and containerd were active. Docker
+  29.8.0, containerd 2.3.4 and runsc `release-20260831.0` matched WO-167;
+  Docker used systemd/cgroup v2, listed `runsc`, and retained `runc` as the
+  default. SHA-256 for `dockerd`, `containerd`, `runsc` and `daemon.json`
+  matched all four WO-167 pins. The cached Python image digest matched
+  `b64631e04e4920160c50fbe8d8df828f7f35f06f425cb44aa09bca53e708a35a`
+  and inspected as ARM64. The BusyBox calibration image was also cached.
+- The installed synthetic launcher, broker and exchange SHA-256 values
+  matched WO-168/WO-172's respective `0bc39f9a...`, `d0432efc...` and
+  `5b1357f3...` pins. The launcher and broker were root-owned mode 0755;
+  exchange was root-owned mode 0644. The pilot launcher and
+  `/etc/qaos-worker/enable-python-single-v1` were absent, confirming that
+  WO-176's local bridge has not been installed or enabled on this worker.
+  The restricted broker account, root-owned authorized-key entry and exact
+  sudoers grant remained present; the authorized key's fingerprint matched
+  the dedicated transport public key, `restrict` and `command=` each appeared
+  once, and `visudo -cf` parsed the sudoers file. No restricted-key exchange
+  was attempted, so its current end-to-end path remains untested.
+- The live iptables INPUT chain and persisted `/etc/iptables/rules.v4` both
+  retained the source-specific TCP/22 rule for `102.33.120.222/32`, with no
+  broad new-SSH rule in INPUT; `netfilter-persistent` was enabled. UFW is not
+  installed. This guest boundary is narrower than the shared OCI security
+  list's `0.0.0.0/0` port-22 allowance. Fresh strict-key SSH succeeded both
+  before and during inventory; it does not guarantee access if the owner's
+  source address changes.
+- `docker ps -a` showed no containers. The fixed broker staging directory
+  had zero entries, and the `/tmp` `qaos*` search found none. Pilot staging
+  and upgrade directories were absent; no `qaos-worker*` systemd unit was
+  loaded. The existing zero-byte synthetic host canary remained in place.
+  These checks found no owned pilot residue; they are not a broad cleanup of
+  unrelated host state. No container was started, image pulled or worker
+  file changed.
+
+Observed installed SHA-256 values (all match their historical fixed pins):
+
+| Worker file | SHA-256 |
+| --- | --- |
+| `/usr/bin/dockerd` | `3a699717ec78f96bcb144853543db9465bffc347e5930fc20a95b9ec1b6b65a7` |
+| `/usr/bin/containerd` | `c84656b0cd90245b6257b56ba8c3e9632871daf4b8168e7e4d19f6990b604278` |
+| `/usr/bin/runsc` | `d5679775682cd4cb11ba7bf7bd8e04235622aa8797d518dd280064e5cd27ed5d` |
+| `/etc/docker/daemon.json` | `36604e23d4f122c291f0c10be02bf76ecdec3ae3c10205d37edf45f8953fb1ff` |
+| `/usr/local/sbin/qaos-worker-launcher` | `0bc39f9ab6eb917b0983ee3fab9dae79cf7c97f0103d654b30f33ad6fb89828e` |
+| `/usr/local/sbin/qaos-worker-broker` | `d0432efc08309eaa41e9e09e741c43da22582dcf6ab43e18796fbfe6588c157d` |
+| `/usr/local/sbin/qaos_worker_exchange.py` | `5b1357f3e79c4ea6e3519c7e265b2ba8c7301750ef0530f7f538bd5b86b5c79c` |
+
+The authenticated checks used the same exact SSH prefix throughout:
+
+```text
+ssh -i 'C:\Users\qaasi\.ssh\Private Key\qaos-worker-ed25519' -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile='C:\Projects\qaos\_Oracle_Keys\Qaos-Worker\known_hosts' -o BatchMode=yes -o ConnectTimeout=8 ubuntu@92.4.147.163
+```
+
+The remote payloads were the following read-only commands; related commands
+were grouped into single SSH sessions. All privileged inventory used
+`sudo -n`:
+
+```text
+id -un; hostname; uname -m
+nproc; free -m; df -h /; systemctl is-active docker containerd; docker --version; containerd --version; runsc --version
+sudo -n sha256sum /usr/bin/dockerd /usr/bin/containerd /usr/bin/runsc /etc/docker/daemon.json /usr/local/sbin/qaos-worker-launcher /usr/local/sbin/qaos-worker-broker /usr/local/sbin/qaos_worker_exchange.py
+sudo -n stat -c %n:%U:%G:%a:%s /usr/local/sbin/qaos-worker-launcher /usr/local/sbin/qaos-worker-broker /usr/local/sbin/qaos_worker_exchange.py /usr/local/sbin/qaos-worker-pilot-launcher /etc/qaos-worker/enable-python-single-v1; sudo -n docker info | grep -A6 Runtimes:
+sudo -n docker image ls --digests --no-trunc; sudo -n docker ps -a; sudo -n ufw status numbered
+sudo -n iptables -S INPUT; sudo -n grep -- --dport /etc/iptables/rules.v4; systemctl is-enabled netfilter-persistent
+sudo -n docker info | grep -E "Cgroup|Architecture|Operating System|Runtimes|Default Runtime"; sudo -n docker image inspect python@sha256:b64631e04e4920160c50fbe8d8df828f7f35f06f425cb44aa09bca53e708a35a --format={{.Architecture}}; stat -fc %T /sys/fs/cgroup
+sudo -n find /run/qaos-worker-broker/staging -mindepth 1 -maxdepth 1 -printf %f\\n; sudo -n find /tmp -maxdepth 1 -name qaos\* -printf %f\\n; sudo -n ls -ld /run/qaos-worker-broker/staging /var/lib/qaos-worker-pilot-stage /var/lib/qaos-worker-pilot-upgrade /opt/qaos-worker/host-canary; systemctl list-units --all --no-pager qaos-worker\*
+getent passwd qaos-broker; sudo -n stat -c %n:%U:%G:%a:%s /var/lib/qaos-broker/.ssh/authorized_keys /etc/sudoers.d/qaos-worker-broker; sudo -n grep -c restrict /var/lib/qaos-broker/.ssh/authorized_keys; sudo -n grep -c /usr/local/sbin/qaos-worker-broker /etc/sudoers.d/qaos-worker-broker
+sudo -n stat -c %n:%U:%G:%a:%s /var/lib/qaos-broker /var/lib/qaos-broker/.ssh; sudo -n grep -c command= /var/lib/qaos-broker/.ssh/authorized_keys; sudo -n visudo -cf /etc/sudoers.d/qaos-worker-broker
+sudo -n ssh-keygen -lf /var/lib/qaos-broker/.ssh/authorized_keys
+sudo -n cat /etc/sudoers.d/qaos-worker-broker; sudo -n grep -o /usr/bin/sudo /var/lib/qaos-broker/.ssh/authorized_keys; sudo -n grep -o /usr/local/sbin/qaos-worker-broker /var/lib/qaos-broker/.ssh/authorized_keys
+```
+
+None ran a workload or changed worker state.
 - At the start of this checkpoint, `PROJECT_STATE.json` still described
   DECISION-REQUEST-024 as open and omitted completed WO-178. It has now been
   reconciled with CURRENT_STATE and VERIFICATION-129. This bookkeeping update
@@ -170,11 +251,13 @@ set a numeric cost ceiling and rollback owner; and specify account/worker/SSH,
 cleanup and `UNKNOWN` stop criteria. WO-175 and DECISION-REQUEST-023 require a
 separate owner approval for that exact manifest. None is supplied here.
 
-Current result: **NO-GO / insufficient fresh evidence**. The observed 2/12
-allocation fits the conservative published post-trial A1 boundary, but current
-worker runtime, installed bytes, guest firewall, cleanup and SSH continuity
-remain unverified; delayed billing evidence is also outstanding. The tenancy
-details now confirm JNB as the home region, the only subscribed region, with
-no active/deleting child compartments shown. This is a hold on live action,
-not a conclusion that the worker is absent or the account is billable. No
-live pilot request was sent.
+Current result: **NO-GO / incomplete authorization and cost/acceptance gates**.
+The observed 2/12 allocation fits the conservative published post-trial A1
+boundary; JNB is the only subscribed home region and no active/deleting child
+compartments were shown. The authenticated worker inventory now confirms the
+historical runtime/image/synthetic-transport pins, guest SSH restriction and
+empty owned staging/container state. It does **not** exercise restricted-key
+transport or validate generated code. Delayed billing evidence, numeric cost
+ceiling, exact candidate and independently authored acceptance artifacts,
+rollback owner, live installation manifest, independent WO-179 review and
+separate scoped live approval remain outstanding. No pilot request was sent.
