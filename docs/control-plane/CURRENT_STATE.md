@@ -7,6 +7,11 @@
 independently **ACCEPTED** (VERIFICATION-129) in an explicit fresh-workspace
 SQLite queue, with 748 passed/1 skipped full regression and 126 passed focused
 checks. The review's three material findings were repaired and re-reviewed.
+The owner's next “Proceed” opened WO-179 for a read-only live-pilot
+go/no-go preflight. Its current Oracle account and worker observations are
+incomplete: the Console requires owner password sign-in, and direct SSH cannot
+use the original worker key because of its Windows ACL. Neither gate has been
+bypassed; a temporary restricted key copy awaits the owner's answer.
 There is no active-data migration or live dispatch. The active JSON queue
 remains the default; no pilot request has
 been sent by WO-178.
@@ -20,8 +25,9 @@ or validate a model.
 **Earlier WO-161 base:** `c1e41ea` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
-**Status:** WO-178 is complete locally, not live-ready. **STOP** at the
-work-order boundary; no automatic move to active cutover or live dispatch.
+**Status:** WO-178 is complete locally. WO-179 is in progress and currently
+**NO-GO / insufficient fresh evidence**. **STOP** before active cutover or
+live dispatch.
 Active-data migration, live dispatch and worker mutation remain unauthorized.
 Fresh account/worker/network/cleanup evidence, a cost ceiling and explicit
 live approval remain later gates. The

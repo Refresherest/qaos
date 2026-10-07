@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "project": "qaos",
-  "recorded": "2026-10-04",
+  "recorded": "2026-10-07",
   "branch": "feat/operational-builder-chain",
-  "branch_baseline": "209152a",
+  "branch_baseline": "cce42c1",
   "core_baseline": "615cbbb",
-  "status": "python_pilot_attempt_authority_decision_open",
+  "status": "python_pilot_readonly_preflight_in_progress",
   "authority_policy": "AUTHORITY_AND_RECONCILIATION.md",
-  "current_baseline": "ledger/2026-10-04-WO-177-durable-pilot-attempt-authority-assessment.md",
+  "current_baseline": "ledger/2026-10-07-VERIFICATION-129-wo-178.md",
   "completed_work_orders": [
     "WO-001",
     "WO-002",
@@ -180,7 +180,8 @@
     "WO-174",
     "WO-175",
     "WO-176",
-    "WO-177"
+    "WO-177",
+    "WO-178"
   ],
   "blocked_work_orders": [
     {
@@ -203,5 +204,5 @@
     "gate_4": "passed",
     "gate_5": "passed"
   },
-  "next_action": "STOP for owner selection in DECISION-REQUEST-024. A selection may authorize only a separately scoped local attempt-authority implementation and tests; active-data migration, real dispatch, worker installation and spending remain unauthorized. Fresh account/worker/network/cleanup evidence, independent staged-installer digest verification, reboot-safe rollback planning and explicit live approval remain later gates. No automatic retry, publication, promotion or model-governance transition."
+  "next_action": "Continue WO-179 read-only preflight after the owner completes Oracle Console sign-in and answers the temporary restricted SSH-key-copy question. Current account/worker/network/billing evidence remains unverified. Active-data migration, real dispatch, worker installation and spending remain unauthorized. No automatic retry, publication, promotion or model-governance transition."
 }
