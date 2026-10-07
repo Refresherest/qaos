@@ -1,15 +1,15 @@
 # QAOS Current State
 
-**Recorded:** 2026-10-04 (Africa/Johannesburg)
+**Recorded:** 2026-10-07 (Africa/Johannesburg)
 
-**Latest checkpoint:** WO-177 assessed durable one-attempt authority and opened
-DECISION-REQUEST-024 for owner selection (VERIFICATION-128: ACCEPT, design
-only). The current QueueItem has no
-stable record ID or durable claim. Whole-snapshot JSON saves and stale
-QueueManager instances cannot prevent duplicate or lost claims across
-processes. The proposed contract preserves QueueItem as authority, freezes one
-request before transport, and holds uncertain outcomes without retry; its
-identity, storage and lifecycle choices are **not approved or implemented**.
+**Latest checkpoint:** The owner approved DECISION-REQUEST-024 options 1A,
+2A, 3A and 4A (OWNER-DECISION-037). WO-178 is locally implemented and
+independently **ACCEPTED** (VERIFICATION-129) in an explicit fresh-workspace
+SQLite queue, with 748 passed/1 skipped full regression and 126 passed focused
+checks. The review's three material findings were repaired and re-reviewed.
+There is no active-data migration or live dispatch. The active JSON queue
+remains the default; no pilot request has
+been sent by WO-178.
 WO-176's default-off bridge remains local and independently accepted with
 notes (VERIFICATION-127; 697 tests passed, one platform skip). The synthetic
 route is the last verified installed path. No worker or cloud state was changed;
@@ -20,11 +20,11 @@ or validate a model.
 **Earlier WO-161 base:** `c1e41ea` (`feat/operational-builder-chain`)
 
 **Core baseline:** `615cbbb` (`main`)
-**Status:** The local pilot admission contract and deployment bridge are
-verified. STOP for the DECISION-REQUEST-024 choices before a separately scoped
-attempt-authority implementation. Active-data migration, live dispatch and
-worker mutation remain unauthorized. Fresh account/worker/network/cleanup
-evidence, a cost ceiling and explicit live approval remain later gates. The
+**Status:** WO-178 is complete locally, not live-ready. **STOP** at the
+work-order boundary; no automatic move to active cutover or live dispatch.
+Active-data migration, live dispatch and worker mutation remain unauthorized.
+Fresh account/worker/network/cleanup evidence, a cost ceiling and explicit
+live approval remain later gates. The
 live gate must independently pin the staged installer digest and not mistake
 the 15-minute rollback timer for reboot persistence. The earlier OpenHands
 Cloud named-profile validation blocker remains a separate Builder Chain

@@ -48,6 +48,18 @@ class PilotMember:
 
 
 @dataclass(frozen=True)
+class PilotArtifactSource:
+    """Metadata pinned at admission, in addition to the request's byte digest."""
+
+    artifact_id: str
+    artifact_type: str
+    creator: str
+    objective: str
+    provenance: tuple[tuple[str, str], ...]
+    content_sha256: str
+
+
+@dataclass(frozen=True)
 class PilotPackage:
     objective_id: str
     task_id: str
@@ -55,6 +67,7 @@ class PilotPackage:
     acceptance_artifact: PilotArtifactRef
     members: tuple[PilotMember, PilotMember] = field(repr=False)
     origin_item: object = field(repr=False, compare=False)
+    sources: tuple[PilotArtifactSource, PilotArtifactSource] = field(repr=False)
 
     def manifest(self) -> list[dict[str, str | int]]:
         return [member.manifest() for member in self.members]
@@ -67,7 +80,7 @@ def _identified(value, label: str) -> str:
 
 
 def _member(artifact, role: str, objective_id: str, task_id: str,
-            objective_goal: str) -> tuple[PilotArtifactRef, PilotMember]:
+            objective_goal: str) -> tuple[PilotArtifactRef, PilotMember, PilotArtifactSource]:
     artifact_id = _identified(getattr(artifact, "artifact_id", None), f"{role} artifact_id")
     creator = _identified(getattr(artifact, "creator", None), f"{role} creator")
     if artifact.objective != objective_goal:
@@ -93,6 +106,10 @@ def _member(artifact, role: str, objective_id: str, task_id: str,
     return (
         PilotArtifactRef(artifact_id, digest),
         PilotMember(role, PILOT_PATHS[role], digest, payload),
+        PilotArtifactSource(
+            artifact_id, artifact.artifact_type, creator, artifact.objective,
+            tuple(sorted(provenance.items())), digest,
+        ),
     )
 
 
@@ -120,9 +137,14 @@ def prepare_python_pilot(objective, task, queue_item, artifacts,
         raise ValueError("pilot Artifact identity is not present in canonical registry")
     if candidate.creator == acceptance.creator:
         raise ValueError("candidate and acceptance require distinct creators")
-    candidate_ref, candidate_member = _member(candidate, "candidate", objective_id, task_id, objective.goal)
-    acceptance_ref, acceptance_member = _member(acceptance, "acceptance", objective_id, task_id, objective.goal)
+    candidate_ref, candidate_member, candidate_source = _member(
+        candidate, "candidate", objective_id, task_id, objective.goal,
+    )
+    acceptance_ref, acceptance_member, acceptance_source = _member(
+        acceptance, "acceptance", objective_id, task_id, objective.goal,
+    )
     return PilotPackage(
         objective_id, task_id, candidate_ref, acceptance_ref,
         (acceptance_member, candidate_member), queue_item,
+        (acceptance_source, candidate_source),
     )

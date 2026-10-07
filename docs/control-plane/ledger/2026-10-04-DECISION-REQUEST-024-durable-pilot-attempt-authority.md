@@ -1,7 +1,9 @@
 # DECISION-REQUEST-024 — Durable One-Attempt Pilot Authority
 
-Status: OPEN — owner selection required. Basis: WO-177 after local-only
-WO-176. No option here authorizes live dispatch or worker mutation.
+Status: RESOLVED — owner selected 1A, 2A, 3A and 4A on 2026-10-04;
+recorded as OWNER-DECISION-037 and scoped to local-only WO-178. Basis: WO-177
+after local-only WO-176. No option here authorizes live dispatch or worker
+mutation.
 
 ## Decision 1 — Canonical QueueItem identity and claim
 

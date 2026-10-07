@@ -29,6 +29,10 @@ class ExecutionManager:
         # Execute objective
         #
 
+        preflight = getattr(engine, "ensure_execution_allowed", None)
+        if callable(preflight):
+            preflight(objective)
+
         self._objectives.start(objective)
 
         try:
@@ -60,6 +64,9 @@ class ExecutionManager:
         if objective.status != "failed":
             raise ValueError("only a failed Objective can be recovered")
 
+        preflight = getattr(engine, "ensure_execution_allowed", None)
+        if callable(preflight):
+            preflight(objective)
         engine.validate_recovery(objective)
         self._objectives.start(objective)
 

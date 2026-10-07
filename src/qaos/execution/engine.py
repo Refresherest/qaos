@@ -22,7 +22,21 @@ class ExecutionEngine:
         self._planner = planner_manager if planner is None else planner
         self._queue = queue_manager if queue is None else queue
 
+    def ensure_execution_allowed(self, objective):
+        # The opt-in SQLite pilot workspace does not yet have an atomic
+        # Objective/Plan/Queue lifecycle transaction. Keep the executive path
+        # out of it until a separate work order approves that boundary.
+        if getattr(self._queue, "_transactional", False):
+            raise RuntimeError(
+                "SQLite pilot workspace has no approved executive lifecycle path"
+            )
+        guard = getattr(self._queue, "ensure_dispatchable_objective", None)
+        if callable(guard):
+            guard(getattr(objective, "objective_id", None))
+
     def execute(self, objective):
+
+        self.ensure_execution_allowed(objective)
 
         report = ExecutionReport(objective)
 
@@ -133,6 +147,8 @@ class ExecutionEngine:
         return plan, tuple(pairs)
 
     def recover(self, objective):
+
+        self.ensure_execution_allowed(objective)
 
         _plan, pairs = self.validate_recovery(objective)
         canonical_tasks = {
